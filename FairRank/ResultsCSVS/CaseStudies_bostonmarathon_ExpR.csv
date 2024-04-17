@@ -1,0 +1,19 @@
+Wrong Inference Percentage,ULTR,FLTR,ULTR + PostF,ULTRH + PostF,LTR + PostF
+BTN,0.856,0.987,0.994,1.015,1.015
+GAPI,0.849,0.983,0.994,1.007,1.007
+NMSOR,0.900,1.009,0.994,1.027,1.027
+bostonmarathon.csv,,,,0.998,0.998
+BTN,,,,1.015,
+GAPI,,,,1.007,
+NMSOR,,,,1.027,
+bostonmarathon.csv,,,,0.998,
+BTN,,,0.994,,
+GAPI,,,0.994,,
+NMSOR,,,0.994,,
+bostonmarathon,,,0.994,,
+BTN,,0.987,,,
+GAPI,,0.983,,,
+NMSOR,,1.009,,,
+BTN,0.856,,,,
+GAPI,0.849,,,,
+NMSOR,0.900,,,,
