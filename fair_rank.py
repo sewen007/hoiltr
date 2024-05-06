@@ -57,10 +57,11 @@ def full_experiment(flip_choice):
 #
 #
 # CollateNDCGandSkews()
-# Make_Metric_Csvs()
+#Make_Metric_Csvs()
 #
 # # after doing the experiments for all the datasets
 PlotGraphs()
+#ParetoPlots()
 
 # --------------------------------------
 # optional

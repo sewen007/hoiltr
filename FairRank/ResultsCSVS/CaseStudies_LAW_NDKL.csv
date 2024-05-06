@@ -1,3 +1,2 @@
-Wrong Inference Percentage,ULTR,FLTR,ULTR + PostF,ULTRH + PostF,LTR + PostF
-LAW.csv,,,,,0.003
-LAW,,,,,0.008
+Inference Service,ULTR,FLTR,ULTR + PostF,ULTRH + PostF,LTR + PostF
+G-TRUTH,0.049,0.007,0.009,0.003,0.003

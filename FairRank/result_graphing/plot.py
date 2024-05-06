@@ -85,10 +85,12 @@ def PlotGraphs():
     res_skews_initial = [i for i in csvs_initial if 'skews.csv' in i]
     res_case_avg_exp = [i for i in res_csvs if 'CaseStudies' in i and 'AvgExp_0' in i]
 
-    # for csv_file in res_case:
-    #     plot_case(csv_file)
+    # plot synthetic graphs before case study graphs
+
     for csv_file in res_synth:
         plot_synth(csv_file)
+    # for csv_file in res_case:
+    #     plot_case(csv_file)
     # for csv_file in res_skews:
     #     plot_skew(csv_file)
     # for csv_file in res_skews_initial:
@@ -97,7 +99,7 @@ def PlotGraphs():
     #     csv_corres_file = csv_file.replace('AvgExp_0', 'AvgExp_1')
     #     plot_case_avg_exp(csv_file, csv_corres_file)
     # plot_legend('synth')
-    # plot_legend()
+    plot_legend()
 
 
 def plot_case_avg_exp(grp_0_file, grp_1_file):
@@ -109,18 +111,6 @@ def plot_case_avg_exp(grp_0_file, grp_1_file):
     # rearrange rows by column 'Inference %', from 0% to 100%
     df_adv_cleaned.sort_values(by=df_adv_cleaned.columns[0], inplace=True)
     df_dis_cleaned.sort_values(by=df_dis_cleaned.columns[0], inplace=True)
-
-    # # move 100 row to bottom
-    # row_to_move_adv = df_adv_cleaned[df_adv_cleaned[0] == 100]
-    # row_to_move_dis = df_dis_cleaned[df_dis_cleaned[0] == 100]
-    #
-    # # Remove the row from the original DataFrame
-    # df_adv_cleaned = df_adv_cleaned[df_adv_cleaned[0] != 100]
-    # df_dis_cleaned = df_adv_cleaned[df_dis_cleaned[0] != 100]
-
-    # Create a new DataFrame with the desired row as the bottom row
-    # df_adv_cleaned = pd.concat([df_adv_cleaned, row_to_move_adv], ignore_index=True)
-    # df_dis_cleaned = pd.concat([df_dis_cleaned, row_to_move_dis], ignore_index=True)
 
     df_adv_cleaned.to_csv(grp_0_file, index=False)
     df_dis_cleaned.to_csv(grp_1_file, index=False)
@@ -163,6 +153,7 @@ def plot_case_avg_exp(grp_0_file, grp_1_file):
                     os.makedirs(directory)
 
             plt.tight_layout()
+
             # save plot
             plt.savefig(str(directory) + 'AvgExp.pdf')
     # plt.close()
@@ -175,15 +166,6 @@ def plot_synth(csv_file_path):
     # rearrange rows by column 'Inference %', from 0% to 100%
     df_cleaned.sort_values(by=['Wrong Inference Percentage'], inplace=True)
 
-    # move 100 row to bottom
-    row_to_move = df_cleaned[df_cleaned['Wrong Inference Percentage'] == 100]
-
-    # Remove the row from the original DataFrame
-    df_cleaned = df_cleaned[df_cleaned['Wrong Inference Percentage'] != 100]
-
-    # Create a new DataFrame with the desired row as the bottom row
-    df_cleaned = pd.concat([df_cleaned, row_to_move], ignore_index=True)
-
     df_cleaned.to_csv(csv_file_path, index=False)
 
     # get dataset from file name
@@ -194,9 +176,9 @@ def plot_synth(csv_file_path):
 
     # plot line graphs with same colors for every three columns after the first column
     colors = ['#F00000', '#3D6D9E', '#FFC725', '#3EC372', '#808080']
-    # colors = ['#1F77B4', '#FFC725', '#2CA02C', '#D62728']
-    markers = ['*', 'o', '^']
+    markers = ['*', 'o', '^', 'D', 'X']
     linestyles = ['-', '--', ':']
+    mks = ['#ffb6c1', '#ADD8E6', '#eae2b7', 'none', 'none']
 
     new_names = {
         'ULTR': 'ListNet',
@@ -209,171 +191,273 @@ def plot_synth(csv_file_path):
     df_cleaned.columns = df_cleaned.columns.map(lambda x: change_text(x, new_names))
 
     data_columns = df_cleaned[1:]
-    print('HERE ', data_columns)
 
-    fig, ax = plt.subplots(figsize=(4.5, 3))
+    # fig, ax = plt.subplots()
     x_data = df_cleaned.iloc[:, 0]
-    # x_data_percent = x_data.apply(lambda x: f'{x}%')
 
     y_data = df_cleaned.iloc[:, 1:]
 
-    # for column in y_data.columns:
-    #     ax.plot(x_data, y_data[column], label=column)
-    # print(csv_file_path)
-    # plt.show()
+    column_names = y_data.columns
+    options = [0, 1, 2]
 
-    # Loop through the data columns and plot each set of three columns with the same color
-    for i, column in enumerate(y_data.columns):
-        color = colors[i % len(colors)]  # Cycle through the colors
-        # print("x =", df_cleaned['Wrong Inference Percentage'], "y =", df_cleaned[column])
-        ax.plot(x_data.astype(int), y_data[column], label=column, color=color)
-        # ax.plot(df_cleaned['Wrong Inference Percentage'], df_cleaned[column], label=column, color=color)
-    # plt.show()
+    # loop through all options
+    for ish in options:
+        fig, ax = plt.subplots(figsize=(4.5, 3))
 
-    for i, column in enumerate(df_cleaned.columns[1:]):
-        color = colors[i // 3 % len(colors)]
-        marker = markers[i % len(markers)]
-        linestyle = linestyles[i % len(linestyles)]
-        y_data = df_cleaned[column]  # Get the y-axis data for the current column
-        markersize = 6
-        ax.plot(x_data.astype(int), y_data, label=column, color=color, marker=marker, markerfacecolor='none', linestyle=linestyle,
-                markersize=markersize, lw=1)
-        # removing markers for presentation
-        ax.plot(x_data.astype(int), y_data, label=column, color=color, linestyle=linestyle, lw=1)
-
-    # plt.show()
-    lw = 1
-    custom_legend = [
-        Patch(color='#F00000', label='ListNet'),
-        Patch(color='#3D6D9E', label='FairLTR'),
-        Patch(color='#FFC725', label='DCS'),
-        Patch(color='#3EC372', label='Hidden + DCS'),
-        Patch(color= '#808080', label='LTR + DCS'),
-        Line2D([0], [0], color='black', lw=lw, linestyle='-', marker='*', markersize=markersize,
-               label=r'$g_{dis}\rightleftarrows g_{adv}$',
-               markerfacecolor='none'),
-        Line2D([0], [0], color='black', lw=lw, linestyle='--', marker='o', markersize=markersize,
-               label=r'$g_{dis}\rightarrow g_{adv}$',
-               markerfacecolor='none'),
-        Line2D([0], [0], color='black', lw=lw, linestyle=':', marker='^', markersize=markersize,
-               label=r'$g_{dis}\leftarrow g_{adv}$',
-               markerfacecolor='none'),
-    ]
-
-    results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/both/', None)
-    # search for path that has gamma=0.0 and 'Colorblind
-    ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
-    ltr_path = [i for i in results_to_search if 'gamma=0.0' in i and 'BlindGroundTruth' in i]
-    # get y metric
-
-    if 'NDCG' in y:
-        dataset = dataset_dict[dataset]
-        ultrh_path = [i for i in ultrh_path if 'ndcg' in i]
-        ltr_path = [i for i in ltr_path if 'ndcg' in i]
-        match = re.search(r'\d+', y)
-        # ultrh_value = float(combine.get_NDCG(ultrh_path[0], 100))
-        # plt.title(str(dataset), fontsize='xx-large', color='white')
-        plt.title(str(dataset), fontsize='xx-large')
-        ax.yaxis.set_major_formatter('{:.3f}'.format)
-        if match:
-            value = int(match.group())
-            # ultrh_path.replace = ultrh_path[0].replace("\\", "/")
-            ultrh_value = float(combine.get_NDCG(ultrh_path[0], value))
-            ltr_value = float(combine.get_NDCG(ltr_path[0], value))
-
-            # ax.yaxis.set_major_formatter('{:.3f}'.format)
-
-            #if 'LAW' in dataset:
-            plt.ylabel(str('NDCG@' + str(value)), fontsize='x-large')  # , fontsize=15)
-                # ax.yaxis.set_major_formatter('{:.3f}'.format)
+        for i in range(ish, len(column_names), 3):
+            color = colors[i // 3 % len(colors)]  # Cycle through the colors
+            marker = markers[i // 3 % len(markers)]  # Cycle through the markers
+            mk = mks[i // 3 % len(markers)]  # Cycle through the markerfacecolors
+            # if color == '#F00000':
+            #     mk = 'black'
             # else:
-            #     plt.ylabel(' ')
+            #     mk = 'none'
+            ax.plot(x_data.astype(int), y_data[column_names[i]], label=column_names[i], color=color, lw=1,
+                    marker=marker,
+                    markerfacecolor=mk, markersize=6)
+
+        # Specify the index of the tick label you want to box
+        ideal_value = {'ExpR': 1.0, 'NDKL': 0}
+        if y in ideal_value:
+            value_to_box = ideal_value[y]
+        else:  # Default value
+            value_to_box = 0
+
+        # Get the current axes
+        ax = plt.gca()
+
+        # Get the tick labels for the x-axis
+        labels = ax.get_yticklabels()
+
+        # Find the tick label with the ideal value
+        label_to_box = None
+        for label in labels:
+            # Extract numerical value from label text
+            text = label.get_text()
+            match = re.match(r"[-+]?\d*\.\d+|\d+", text)
+            if match and float(match.group()) == value_to_box:
+                label_to_box = label
+                break
+
+        # Set the box style if the tick label with the specified value is found
+        if label_to_box:
+            label_to_box.set_bbox(dict(facecolor='white', alpha=0.5, edgecolor='red'))
+
+        # plot straight lines
+
+        results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/both/', None)
+        # search for path that has gamma=0.0 and 'Colorblind
+        ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
+        ltr_path = [i for i in results_to_search if 'gamma=0.0' in i and 'BlindGroundTruth' in i]
+        # get y metric
+        # plt.show()
+
+        if 'NDCG' in y:
+            # dataset = dataset_dict[dataset]
+            ultrh_path = [i for i in ultrh_path if 'ndcg' in i]
+            ltr_path = [i for i in ltr_path if 'ndcg' in i]
+            match = re.search(r'\d+', y)
+            # ultrh_value = float(combine.get_NDCG(ultrh_path[0], 100))
+            # plt.title(str(dataset), fontsize='xx-large', color='white')
+            plt.title(str(dataset_dict[dataset]), fontsize='xx-large')
+            ax.yaxis.set_major_formatter('{:.3f}'.format)
+            if match:
+                value = int(match.group())
+                # ultrh_path.replace = ultrh_path[0].replace("\\", "/")
+                ultrh_value = float(combine.get_NDCG(ultrh_path[0], value))
+                ltr_value = float(combine.get_NDCG(ltr_path[0], value))
+
+                # ax.yaxis.set_major_formatter('{:.3f}'.format)
+
+                # if 'LAW' in dataset:
+                plt.ylabel(str('NDCG@' + str(value)), fontsize='x-large')  # , fontsize=15)
+                # ax.yaxis.set_major_formatter('{:.3f}'.format)
+                # else:
+                #     plt.ylabel(' ')
                 # ax.set_yticklabels([])
 
-    elif y == 'ExpR' or y == 'NDKL':
+        elif y == 'ExpR' or y == 'NDKL':
 
-        ultrh_path = [i for i in ultrh_path if 'metrics' in i]
-        ltr_path = [i for i in ltr_path if 'metrics' in i]
-        # dataset_dict = {'bostonmarathon': 'Boston Marathon', 'NBAWNBA': '(W)NBA', 'COMPASSEX': 'COMPAS',
-        #                 'LAW': 'LAW'}
-        dataset = dataset_dict[dataset]
-        plt.title(str(dataset), fontsize='xx-large')
+            ultrh_path = [i for i in ultrh_path if 'metrics' in i]
+            ltr_path = [i for i in ltr_path if 'metrics' in i]
+            # dataset_dict = {'bostonmarathon': 'Boston Marathon', 'NBAWNBA': '(W)NBA', 'COMPASSEX': 'COMPAS',
+            #                 'LAW': 'LAW'}
+            # dataset = dataset_dict[dataset]
+            plt.title(str(dataset_dict[dataset]), fontsize='xx-large')
+            if y == 'ExpR':
+                ultrh_value = float(combine.get_ExpR(ultrh_path[0]))
+                ltr_value = float(combine.get_ExpR(ltr_path[0]))
+                # if 'LAW' in dataset:
+                plt.ylabel(str('DAdv/Adv Average Exposure Ratio'), fontsize=11)  # , fontsize=15)
+            else:  # y=='NDKL'
+                ultrh_value = float(combine.get_NDKL(ultrh_path[0]))
+                ltr_value = float(combine.get_NDKL(ltr_path[0]))
+
+                # if 'LAW' in dataset:
+                plt.ylabel(str('NDKL'), fontsize='x-large')  # , fontsize=15)
+                # ax.set_yticklabels([])
+
+        # plt.show()
+
+        y_max = 1.26
+        y_min = 0.64
+
         if y == 'ExpR':
-            ultrh_value = float(combine.get_ExpR(ultrh_path[0]))
-            ltr_value = float(combine.get_ExpR(ltr_path[0]))
-            #if 'LAW' in dataset:
-            plt.ylabel(str('DAdv/Adv Average Exposure Ratio'), fontsize=11)  # , fontsize=15)
-        else:  # y=='NDKL'
-            ultrh_value = float(combine.get_NDKL(ultrh_path[0]))
-            ltr_value = float(combine.get_NDKL(ltr_path[0]))
+            # y_max = 1.26  # max(plt.ylim()[1], 1.21)
+            # y_min = 0.64  # min(plt.ylim()[0], 0.64)
+            pass
+            # if "osto" in dataset:
+            #     y_max = 1.5
 
-            #if 'LAW' in dataset:
-            plt.ylabel(str('NDKL'), fontsize='x-large')  # , fontsize=15)
-                #ax.set_yticklabels([])
+            # y_min = min(plt.ylim()[0], ultrh_value)
+            # y_max = max(plt.ylim()[1], ultrh_value)
 
-    # plt.show()
+        elif 'COMPAS' in dataset and (y == 'NDCG10' or y == 'NDCG50'):
+            # y_min = min(plt.ylim()[0], ultrh_value)
+            # y_max = 0.75
+            pass
 
-    if y == 'ExpR':
-        y_max = 1.26  # max(plt.ylim()[1], 1.21)
-        y_min = 0.64  # min(plt.ylim()[0], 0.64)
+        elif 'COMPAS' in dataset and 'NDCG' in y:
+            # y_min = min(plt.ylim()[0], ultrh_value)
+            # y_max = 0.68
+            pass
+        else:
+            pass
 
-        # if "osto" in dataset:
-        #     y_max = 1.5
+            # y_min = min(plt.ylim()[0], ultrh_value)
+            # y_max = max(plt.ylim()[1], ultrh_value)
+        # plt.ylim(y_min, y_max)
 
-        # y_min = min(plt.ylim()[0], ultrh_value)
-        # y_max = max(plt.ylim()[1], ultrh_value)
+        # center_x = (plt.xlim()[0] + plt.xlim()[1]) / 10
+        # center_y_1 = y_max - 1/8 *(y_max - y_min)
+        # if y == 'NDKL' and dataset == 'LAW':
+        #     #center_y_1 = 0.03
+        # else:
+        #     #center_y_1 = y_max - 1 / 8 * (y_max - y_min)
+        # print("center_x=", center_y)
 
-    elif 'COMPAS' in dataset and (y == 'NDCG10' or y == 'NDCG50'):
-        y_min = min(plt.ylim()[0], ultrh_value)
-        y_max = 0.75
+        # plot straight line
 
-    elif 'COMPAS' in dataset and 'NDCG' in y:
-        y_min = min(plt.ylim()[0], ultrh_value)
-        y_max = 0.68
-    else:
+        # plt.show()
+        # label_text = 'Hidden'
+        plt.axhline(y=ultrh_value, color='#6600CC', linestyle='dashdot', label='Hidden', lw=3.0)
+        plt.axhline(y=ltr_value, color='darkorange', linestyle='-', label='Oblivious', lw=1.0)
+        # plt.text(max(plt.xlim()), ultrh_value, label_text, color='black', fontsize='small')
 
-        y_min = min(plt.ylim()[0], ultrh_value)
-        y_max = max(plt.ylim()[1], ultrh_value)
-    plt.ylim(y_min, y_max)
+        # point to line
 
-    center_x = (plt.xlim()[0] + plt.xlim()[1]) / 10
-    # center_y_1 = y_max - 1/8 *(y_max - y_min)
-    if y == 'NDKL' and dataset == 'LAW':
-        center_y_1 = 0.03
-    else:
-        center_y_1 = y_max - 1 / 8 * (y_max - y_min)
-    # print("center_x=", center_y)
+        # plt.annotate('Hidden', xy=(85, ultrh_value), xytext=(85, center_y_1),
+        #              arrowprops=dict(arrowstyle='->'),
+        #              fontsize=10, color='b', weight='bold')
+        inf_option = ['dis2adv2dis', 'dis2adv', 'adv2dis']
+        # plt.show()
+        # create directory
 
-    # plot straight line
+        directory = './FairRank/Graphs/Synthetic/' + str(inf_option[ish]) + '/' + str(dataset_dict[dataset]) + '/'
 
-    # plt.show()
-    # label_text = 'Hidden'
-    plt.axhline(y=ultrh_value, color='cyan', linestyle='--', label='ULTRH')
-    plt.axhline(y=ltr_value, color='blue', linestyle=':', label='LTR')
-    # plt.text(max(plt.xlim()), ultrh_value, label_text, color='black', fontsize='small')
+        # check that directory exists or create it
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
-    # point to line
+        plt.xlabel(r'Wrong Inference $\epsilon$ (%)', fontsize='x-large')  # , fontsize=8)
+        # ax.legend()
+        plt.tight_layout()
+        # save plot
+        # plt.show()
+        # ax.legend()
+        plt.savefig(str(directory) + y + '.pdf')
+        plt.close()
 
-    # plt.annotate('Hidden', xy=(85, ultrh_value), xytext=(85, center_y_1),
-    #              arrowprops=dict(arrowstyle='->'),
-    #              fontsize=10, color='b', weight='bold')
 
-    # create directory
-    directory = './FairRank/Graphs/Synthetic/' + dataset + '/'
-
-    # check that directory exists or create it
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    plt.xlabel(r'Wrong Inference $\epsilon$ (%)', fontsize='x-large')  # , fontsize=8)
-
-    plt.tight_layout()
-    # save plot
-    plt.savefig(str(directory) + y + '.pdf')
-    # if "oston" in dataset:
-    #     plt.savefig(str(directory) + y + '.png')
-    plt.close()
-
+# def plot_case(csv_file_path):
+#     """
+#     This function plots all graphs per ranking
+#     :param csv_file_path:
+#     :return:
+#     """
+#     print(csv_file_path)
+#     df = pd.read_csv(csv_file_path)
+#     # remove rows with missing columns from df
+#     df_cleaned = df.dropna(axis=0, how='any')
+#     # rearrange rows by column 'Inference %', from 0% to 100%
+#     df_cleaned.sort_values(by=['Wrong Inference Percentage'], inplace=True)
+#
+#     # move 100 row to bottom
+#     row_to_move = df_cleaned[df_cleaned['Wrong Inference Percentage'] == 100]
+#
+#     # Remove the row from the original DataFrame
+#     df_cleaned = df_cleaned[df_cleaned['Wrong Inference Percentage'] != 100]
+#
+#     # Create a new DataFrame with the desired row as the bottom row
+#     df_cleaned = pd.concat([df_cleaned, row_to_move], ignore_index=True)
+#
+#     df_cleaned.to_csv(csv_file_path, index=False)
+#
+#     # get dataset from file name
+#     dataset = re.split(regex_pattern, csv_file_path)[-3]
+#
+#     # get metric from file name
+#     y = re.split(regex_pattern, csv_file_path)[-2]
+#
+#     # plot line graphs with same colors for every three columns after the first column
+#     colors = ['#F00000', '#3D6D9E', '#FFC725', '#3EC372', '#808080']
+#     markers = ['*', 'o', '^']
+#     linestyles = ['-', '--', ':']
+#
+#     new_names = {
+#         'ULTR': 'ListNet',
+#         'FLTR': 'FairLTR',
+#         'ULTR + PostF': 'DCS',
+#         'ULTRH + PostF': 'Hidden + DCS',
+#         'LTR + PostF': 'LTR + DCS'
+#     }
+#     # change column names
+#     df_cleaned.columns = df_cleaned.columns.map(lambda x: change_text(x, new_names))
+#
+#     # Create a single plot with all lines
+#     fig, ax = plt.subplots(figsize=(10, 6))
+#     for i, column in enumerate(df_cleaned.columns[1:]):
+#         color = colors[i % len(colors)]
+#         marker = markers[i % len(markers)]
+#         linestyle = linestyles[i % len(linestyles)]
+#         y_data = df_cleaned[column]
+#         # ax.plot(df_cleaned['Wrong Inference Percentage'], y_data, label=column, color=color, marker=marker,
+#         #         linestyle=linestyle)
+#         ax.scatter(df_cleaned['Wrong Inference Percentage'], y_data, label=column, color=color, marker=marker)
+#
+#     # Customize plot labels and legend
+#     ax.set_xlabel(r'Wrong Inference $\epsilon$ (%)', fontsize=14)
+#     ax.set_ylabel(y, fontsize=14)
+#     ax.set_title(dataset, fontsize=16)
+#     #ax.legend(fontsize=12)
+#
+#     # Save the plot with all lines
+#     directory = './FairRank/Graphs/CaseStudies/' + dataset + '/'
+#     if not os.path.exists(directory):
+#         os.makedirs(directory)
+#     plt.savefig(directory + y + '_all_lines.pdf')
+#     plt.close()
+#
+#     # Plot separate graphs with lines of the same color on each graph
+#     for color in colors:
+#         fig, ax = plt.subplots(figsize=(10, 6))
+#         for i, column in enumerate(df_cleaned.columns[1:]):
+#             if color in column:
+#                 marker = markers[i % len(markers)]
+#                 linestyle = linestyles[i % len(linestyles)]
+#                 y_data = df_cleaned[column]
+#                 ax.plot(df_cleaned['Wrong Inference Percentage'], y_data, label=column, color=color, marker=marker,
+#                         linestyle=linestyle)
+#
+#         # Customize plot labels and legend
+#         ax.set_xlabel(r'Wrong Inference $\epsilon$ (%)', fontsize=14)
+#         ax.set_ylabel(y, fontsize=14)
+#         ax.set_title(dataset + ' - ' + color, fontsize=16)
+#         #ax.legend(fontsize=12)
+#
+#         # Save the plot
+#         plt.savefig(directory + y + '_group_' + color[1:] + '.pdf')  # Use color code without '#'
+#         plt.close()
 
 def plot_case(csv_file_path):
     """
@@ -382,24 +466,48 @@ def plot_case(csv_file_path):
     :return:
     """
     df = pd.read_csv(csv_file_path)
+
     # change column name 'Wrong Inference Percentage'
     df.rename(columns={'Wrong Inference Percentage': 'Inference Service'}, inplace=True)
-    # remove rows with missing columns from df
-    df_cleaned = df.dropna(axis=0, how='any')
+
+    # if df has row named 0, do not append GT row
+    if 0 in df['Inference Service'].values:
+        # skip
+        df_cleaned = df
+    else:
+        # add GT row from synth csv
+        synth_file = csv_file_path.replace('CaseStudies', 'Synthetic')
+        # get groundtruth row from synth csv
+        synth_df = pd.read_csv(synth_file, index_col=None)
+        gt_row = synth_df[synth_df['Wrong Inference Percentage'] == 0]
+
+        # convert gt_row to dataframe
+        gt_row = pd.DataFrame(gt_row)
+
+        # Filter columns with '_2' and '_3'
+        columns_to_keep = [col for col in gt_row.columns if '_1' in col or '_' not in col]
+        gt_row = gt_row[columns_to_keep]
+        # Remove '_1' suffix from column names
+        gt_row.columns = gt_row.columns.str.replace('_1', '')
+
+        # change column name 'Inference Service'
+        gt_row.rename(columns={'Wrong Inference Percentage': 'Inference Service'}, inplace=True)
+
+        # Select only columns present in the df dataframe
+        gt_row = gt_row[df.columns]
+        # append GT dataframe to df
+        df_cleaned = pd.concat([gt_row, df], ignore_index=True)
+
+    # drop nas
+    df_cleaned = df_cleaned.dropna(axis=0, how='any')
     # rearrange rows by column 'Inference Service', put row named "GAPI" at the top
 
     print('here', df_cleaned)
-    # move GAPI row to top
-    row_to_move = df_cleaned[df_cleaned['Inference Service'] == "GAPI"]  #
-    #
-    # # Remove the row from the original DataFrame
-    df_cleaned = df_cleaned[df_cleaned['Inference Service'] != "GAPI"]
 
-    # Create a new DataFrame with the desired row as the first row
-    df_cleaned = pd.concat([row_to_move, df_cleaned], ignore_index=True)
+    df_cleaned['Inference Service'] = df_cleaned['Inference Service'].replace(0, 'G-TRUTH')
+    df_cleaned['Inference Service'] = df_cleaned['Inference Service'].replace('ORACLE', 'G-TRUTH')
 
-    df_cleaned.to_csv(csv_file_path, index=False)
-    # df_cleaned.set_index('Inference Service', inplace=True)
+    df_cleaned = df_cleaned.reset_index(drop=True).drop_duplicates()
 
     # check if df_cleaned is empty
     if df_cleaned.empty:
@@ -413,21 +521,58 @@ def plot_case(csv_file_path):
     y = re.split(regex_pattern, csv_file_path)[-2]
 
     # Create a custom order for the 'Inference Service' categories
-    custom_order = ['GAPI', 'BTN', 'NMSOR']
+    custom_order = ['G-TRUTH', 'GAPI', 'BTN', 'NMSOR']
     df_cleaned['Inference Service'] = pd.Categorical(df_cleaned['Inference Service'], categories=custom_order)
 
-    colors = ['#F00000', '#3D6D9E', '#FFC725', '#3EC372', '#808080']
+    # rearrange rows by column 'Inference Service', using custom_order
+    df_cleaned.sort_values(by='Inference Service', inplace=True)
 
-    fig, ax = plt.subplots(figsize=(2.9, 3))
+    df_cleaned.to_csv(csv_file_path, index=False)
 
-    # plot bar graph grouped by column named 'Inference Service'
+    colors = ['#F00000', '#386775', '#FFC725', '#12562a', 'k']
+    markers = ['*', 'o', '^', 'D', 'X']
+    sizes = [50, 100, 150, 200, 250]
+    colo = ['#ffb6c1', '#ADD8E6', '#eae2b7', 'none', 'none']
 
-    df_cleaned.groupby('Inference Service').mean().plot(kind='bar', stacked=False, legend=False, edgecolor='k',
-                                                        color=colors, ax=ax, width=0.8)
+    fig, ax = plt.subplots(figsize=(3, 2))
 
-    plt.xlabel("Inference Service")  # , fontsize=8)
+    # plot scatter
 
-    plt.xticks(rotation=0)
+    df_melted = df_cleaned.melt(id_vars='Inference Service', var_name='Metric', value_name='Value')
+
+    # Plot dot plot
+    for service in df_melted['Inference Service'].unique():
+        subset = df_melted[df_melted['Inference Service'] == service]
+        print('subset', subset)
+        # print('here', zip(subset['Metric'], subset['Value']))
+        for i, (metric, value) in enumerate(zip(subset['Metric'], subset['Value'])):
+            plt.scatter(value, service, color=colo[i], marker=markers[i], s=50, edgecolor=colors[i])
+    # Set alpha (transparency) value for the marker face color
+    # plt.setp(plt.gca().lines, markersize=10, markerfacecolor=(0, 0, 1, 0.5))
+
+    # Set the font size of tick labels
+    plt.tick_params(axis='both', which='major', labelsize='medium')
+    # plt.xticks(fontweight='bold')
+    plt.yticks(fontweight='bold')
+
+    # # plot bar graph grouped by column named 'Inference Service'
+    #
+    # df_cleaned.groupby('Inference Service').mean().plot(kind='bar', stacked=False, legend=False, edgecolor='k',
+    #                                                      color=colors, ax=ax, width=0.8)
+    # df_grouped_mean = df_cleaned.groupby('Inference Service').mean()
+    # df_grouped_mean.reset_index(inplace=True)  # Reset index to make 'Inference Service' a column
+    #
+    # df_grouped_mean.plot(x='Inference Service', y=df_cleaned[], kind='scatter', legend=False, edgecolor='k',
+    #                      color=colors, ax=ax, s=100)
+    if 'NBA' in dataset:
+        plt.ylabel("Inference Service", fontsize='medium')
+    else:  # no ylabel
+        plt.ylabel(" ")
+        # Hide y-axis tick labels
+        # plt.tick_params(axis='y', labelleft=False)
+        # plt.grid(axis='y')
+
+    # plt.xticks(rotation=0)
 
     # if 'NBA' in dataset and (y == 'ExpR' or y == 'NDKL'):
     #     # plot legend
@@ -445,16 +590,18 @@ def plot_case(csv_file_path):
         ultrh_path = [i for i in ultrh_path if 'ndcg' in i]
         ltr_path = [i for i in ltr_path if 'ndcg' in i]
         match = re.search(r'\d+', y)
-        plt.title(str(dataset), fontsize='xx-large')
+        # plt.title(str(dataset), fontsize='xx-large')
         if match:
             value = int(match.group())
             # ultrh_path.replace = ultrh_path[0].replace("\\", "/")
             ultrh_value = float(combine.get_NDCG(ultrh_path[0], value))
             ltr_value = float(combine.get_NDCG(ltr_path[0], value))
 
-            plt.ylabel(str('NDCG@' + str(value)))
+            plt.xlabel(str('NDCG@' + str(value)), fontsize='medium')
             dataset = dataset_dict[dataset]
-            plt.title(str(dataset), fontsize='xx-large')
+            # plt.title(str(dataset), fontsize='xx-large')
+            # no title
+            plt.title(' ')
 
             # if 'NBA' in dataset:
             #     plt.ylabel(str('NDCG@' + str(value)))  # , fontsize=20)
@@ -469,20 +616,21 @@ def plot_case(csv_file_path):
         ltr_path = [i for i in ltr_path if 'metrics' in i]
         # dataset_dict = {'bostonmarathon': 'Boston Marathon', 'NBAWNBA': '(W)NBA', 'COMPASSEX': 'COMPAS'}
         dataset = dataset_dict[dataset]
-        plt.title(str(dataset), fontsize='xx-large')
+        plt.title(str(dataset), fontsize='large')
 
         if y == 'ExpR':
             ultrh_value = float(combine.get_ExpR(ultrh_path[0]))
             ltr_value = float(combine.get_ExpR(ltr_path[0]))
-            plt.ylabel(str('DAdv/Adv Average Exposure Ratio'))
+            plt.xlabel(str('DAdv/Adv Avg. Exp. Ratio'), fontsize='medium')
+
             # if 'NBA' in dataset:
             #     plt.ylabel(str('DAdv/Adv Average Exposure Ratio'))  # , fontsize=18)
         else:  # y=='NDKL'
             ultrh_value = float(combine.get_NDKL(ultrh_path[0]))
             ltr_value = float(combine.get_NDKL(ltr_path[0]))
-            plt.ylabel(str('NDKL'))
             # if 'NBA' in dataset:
-            #     plt.ylabel(str('NDKL'))  # , fontsize=20)
+            plt.xlabel(str('NDKL'), fontsize='medium')  # , fontsize=20)
+            plt.title(' ')
 
     # if 'NBA' in dataset and y == 'ExpR':
     #     y_max = 1.05
@@ -492,26 +640,26 @@ def plot_case(csv_file_path):
     # y_min = min(plt.ylim()[0], ultrh_value)
     # # y_max = max(plt.ylim()[1], ultrh_value)
     if y == 'ExpR':
-        #y_min = 0.5
+        # y_min = 0.5
         y_max = 1.2
     elif y == 'NDCG10':
-        #y_min = 0.3
+        # y_min = 0.3
         y_max = 0.8
     elif 'NDCG' in y:
-        #y_min = 0.3
+        # y_min = 0.3
         y_max = 0.72
     else:
-        #y_min = min(plt.ylim()[0], ultrh_value)
+        # y_min = min(plt.ylim()[0], ultrh_value)
         y_max = max(plt.ylim()[1], ultrh_value)
-    plt.ylim(y_min, y_max)
+    # plt.ylim(y_min, y_max)
 
     x_min = plt.xlim()[0]
     x_max = plt.xlim()[1]
 
     # plot straight line
     label_text = 'ULTRH'
-    plt.axhline(y=ultrh_value, color='cyan', linestyle='--', label='ULTRH', linewidth=1.5)
-    plt.axhline(y=ltr_value, color='blue', linestyle=':', label='LTR', linewidth=1.5)
+    plt.axvline(x=ultrh_value, color='#6600CC', linestyle='dashdot', label='Hidden', lw=3.0)
+    plt.axvline(x=ltr_value, color='darkorange', linestyle='-', label='Oblivious', lw=2.0)
     # plt.text(max(plt.xlim()), ultrh_value, label_text, fontsize='small', color='black')
     center_x_0 = x_max - 1 / 1.5 * (x_max - x_min)
     center_x_1 = x_max - 0.64 * (x_max - x_min)
@@ -533,7 +681,13 @@ def plot_case(csv_file_path):
     # check that directory exists or create it
     if not os.path.exists(directory):
         os.makedirs(directory)
-    ax.tick_params(axis='x', which='both', length=0)
+    # ax.tick_params(axis='x', which='both', length=0)
+
+    plt.grid(True, which='both', axis='y', zorder=0)
+    plt.gca().spines['left'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['bottom'].set_visible(False)
     plt.tight_layout()
     # save plot
     plt.savefig(str(directory) + y + '.pdf')
@@ -604,9 +758,73 @@ def plot_skew(metrics_file_path):
     return
 
 
+def plot_skew(metrics_file_path):
+    skew_file = pd.read_csv(metrics_file_path)
+
+    skew_file['Ideal'] = 1
+
+    # get dataset from file path
+    dataset = re.split(regex_pattern, metrics_file_path)[-5]
+    dataset = dataset_dict[dataset]
+    g_dis = protected_group_dict[dataset]
+
+    if g_dis == 'Females':
+        g_adv = 'Males'
+    else:
+        g_adv = 'Females'
+
+    skew_file.rename(columns={'Group 0': str(g_adv), 'Group 1': str(g_dis)}, inplace=True)
+    sns.set(style="white")
+    fig, ax = plt.subplots(figsize=(4, 4))
+
+    sns.set(font_scale=1.2,  # Font scale factor (adjust to your preference)
+            rc={"font.style": "normal",  # Set to "normal", "italic", or "oblique"
+                "font.family": "serif",  # Choose your preferred font family
+                # Font size
+                "font.weight": "normal"  # Set to "normal", "bold", or a numeric value
+                })
+
+    sns.lineplot(data=skew_file[[g_dis, g_adv, "Ideal"]], dashes=False, ax=ax)
+
+    # pipe, graph_title = get_graph_name(metrics_file_path)
+
+    ax.set_title(dataset, fontsize='x-large', fontfamily='serif')
+
+    # ax.title.set_position([0.5, -0.1])
+
+    # ax.set_xticks(range(0, len(metrics_file), 200))
+
+    # Set the x and y limits to start from 0
+    ax.set_xlim(left=0)
+    ax.set_ylim(bottom=0)
+
+    plt.xlabel("Ranking position", fontfamily='serif')
+    plt.ylabel("Skew", fontfamily='serif')
+    plt.tight_layout()
+    plt.legend(frameon=False, fontsize='xx-small', loc='upper right')
+    # if dataset=='LAW':
+    #     plt.legend(frameon=False, fontsize='xx-small',loc='upper right')
+    # else:
+    #     plt.legend("", frameon=False)
+    # check = metrics_file_path.split(os.sep)[-2].split("/")[-1]
+    # check2 = metrics_file_path.split(os.sep)
+    """ DIRECTORY MANAGEMENT """
+    graph_path = Path(
+        "./FairRank/Graphs/Initial/" +
+        dataset + "/" + str(metrics_file_path.split(os.sep)[-2].split("/")[-1]))
+
+    if not os.path.exists(graph_path):
+        os.makedirs(graph_path)
+
+    plt.savefig(os.path.join(graph_path, str(dataset) + '_skews.pdf'))
+    plt.close()
+
+    return
+
+
 def plot_legend(option='case'):
     # Create a separate figure and axis for the legend
-    figsize = (8, 1)
+    figsize = (12.5, 1)
     if option == 'synth':
         figsize = (12.5, 1)
     legend_fig, legend_ax = plt.subplots(figsize=figsize)
@@ -615,49 +833,86 @@ def plot_legend(option='case'):
 
     if option == 'synth':
         legend_items = [
-            Patch(color='#F00000', label='LTR:inf'),
-            Patch(color='#3D6D9E', label='FairLTR:inf'),
-            Patch(color='#FFC725', label='LTR:inf-FairRR:inf'),
-            Patch(color='#3EC372', label='LTR:hid-FairRR:inf'),
-            Patch(color='#808080', label='LTR-FairRR:inf'),
-            Line2D([0], [0], color='cyan', lw=1.5, linestyle='--', label='LTR:hid'),
-            Line2D([0], [0], color='blue', lw=1.5, linestyle=':', label='LTR'),
-            Line2D([0], [0], color='black', lw=lw, linestyle='-', marker='*', markersize=markersize,
-                   label=r'$g_{dis}\,\rightleftarrows\,g_{adv}$',
+
+            Line2D([0], [0], color='darkorange', lw=1.5, linestyle='-', label='Oblivious'),
+
+            Line2D([0], [0], color='#F00000', lw=lw, linestyle='-', marker='*', markersize=markersize,
+                   label='LTR',
+                   markerfacecolor='#ffb6c1'),
+
+            Line2D([0], [0], color='#6600CC', lw=1.5, linestyle='-.', label='Hidden'),
+
+            Line2D([0], [0], color='#3D6D9E', lw=lw, linestyle='-', marker='o', markersize=markersize,
+                   label='FairLTR',
+                   markerfacecolor='#ADD8E6'),
+            Line2D([0], [0], color='k', lw=lw, linestyle='-', marker='X', markersize=markersize,
+                   label='Oblivious-FairRR',
                    markerfacecolor='none'),
-            Line2D([0], [0], color='black', lw=lw, linestyle='--', marker='o', markersize=markersize,
-                   label=r'$g_{dis}\rightarrow g_{adv}$',
-                   markerfacecolor='none'),
-            Line2D([0], [0], color='black', lw=lw, linestyle=':', marker='^', markersize=markersize,
-                   label=r'$g_{dis}\leftarrow g_{adv}$',
-                   markerfacecolor='none'),
+            Line2D([0], [0], color='#FFC725', lw=lw, linestyle='-', marker='^', markersize=markersize,
+                   label='LTR-FairRR',
+                   markerfacecolor='#eae2b7'),
+            Line2D([0], [0], color='#12562a', lw=lw, linestyle='-', marker='D', markersize=markersize,
+                   label='Hidden-FairRR',
+                   markerfacecolor='none')
 
         ]
         # plt.text(-0.05, 0.47, 'Legend', fontsize=10, weight='bold')
-        ncol = 5
+        ncol = 7
 
 
     else:
-
         # Create custom legend items using matplotlib.patches.Patch
         legend_items = [
-            Patch(color='#F00000', label='LTR:inf'),
-            Patch(color='#3D6D9E', label='FairLTR:inf'),
-            Patch(color='#FFC725', label='LTR:inf-FairRR:inf'),
-            Patch(color='#3EC372', label='LTR:hid-FairRR:inf'),
-            Patch(color='#808080', label='LTR-FairRR:inf'),
-            Line2D([0], [0], color='cyan', lw=1.5, linestyle='--', label='LTR:hid'),
-        Line2D([0], [0], color='blue', lw=1.5, linestyle=':', label='LTR'),]
+
+            Line2D([0], [0], color='darkorange', lw=1.5, linestyle='-', label='Oblivious'),
+            Line2D([0], [0], color='#F00000', lw=lw, linestyle=' ', marker='*', markersize=markersize,
+                   label='LTR',
+                   markerfacecolor='#ffb6c1'),
+
+            Line2D([0], [0], color='#6600CC', lw=1.5, linestyle='-.', label='Hidden'),
+
+            Line2D([0], [0], color='#3D6D9E', lw=lw, linestyle=' ', marker='o', markersize=markersize,
+                   label='FairLTR',
+                   markerfacecolor='#ADD8E6'),
+            Line2D([0], [0], color='#808080', lw=lw, linestyle=' ', marker='X', markersize=markersize,
+                   label='Oblivious-FairRR',
+                   markerfacecolor='none'),
+
+            Line2D([0], [0], color='#FFC725', lw=lw, linestyle=' ', marker='^', markersize=markersize,
+                   label='LTR-FairRR',
+                   markerfacecolor='#eae2b7'),
+            Line2D([0], [0], color='#3EC372', lw=lw, linestyle=' ', marker='D', markersize=markersize,
+                   label='Hidden-FairRR',
+                   markerfacecolor='none')
+
+        ]
         # Line2D([0], [0], color='black', lw=lw, linestyle='--',
         #        label='ULTRH',
         #        markerfacecolor='none')
 
         # Write legend
         # plt.text(-0.04, 0.47, 'Legend', fontsize=10, weight='bold')
-        ncol = 4
+        ncol = 7
 
-    for item in legend_items[0:5]:
-        item.set_edgecolor('black')
+        # # Create custom legend items using matplotlib.patches.Patch
+        # legend_items = [
+        #     Patch(color='#F00000', label='LTR:inf'),
+        #     Patch(color='#3D6D9E', label='FairLTR:inf'),
+        #     Patch(color='#FFC725', label='LTR:inf-FairRR:inf'),
+        #     Patch(color='#3EC372', label='LTR:hid-FairRR:inf'),
+        #     Patch(color='#808080', label='LTR-FairRR:inf'),
+        #     Line2D([0], [0], color='cyan', lw=1.5, linestyle='--', label='LTR:hid'),
+        #     Line2D([0], [0], color='blue', lw=1.5, linestyle=':', label='LTR'), ]
+        # # Line2D([0], [0], color='black', lw=lw, linestyle='--',
+        # #        label='ULTRH',
+        # #        markerfacecolor='none')
+        #
+        # # Write legend
+        # # plt.text(-0.04, 0.47, 'Legend', fontsize=10, weight='bold')
+        # ncol = 4
+
+    # for item in legend_items[0:5]:
+    #     item.set_edgecolor('black')
 
     plt.axis('off')
 
@@ -1455,10 +1710,10 @@ def change_text(column_name, names):
 #
 def PlotLoss():
     loss_options = ['nonBlind', 'Blind']
-    #experiment =
+    # experiment =
     for option in loss_options:
         loss_files = get_files("./FairRank/DELTRLoss/" + option + "/" + experiment_name, None)
-        #loss_files = get_files("./FairRank/DELTRLoss/" + option, None)
+        # loss_files = get_files("./FairRank/DELTRLoss/" + option, None)
         print('loss', loss_files)
 
         for file in loss_files:
@@ -1477,9 +1732,9 @@ def PlotLoss():
             delimiters = "(", ")"
             regex_pattern = '|'.join(map(re.escape, delimiters))
             graph_name = re.split(regex_pattern, file)
-            #print('graph_name', graph_name[0].split('/')[4].replace("\\", ""))
+            # print('graph_name', graph_name[0].split('/')[4].replace("\\", ""))
 
-            chart.set_title(graph_name[1].split(',')[1] + ", " + experiment_name+ ", " + option, fontdict={'size': 15})
+            chart.set_title(graph_name[1].split(',')[1] + ", " + experiment_name + ", " + option, fontdict={'size': 15})
 
             plt.xlabel("Iterations")
             plt.ylabel("DELTR Loss")
@@ -1701,3 +1956,84 @@ def get_string_before(lst, target_string):
             if index > 0:
                 return lst[index - 1]
     return None  # Return None if the target string is not found or is the first element
+
+
+def graph_pareto(metric1, metric2, dataset):
+    pareto_front = []
+    for m1, m2 in zip(metric1, metric2):
+        is_pareto = True
+        for other_m1, other_m2 in zip(metric1, metric2):
+            if other_m1 > m1 and other_m2 > m2:
+                is_pareto = False
+                break
+        if is_pareto:
+            pareto_front.append((m1, m2))
+
+    pareto_front_m1, pareto_front_m2 = zip(*pareto_front)
+
+    plt.scatter(metric1, metric2, label='Metrics')
+    plt.scatter(pareto_front_m1, pareto_front_m2, color='red', label='Pareto Front')
+
+    # Adding labels and legend
+    plt.xlabel('Metric 1')
+    plt.ylabel('Metric 2')
+    plt.title('Pareto Front')
+    plt.legend()
+    plt.grid(True)
+
+    """DIRECTORY MANAGEMENT"""
+    graph_path = Path(
+        "./FairRank/Graphs/Pareto/"
+    )
+
+    if not os.path.exists(graph_path):
+        os.makedirs(graph_path)
+
+    plt.savefig(os.path.join(graph_path, str(dataset) + '.pdf'))
+    plt.close()
+
+
+def ParetoPlots():
+    # error = 10
+    csvs = get_files('./FairRank/ResultsCSVs/', None)
+
+    res_csvs = [i for i in csvs if 'ndcg.csv' not in i and 'skews.csv' not in i]
+    res_synth = [i for i in res_csvs if 'Synthetic' in i and 'ExpR' in i]
+
+    for file in res_synth:
+        dataset_name = re.split(regex_pattern, file)[5]
+        # dataset = dataset_dict[dataset]
+        # get corresponding ndcg file
+        corres_ndcg = file.replace('ExpR', 'NDCG100')
+        # graph pareto for each corresponding column in file and ndcg_file
+        exp_file = pd.read_csv(file)
+        ndcg_file = pd.read_csv(corres_ndcg)
+
+        exp_file.set_index("Wrong Inference Percentage", inplace=True)
+        ndcg_file.set_index("Wrong Inference Percentage", inplace=True)
+
+        exp_row_data = get_row_data(exp_file)
+        ndcg_row_data = get_row_data(ndcg_file)
+        print(exp_row_data)
+
+        # get the row of the file of both files and match them
+
+
+def get_row_data(df):
+    # Initialize a list to store the row data
+    row_data = []
+
+    # Iterate through DataFrame rows
+    for index, row in df.iterrows():
+        # Iterate through each column in the row
+        for column, value in row.items():
+            # Append tuple (row_index, column_name, value) to row_data
+            row_data.append((index, column, value))
+    return row_data
+
+    # exp_columns = exp_file.columns
+    # for column in exp_columns:
+    #     if column in ndcg_file.columns:
+    #         graph_pareto(exp_file[column], ndcg_file[column], dataset_name)
+    #     else:
+    #         print('Column not found in NDCG file')

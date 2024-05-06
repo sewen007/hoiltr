@@ -444,6 +444,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\FairRank\Datasets\LAW\Cleaned\Cleaned_LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\FairRank\Datasets\LAW\Ranked\both\BlindGroundTruth_Ranked\BlindGroundTruth_Ranked(num_iterations=3,gamma=72000.0)_LAW.csv">
           <value>
             <Attribute>
@@ -1431,6 +1438,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_LAW_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\FairRank\ResultsCSVS\CaseStudies_LAW_ExpR.csv">
           <value>
             <Attribute>
@@ -1642,6 +1656,13 @@
           </value>
         </entry>
         <entry key="\FairRank\ResultsCSVS\Synthetic_NBAWNBA_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_bostonmarathon_AvgExp_0.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -2076,6 +2097,62 @@
           </value>
         </entry>
         <entry key="\FairRank\Results\seed42\COMPASSEX\both\Colorblind_Ranked(num_iterations=1500,gamma=0.0)_COMPASSEX.csv\skews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\BlindGroundTruth_Ranked(num_iterations=3,gamma=72000.0)_LAW.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\BlindGroundTruth_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\BlindGroundTruth_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv\ndcg.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\BlindGroundTruth_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv\skews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\Colorblind_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\DetConstSortBlind_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv_0_Inferred_LAW.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\DetConstSortHidden_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv_20_Inferred_LAW.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\Results\seed42\LAW\both\DetConstSort_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv_20_Inferred_LAW.csv\metrics.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
