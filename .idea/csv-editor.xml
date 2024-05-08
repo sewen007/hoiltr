@@ -2271,6 +2271,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\train_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
