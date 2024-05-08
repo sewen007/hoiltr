@@ -87,8 +87,8 @@ def PlotGraphs():
 
     # plot synthetic graphs before case study graphs
 
-    for csv_file in res_synth:
-        plot_synth(csv_file)
+    # for csv_file in res_synth:
+    #     plot_synth(csv_file)
     # for csv_file in res_case:
     #     plot_case(csv_file)
     # for csv_file in res_skews:
@@ -99,7 +99,8 @@ def PlotGraphs():
     #     csv_corres_file = csv_file.replace('AvgExp_0', 'AvgExp_1')
     #     plot_case_avg_exp(csv_file, csv_corres_file)
     # plot_legend('synth')
-    plot_legend()
+    # plot_legend()
+    graph_pareto()
 
 
 def plot_case_avg_exp(grp_0_file, grp_1_file):
@@ -217,31 +218,7 @@ def plot_synth(csv_file_path):
                     markerfacecolor=mk, markersize=6)
 
         # Specify the index of the tick label you want to box
-        ideal_value = {'ExpR': 1.0, 'NDKL': 0}
-        if y in ideal_value:
-            value_to_box = ideal_value[y]
-        else:  # Default value
-            value_to_box = 0
-
-        # Get the current axes
-        ax = plt.gca()
-
-        # Get the tick labels for the x-axis
-        labels = ax.get_yticklabels()
-
-        # Find the tick label with the ideal value
-        label_to_box = None
-        for label in labels:
-            # Extract numerical value from label text
-            text = label.get_text()
-            match = re.match(r"[-+]?\d*\.\d+|\d+", text)
-            if match and float(match.group()) == value_to_box:
-                label_to_box = label
-                break
-
-        # Set the box style if the tick label with the specified value is found
-        if label_to_box:
-            label_to_box.set_bbox(dict(facecolor='white', alpha=0.5, edgecolor='red'))
+        plot_ideal(y, axis='y')
 
         # plot straight lines
 
@@ -367,6 +344,40 @@ def plot_synth(csv_file_path):
         # ax.legend()
         plt.savefig(str(directory) + y + '.pdf')
         plt.close()
+
+
+def plot_ideal(metric, axis='y'):
+    # Specify the index of the tick label you want to box
+    ideal_value = {'ExpR': 1.0, 'NDKL': 0}
+    if metric in ideal_value:
+        value_to_box = ideal_value[metric]
+    else:  # Default value
+        value_to_box = 0
+
+    # Get the current axes
+    ax = plt.gca()
+    # y_ticks = ax.get_yticks()
+
+    if axis == 'y':
+        # Get the tick labels for the y-axis
+        labels = ax.get_yticklabels()
+    else:
+        # Get the tick labels for the x-axis
+        labels = ax.get_xticklabels()
+
+    # Find the tick label with the ideal value
+    label_to_box = None
+    for label in labels:
+        # Extract numerical value from label text
+        text = label.get_text()
+        match = re.match(r"[-+]?\d*\.\d+|\d+", text)
+        if match and float(match.group()) == value_to_box:
+            label_to_box = label
+            break
+
+    # Set the box style if the tick label with the specified value is found
+    if label_to_box:
+        label_to_box.set_bbox(dict(facecolor='white', alpha=0.5, edgecolor='red'))
 
 
 # def plot_case(csv_file_path):
@@ -549,6 +560,9 @@ def plot_case(csv_file_path):
             plt.scatter(value, service, color=colo[i], marker=markers[i], s=50, edgecolor=colors[i])
     # Set alpha (transparency) value for the marker face color
     # plt.setp(plt.gca().lines, markersize=10, markerfacecolor=(0, 0, 1, 0.5))
+
+    # Specify the index of the tick label you want to box
+    plot_ideal(y, axis='x')
 
     # Set the font size of tick labels
     plt.tick_params(axis='both', which='major', labelsize='medium')
@@ -944,21 +958,6 @@ def change_text(column_name, names):
 
 
 ###################################################################################################
-# res_skews = [i for i in metrics if 'skews' in i]
-# res_metrics = [i for i in metrics if 'metrics' in i]
-# res_ndcg = [i for i in metrics if 'ndcg' in i]
-#
-# for file in res_skews:
-#     plot_skew(file, flip_choice)
-# plot_ndkl(flip_choice)
-# #
-# # for file in res_ndcg:
-# #     plot_ndcg(file)
-# # # plot_joint_ndcg(res_ndcg)
-# #
-# # plot_avg_exp()
-# # # plot_posDiff()
-# # # plot_scoreDis()
 
 # def plot_ndcg(ndcg_file_path):
 #     """
@@ -1889,56 +1888,7 @@ def PlotLoss():
 #                         plt.close()
 #
 #
-# def plot_scoreDis():
-#     files = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice, None)
-#     for file in files:
-#         df = pd.read_csv(file)
-#         pathsplit = re.split(regex_pattern, file)
-#         print(pathsplit)
-#
-#         pipe = re.split(regex_pattern, file)[6]
-#         # method = 'DetConstSort'
-#         if pipe == 'Inferred' or pipe == 'GroundTruth':
-#             method = 'DELTR'
-#         else:
-#             method = 'DetConstSort'
-#
-#         gamma = get_string_after(pathsplit, 'gamma')
-#         inf = get_string_before(pathsplit, 'Inferred')
-#
-#         # fig, ax = plt.subplots(1, 1, figsize=(30, 50))
-#         sns.displot(df['judgement'])
-#         if pipe == 'GroundTruth':
-#             plt.title('0% Wrong Inference')
-#         else:
-#             plt.title(
-#                 str(re.split(regex_pattern, str(os.path.basename(file)))[-3] + '% Wrong Inference'))
-#
-#         plt.xlabel(
-#             'method: ' + method + ', gamma = ' + gamma)
-#
-#         plt.ylabel("Score Distribution")
-#
-#         plt.subplots_adjust(top=.9)
-#
-#         plt.tick_params(axis='x')  # Increase x tick size to 12
-#         plt.tick_params(axis='y')  # Increase y tick size to 12
-#
-#         """DIRECTORY MANAGEMENT"""
-#         graph_path = Path(
-#             './FairRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/ScoreDis/' + str(
-#                 os.path.basename(file)) + '/')
-#         graph_path = str(graph_path)
-#         if not os.path.exists(graph_path):
-#             os.makedirs(graph_path, exist_ok=True)
-#
-#         p = re.split(regex_pattern, os.path.basename(file))
-#
-#         plt.savefig(os.path.join(graph_path, p[0] + p[6] + p[8] + '.png'))
-#
-#         print('saved')
-#         plt.close()
-#
+
 #
 def get_string_after(lst, target_string):
     for string in lst:
@@ -1958,39 +1908,65 @@ def get_string_before(lst, target_string):
     return None  # Return None if the target string is not found or is the first element
 
 
-def graph_pareto(metric1, metric2, dataset):
-    pareto_front = []
-    for m1, m2 in zip(metric1, metric2):
-        is_pareto = True
-        for other_m1, other_m2 in zip(metric1, metric2):
-            if other_m1 > m1 and other_m2 > m2:
-                is_pareto = False
-                break
-        if is_pareto:
-            pareto_front.append((m1, m2))
+def graph_pareto():
+    # NDKLdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
+    # NDCGdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
+    NDKLdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
+    NDCGdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
 
-    pareto_front_m1, pareto_front_m2 = zip(*pareto_front)
+    # NDCGdf = NDCGdf.set_index(NDCGdf.columns[0])
 
-    plt.scatter(metric1, metric2, label='Metrics')
-    plt.scatter(pareto_front_m1, pareto_front_m2, color='red', label='Pareto Front')
+    # new_names = {
+    #     'ULTR': 'LTR',
+    #     'FLTR': 'FairLTR',
+    #     'ULTR + PostF': 'LTR-FairRR',
+    #     'ULTRH + PostF': 'Hidden-FairRR',
+    #     'LTR + PostF': 'Oblivious-FairRR',
+    # }
+    new_names = {
+        'ULTR_1': 'LTR sim 1',
+        'FLTR_1': 'FairLTR sim 1',
+        'ULTR + PostF_1': 'LTR-FairRR sim 1',
+        'ULTRH + PostF_1': 'Hidden-FairRR sim 1',
+        'LTR + PostF_1': 'Oblivious-FairRR sim 1',
+        'ULTR_2': 'LTR sim 2',
+        'FLTR_2': 'FairLTR sim 2',
+        'ULTR + PostF_2': 'LTR-FairRR sim 2',
+        'ULTRH + PostF_2': 'Hidden-FairRR sim 2',
+        'LTR + PostF_2': 'Oblivious-FairRR sim 2',
+        'ULTR_3': 'LTR sim 3',
+        'FLTR_3': 'FairLTR sim 3',
+        'ULTR + PostF_3': 'LTR-FairRR sim 3',
+        'ULTRH + PostF_3': 'Hidden-FairRR sim 3',
+        'LTR + PostF_3': 'Oblivious-FairRR sim 3'
+    }
 
-    # Adding labels and legend
-    plt.xlabel('Metric 1')
-    plt.ylabel('Metric 2')
-    plt.title('Pareto Front')
-    plt.legend()
-    plt.grid(True)
+    columns = NDKLdf.columns[1:]
 
-    """DIRECTORY MANAGEMENT"""
-    graph_path = Path(
-        "./FairRank/Graphs/Pareto/"
-    )
+    for col in columns:
+        for i, row in NDKLdf.iterrows():
+            # plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Inference Service'])
+            plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Wrong Inference Percentage'])
 
-    if not os.path.exists(graph_path):
-        os.makedirs(graph_path)
-
-    plt.savefig(os.path.join(graph_path, str(dataset) + '.pdf'))
-    plt.close()
+        # label the axes
+        plt.xlabel('NDKL')
+        plt.ylabel('NDCG@100')
+        # plt.legend(title='Inference Service')
+        # plt.legend(title='Wrong Inference Percentage')
+        plt.title('Pareto Front for ' + str(new_names[col]) + ' for (W)NBA')
+        # plt.grid(True)
+        plt.tight_layout()
+        # plt.show()
+        # graph_path = Path(
+        #     "./FairRank/Graphs/Pareto/CaseStudies/"
+        # )
+        graph_path = Path(
+            "./FairRank/Graphs/Pareto/Synthetic/"
+        )
+        if not os.path.exists(graph_path):
+            os.makedirs(graph_path)
+        plt.savefig(os.path.join(graph_path, str(new_names[col]) + '.pdf'))
+        plt.close()
 
 
 def ParetoPlots():
