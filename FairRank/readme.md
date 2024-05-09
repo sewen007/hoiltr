@@ -1,5 +1,5 @@
 # FairRank #
-Authors: Sai Vadlamudi, Brinda Venkataraman, Marie Tessier 
+
 
 The FairRank Python package is used to run Fair ranking machine learning experiments. The main in-processing algorithm used is DELTR and the post-processing algorithm included is DetConsSort. These can be used together to compare rankings produced by either or both of these methods. The goal of these ranking algorithms are to produce a fair ranking, balancing both utility and fairness dependant on a protected attribute (i.e. gender, income, race, etc).
 
