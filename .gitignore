@@ -246,7 +246,7 @@ $RECYCLE.BIN/
 <<<<<<< HEAD
 *.obj
 =======
-#*.obj
+*.obj
 >>>>>>> origin/master
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,python,linux
