@@ -2013,3 +2013,33 @@ def get_row_data(df):
     #         graph_pareto(exp_file[column], ndcg_file[column], dataset_name)
     #     else:
     #         print('Column not found in NDCG file')
+
+
+def rename_folders_with_csv(directory):
+    try:
+        # Iterate over all items in the directory
+        for item in os.listdir(directory):
+            # Join the directory path with the item name
+            item_path = os.path.join(directory, item)
+
+            # Check if the item is a directory
+            if os.path.isdir(item_path):
+                # Check if the directory name ends with '.csv'
+                if item.endswith('.csv'):
+                    # Remove the '.csv' extension from the directory name
+                    new_name = item[:-4]
+
+                    # Construct the new path with the updated name
+                    new_path = os.path.join(directory, new_name)
+
+                    # Rename the directory
+                    os.rename(item_path, new_path)
+                    print(f"Renamed {item} to {new_name}")
+
+                # Recursively call the function for subdirectories
+                rename_folders_with_csv(item_path)
+    except FileNotFoundError:
+        print(f"Directory not found: {directory}")
+
+
+

@@ -60,7 +60,7 @@ def full_experiment(flip_choice):
 #Make_Metric_Csvs()
 #
 # # after doing the experiments for all the datasets
-PlotGraphs()
+#PlotGraphs()
 #ParetoPlots()
 
 # --------------------------------------
@@ -151,7 +151,11 @@ PlotGraphs()
 #
 # # Calculating the Metrics
 # CalculateResultsMetrics(seed, 'CaseStudies')
+# Specify the directory where you want to start the renaming process
+directory_to_search = 'FairRank/Results'
 
+# Call the function to rename folders with '.csv' extension
+rename_folders_with_csv(directory_to_search)
 
 end = time.time()
 
