@@ -243,6 +243,10 @@ $RECYCLE.BIN/
 *.lnk
 
 # Model Objects to be ignored
+<<<<<<< HEAD
 *.obj
+=======
+#*.obj
+>>>>>>> origin/master
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,python,linux
