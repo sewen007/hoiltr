@@ -24,35 +24,77 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\FairRank\Results\seed42\bostonmarathon\both\DetConstSortBlind_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv_0_Inferred_bostonmarathon.csv\metrics.csv">
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_COMPASSEX_ExpR.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\FairRank\Results\seed42\bostonmarathon\both\DetConstSortBlind_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv_10_Inferred_bostonmarathon.csv\metrics.csv">
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_NBAWNBA_NDCG100.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\FairRank\Results\seed42\bostonmarathon\both\DetConstSortHidden_Ranked(num_iterations=1500,gamma=0.0)_bostonmarathon.csv_30_Inferred_bostonmarathon.csv\metrics.csv">
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_bostonmarathon_AvgExp_0.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\FairRank\Results\seed42\bostonmarathon\both\DetConstSortNotHidden_Ranked(num_iterations=1500,gamma=0.0)_20_Inferred_bostonmarathon.csv\metrics.csv">
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_bostonmarathon_AvgExp_1.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\FairRank\Results\seed42\bostonmarathon\both\DetConstSortNotHidden_Ranked(num_iterations=1500,gamma=0.0)_30_Inferred_bostonmarathon.csv\metrics.csv">
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_bostonmarathon_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\CaseStudies_bostonmarathon_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_NBAWNBA_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_NBAWNBA_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_bostonmarathon_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_bostonmarathon_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\FairRank\ResultsCSVS\Synthetic_bostonmarathon_NDKL.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

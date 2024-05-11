@@ -134,6 +134,7 @@ def getdist(df):
             d[row['Gender']] += 1
     for attr in d:
         d[attr] = d[attr] / len(df)
+        # d[attr] = 0.5
     return d
 
 

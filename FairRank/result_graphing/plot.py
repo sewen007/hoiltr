@@ -87,10 +87,10 @@ def PlotGraphs():
 
     # plot synthetic graphs before case study graphs
 
-    for csv_file in res_synth:
-        plot_synth(csv_file)
-    for csv_file in res_case:
-        plot_case(csv_file)
+    # for csv_file in res_synth:
+    #     plot_synth(csv_file)
+    # for csv_file in res_case:
+    #     plot_case(csv_file)
     # for csv_file in res_skews:
     #     plot_skew(csv_file)
     # for csv_file in res_skews_initial:
@@ -176,7 +176,7 @@ def plot_synth(csv_file_path):
     y = re.split(regex_pattern, csv_file_path)[-2]
 
     # plot line graphs with same colors for every three columns after the first column
-    colors = ['#F00000', '#3D6D9E', '#FFC725', '#3EC372', '#808080']
+    colors = ['#F00000', '#3D6D9E', '#FFC725', '#3EC372', 'k']
     markers = ['*', 'o', '^', 'D', 'X']
     linestyles = ['-', '--', ':']
     mks = ['#ffb6c1', '#ADD8E6', '#eae2b7', 'none', 'none']
@@ -301,21 +301,6 @@ def plot_synth(csv_file_path):
         else:
             pass
 
-            # y_min = min(plt.ylim()[0], ultrh_value)
-            # y_max = max(plt.ylim()[1], ultrh_value)
-        # plt.ylim(y_min, y_max)
-
-        # center_x = (plt.xlim()[0] + plt.xlim()[1]) / 10
-        # center_y_1 = y_max - 1/8 *(y_max - y_min)
-        # if y == 'NDKL' and dataset == 'LAW':
-        #     #center_y_1 = 0.03
-        # else:
-        #     #center_y_1 = y_max - 1 / 8 * (y_max - y_min)
-        # print("center_x=", center_y)
-
-        # plot straight line
-
-        # plt.show()
         # label_text = 'Hidden'
         plt.axhline(y=ultrh_value, color='#6600CC', linestyle='dashdot', label='Hidden', lw=3.0)
         plt.axhline(y=ltr_value, color='darkorange', linestyle='-', label='Oblivious', lw=1.0)
@@ -347,6 +332,7 @@ def plot_synth(csv_file_path):
 
 
 def plot_ideal(metric, axis='y'):
+    print(metric)
     # Specify the index of the tick label you want to box
     ideal_value = {'ExpR': 1.0, 'NDKL': 0}
     if metric in ideal_value:
@@ -374,10 +360,48 @@ def plot_ideal(metric, axis='y'):
         if match and float(match.group()) == value_to_box:
             label_to_box = label
             break
-
-    # Set the box style if the tick label with the specified value is found
+        # Set the box style if the tick label with the specified value is found
     if label_to_box:
         label_to_box.set_bbox(dict(facecolor='white', alpha=0.5, edgecolor='red'))
+
+
+def get_blinds(dataset, metric):
+    """
+    this selects hidden(colorblind0 and oblivious(blindgroundtruth) results
+    :return: ultrh_value: colorblind value,
+            ltr_value: blindgroundtruth value
+    """
+
+    y = metric
+    results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/both/', None)
+
+    # search for path that has gamma=0.0 and 'Colorblind
+    ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
+    ltr_path = [i for i in results_to_search if 'gamma=0.0' in i and 'BlindGroundTruth' in i]
+
+    if 'NDCG' in y:
+        # dataset = dataset_dict[dataset]
+        ultrh_path = [i for i in ultrh_path if 'ndcg' in i]
+        ltr_path = [i for i in ltr_path if 'ndcg' in i]
+        match = re.search(r'\d+', y)
+        if match:
+            value = int(match.group())
+            ultrh_value = float(combine.get_NDCG(ultrh_path[0], value))
+            ltr_value = float(combine.get_NDCG(ltr_path[0], value))
+    elif y == 'ExpR' or y == 'NDKL':
+
+        ultrh_path = [i for i in ultrh_path if 'metrics' in i]
+        ltr_path = [i for i in ltr_path if 'metrics' in i]
+
+        if y == 'ExpR':
+            ultrh_value = float(combine.get_ExpR(ultrh_path[0]))
+            ltr_value = float(combine.get_ExpR(ltr_path[0]))
+
+        else:  # y=='NDKL'
+            ultrh_value = float(combine.get_NDKL(ultrh_path[0]))
+            ltr_value = float(combine.get_NDKL(ltr_path[0]))
+
+    return ultrh_value, ltr_value
 
 
 # def plot_case(csv_file_path):
@@ -865,7 +889,7 @@ def plot_legend(option='case'):
             Line2D([0], [0], color='#FFC725', lw=lw, linestyle='-', marker='^', markersize=markersize,
                    label='LTR-FairRR',
                    markerfacecolor='#eae2b7'),
-            Line2D([0], [0], color='#12562a', lw=lw, linestyle='-', marker='D', markersize=markersize,
+            Line2D([0], [0], color='#3EC372', lw=lw, linestyle='-', marker='D', markersize=markersize,
                    label='Hidden-FairRR',
                    markerfacecolor='none')
 
@@ -888,7 +912,7 @@ def plot_legend(option='case'):
             Line2D([0], [0], color='#3D6D9E', lw=lw, linestyle=' ', marker='o', markersize=markersize,
                    label='FairLTR',
                    markerfacecolor='#ADD8E6'),
-            Line2D([0], [0], color='#808080', lw=lw, linestyle=' ', marker='X', markersize=markersize,
+            Line2D([0], [0], color='k', lw=lw, linestyle=' ', marker='X', markersize=markersize,
                    label='Oblivious-FairRR',
                    markerfacecolor='none'),
 
@@ -1908,21 +1932,75 @@ def get_string_before(lst, target_string):
     return None  # Return None if the target string is not found or is the first element
 
 
+# def graph_pareto():
+#     # NDKLdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
+#     # NDCGdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
+#     NDKLdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
+#     NDCGdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
+#
+#     # NDCGdf = NDCGdf.set_index(NDCGdf.columns[0])
+#
+#     # new_names = {
+#     #     'ULTR': 'LTR',
+#     #     'FLTR': 'FairLTR',
+#     #     'ULTR + PostF': 'LTR-FairRR',
+#     #     'ULTRH + PostF': 'Hidden-FairRR',
+#     #     'LTR + PostF': 'Oblivious-FairRR',
+#     # }
+#     new_names = {
+#         'ULTR_1': 'LTR sim 1',
+#         'FLTR_1': 'FairLTR sim 1',
+#         'ULTR + PostF_1': 'LTR-FairRR sim 1',
+#         'ULTRH + PostF_1': 'Hidden-FairRR sim 1',
+#         'LTR + PostF_1': 'Oblivious-FairRR sim 1',
+#         'ULTR_2': 'LTR sim 2',
+#         'FLTR_2': 'FairLTR sim 2',
+#         'ULTR + PostF_2': 'LTR-FairRR sim 2',
+#         'ULTRH + PostF_2': 'Hidden-FairRR sim 2',
+#         'LTR + PostF_2': 'Oblivious-FairRR sim 2',
+#         'ULTR_3': 'LTR sim 3',
+#         'FLTR_3': 'FairLTR sim 3',
+#         'ULTR + PostF_3': 'LTR-FairRR sim 3',
+#         'ULTRH + PostF_3': 'Hidden-FairRR sim 3',
+#         'LTR + PostF_3': 'Oblivious-FairRR sim 3'
+#     }
+#
+#     columns = NDKLdf.columns[1:]
+#
+#     for col in columns:
+#         for i, row in NDKLdf.iterrows():
+#             # plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Inference Service'])
+#             plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Wrong Inference Percentage'])
+#
+#         # label the axes
+#         plt.xlabel('NDKL')
+#         plt.ylabel('NDCG@100')
+#         # plt.legend(title='Inference Service')
+#         # plt.legend(title='Wrong Inference Percentage')
+#         plt.title('Pareto Front for ' + str(new_names[col]) + ' for (W)NBA')
+#         # plt.grid(True)
+#         plt.tight_layout()
+#         # plt.show()
+#         # graph_path = Path(
+#         #     "./FairRank/Graphs/Pareto/CaseStudies/"
+#         # )
+#         graph_path = Path(
+#             "./FairRank/Graphs/Pareto/Synthetic/"
+#         )
+#         if not os.path.exists(graph_path):
+#             os.makedirs(graph_path)
+#         plt.savefig(os.path.join(graph_path, str(new_names[col]) + '.pdf'))
+#         plt.close()
+
 def graph_pareto():
     # NDKLdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
     # NDCGdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
     NDKLdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
     NDCGdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
 
-    # NDCGdf = NDCGdf.set_index(NDCGdf.columns[0])
+    NDKLdf.set_index(NDKLdf.columns[0], inplace=True)
+    NDCGdf.set_index(NDCGdf.columns[0], inplace=True)
 
-    # new_names = {
-    #     'ULTR': 'LTR',
-    #     'FLTR': 'FairLTR',
-    #     'ULTR + PostF': 'LTR-FairRR',
-    #     'ULTRH + PostF': 'Hidden-FairRR',
-    #     'LTR + PostF': 'Oblivious-FairRR',
-    # }
     new_names = {
         'ULTR_1': 'LTR sim 1',
         'FLTR_1': 'FairLTR sim 1',
@@ -1940,32 +2018,50 @@ def graph_pareto():
         'ULTRH + PostF_3': 'Hidden-FairRR sim 3',
         'LTR + PostF_3': 'Oblivious-FairRR sim 3'
     }
+    # rename columns using new_names
+    NDKLdf.rename(columns=new_names, inplace=True)
+    NDCGdf.rename(columns=new_names, inplace=True)
 
-    columns = NDKLdf.columns[1:]
+    dataset = 'NBAWNBA'
+    # get the Hidden and Oblivious values
+    hidden_NDKL = get_blinds(dataset, 'NDKL')[0]
+    hidden_NDCG = get_blinds(dataset, 'NDCG100')[0]
 
-    for col in columns:
-        for i, row in NDKLdf.iterrows():
-            # plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Inference Service'])
-            plt.scatter(row[col], NDCGdf.iloc[i][col], label=row['Wrong Inference Percentage'])
+    oblivious_NDKL = get_blinds(dataset, 'NDKL')[1]
+    oblivious_NDCG = get_blinds(dataset, 'NDCG100')[1]
 
+    markers = ['*', '*', '*', 'o', 'o', 'o', '^', '^', '^', 'X', 'X', 'X', 'D', 'D', 'D']
+    colors = ['red', 'orange', 'blue']
+
+    previous_idx = None
+    # Plot scatter graphs for each corresponding row
+    for idx, marker in zip(NDKLdf.index, markers):
+        row1 = NDKLdf.loc[idx]
+        row2 = NDCGdf.loc[idx]
+        # plt.scatter(row1, row2, label=f'Row {idx}')
+        for i, col in enumerate(NDKLdf.columns):
+            color = colors[i % 3]
+            if idx != previous_idx:
+                marker = markers[i % len(markers)]  # Pick marker using modulo
+            plt.scatter(row1[col], row2[col], label=col, marker=marker, color='None', edgecolors=color)
+        previous_idx = idx
+        plt.scatter(hidden_NDKL, hidden_NDCG, label='Hidden', marker='o', color='k', edgecolors='black')
+        plt.scatter(oblivious_NDKL, oblivious_NDCG, label='Oblivious', marker='^', color='k', edgecolors='black')
         # label the axes
-        plt.xlabel('NDKL')
-        plt.ylabel('NDCG@100')
-        # plt.legend(title='Inference Service')
-        # plt.legend(title='Wrong Inference Percentage')
-        plt.title('Pareto Front for ' + str(new_names[col]) + ' for (W)NBA')
-        # plt.grid(True)
+        plt.xlabel('NDKL', fontsize = 'xx-large')
+        plt.ylabel('NDCG@100', fontsize = 'xx-large')
+
+        plt.title('(W)NBA: Tradeoff: ' + str(idx) + '% error', fontsize = 'xx-large')
+        #plt.grid(True)
+        #plt.legend()
         plt.tight_layout()
-        # plt.show()
-        # graph_path = Path(
-        #     "./FairRank/Graphs/Pareto/CaseStudies/"
-        # )
+
         graph_path = Path(
             "./FairRank/Graphs/Pareto/Synthetic/"
         )
         if not os.path.exists(graph_path):
             os.makedirs(graph_path)
-        plt.savefig(os.path.join(graph_path, str(new_names[col]) + '.pdf'))
+        plt.savefig(os.path.join(graph_path, str(idx) + '.pdf'))
         plt.close()
 
 
@@ -2040,6 +2136,3 @@ def rename_folders_with_csv(directory):
                 rename_folders_with_csv(item_path)
     except FileNotFoundError:
         print(f"Directory not found: {directory}")
-
-
-
