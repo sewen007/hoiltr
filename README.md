@@ -45,3 +45,4 @@ In our experiments, we use the following gamma values for the datasets:
 Train()
 
 3. Train fairness unaware model without inferred demographic information
+4. 
