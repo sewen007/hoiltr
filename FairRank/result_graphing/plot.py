@@ -99,6 +99,7 @@ def PlotGraphs():
     #     csv_corres_file = csv_file.replace('AvgExp_0', 'AvgExp_1')
     #     plot_case_avg_exp(csv_file, csv_corres_file)
     # plot_legend('synth')
+    #plot_legend('pareto')
     # plot_legend()
     graph_pareto()
 
@@ -865,6 +866,9 @@ def plot_legend(option='case'):
     figsize = (12.5, 1)
     if option == 'synth':
         figsize = (12.5, 1)
+    else:
+        if option == 'pareto':
+            figsize = (12.5, 2)
     legend_fig, legend_ax = plt.subplots(figsize=figsize)
     lw = 1
     markersize = 8
@@ -899,58 +903,96 @@ def plot_legend(option='case'):
 
 
     else:
-        # Create custom legend items using matplotlib.patches.Patch
-        legend_items = [
+        if option == 'case':
+            # Create custom legend items using matplotlib.patches.Patch
+            legend_items = [
 
-            Line2D([0], [0], color='darkorange', lw=1.5, linestyle='-', label='Oblivious'),
-            Line2D([0], [0], color='#F00000', lw=lw, linestyle=' ', marker='*', markersize=markersize,
-                   label='LTR',
-                   markerfacecolor='#ffb6c1'),
+                Line2D([0], [0], color='darkorange', lw=1.5, linestyle='-', label='Oblivious'),
+                Line2D([0], [0], color='#F00000', lw=lw, linestyle=' ', marker='*', markersize=markersize,
+                       label='LTR',
+                       markerfacecolor='#ffb6c1'),
 
-            Line2D([0], [0], color='#6600CC', lw=1.5, linestyle='-.', label='Hidden'),
+                Line2D([0], [0], color='#6600CC', lw=1.5, linestyle='-.', label='Hidden'),
 
-            Line2D([0], [0], color='#3D6D9E', lw=lw, linestyle=' ', marker='o', markersize=markersize,
-                   label='FairLTR',
-                   markerfacecolor='#ADD8E6'),
-            Line2D([0], [0], color='k', lw=lw, linestyle=' ', marker='X', markersize=markersize,
-                   label='Oblivious-FairRR',
-                   markerfacecolor='none'),
+                Line2D([0], [0], color='#3D6D9E', lw=lw, linestyle=' ', marker='o', markersize=markersize,
+                       label='FairLTR',
+                       markerfacecolor='#ADD8E6'),
+                Line2D([0], [0], color='k', lw=lw, linestyle=' ', marker='X', markersize=markersize,
+                       label='Oblivious-FairRR',
+                       markerfacecolor='none'),
 
-            Line2D([0], [0], color='#FFC725', lw=lw, linestyle=' ', marker='^', markersize=markersize,
-                   label='LTR-FairRR',
-                   markerfacecolor='#eae2b7'),
-            Line2D([0], [0], color='#3EC372', lw=lw, linestyle=' ', marker='D', markersize=markersize,
-                   label='Hidden-FairRR',
-                   markerfacecolor='none')
+                Line2D([0], [0], color='#FFC725', lw=lw, linestyle=' ', marker='^', markersize=markersize,
+                       label='LTR-FairRR',
+                       markerfacecolor='#eae2b7'),
+                Line2D([0], [0], color='#3EC372', lw=lw, linestyle=' ', marker='D', markersize=markersize,
+                       label='Hidden-FairRR',
+                       markerfacecolor='none')
 
-        ]
-        # Line2D([0], [0], color='black', lw=lw, linestyle='--',
-        #        label='ULTRH',
-        #        markerfacecolor='none')
+            ]
+            # Line2D([0], [0], color='black', lw=lw, linestyle='--',
+            #        label='ULTRH',
+            #        markerfacecolor='none')
 
-        # Write legend
-        # plt.text(-0.04, 0.47, 'Legend', fontsize=10, weight='bold')
-        ncol = 7
+            # Write legend
+            # plt.text(-0.04, 0.47, 'Legend', fontsize=10, weight='bold')
+            ncol = 7
+        else:
 
-        # # Create custom legend items using matplotlib.patches.Patch
-        # legend_items = [
-        #     Patch(color='#F00000', label='LTR:inf'),
-        #     Patch(color='#3D6D9E', label='FairLTR:inf'),
-        #     Patch(color='#FFC725', label='LTR:inf-FairRR:inf'),
-        #     Patch(color='#3EC372', label='LTR:hid-FairRR:inf'),
-        #     Patch(color='#808080', label='LTR-FairRR:inf'),
-        #     Line2D([0], [0], color='cyan', lw=1.5, linestyle='--', label='LTR:hid'),
-        #     Line2D([0], [0], color='blue', lw=1.5, linestyle=':', label='LTR'), ]
-        # # Line2D([0], [0], color='black', lw=lw, linestyle='--',
-        # #        label='ULTRH',
-        # #        markerfacecolor='none')
-        #
-        # # Write legend
-        # # plt.text(-0.04, 0.47, 'Legend', fontsize=10, weight='bold')
-        # ncol = 4
+            # option == 'pareto'
+            legend_items = [Line2D([0], [0], color='#F00000', lw=lw, marker='*', markersize=markersize,
+                                   label='LTR $g_{dis}\\leftrightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#F00000', lw=lw, marker='o', markersize=markersize,
+                                   label='LTR $g_{dis}\\rightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#F00000', lw=lw, marker='^', markersize=markersize,
+                                   label='LTR $g_{dis}\\leftarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3D6D9E', lw=lw, marker='*', markersize=markersize,
+                                   label='FairLTR $g_{dis}\\leftrightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3D6D9E', lw=lw, marker='o', markersize=markersize,
+                                   label='FairLTR $g_{dis}\\rightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3D6D9E', lw=lw, marker='^', markersize=markersize,
+                                   label='FairLTR $g_{dis}\\leftarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#FFC725', lw=lw, marker='*', markersize=markersize,
+                                   label='LTR-FairRR $g_{dis}\\leftrightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#FFC725', lw=lw, marker='o', markersize=markersize,
+                                   label='LTR-FairRR $g_{dis}\\rightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#FFC725', lw=lw, marker='^', markersize=markersize,
+                                   label='LTR-FairRR $g_{dis}\\leftarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3EC372', lw=lw, marker='*', markersize=markersize,
+                                   label='Hidden-FairRR $g_{dis}\\leftrightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3EC372', lw=lw, marker='o', markersize=markersize,
+                                   label='Hidden-FairRR $g_{dis}\\rightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='#3EC372', lw=lw, marker='^', markersize=markersize,
+                                   label='Hidden-FairRR $g_{dis}\\leftarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='k', lw=lw, marker='*', markersize=markersize,
+                                   label='Oblivious-FairRR $g_{dis}\\leftrightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='k', lw=lw, marker='o', markersize=markersize,
+                                   label='Oblivious-FairRR $g_{dis}\\rightarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='k', lw=lw, marker='^', markersize=markersize,
+                                   label='Oblivious-FairRR $g_{dis}\\leftarrow g_{adv}$',
+                                   markerfacecolor='none', linestyle=' '),
+                            Line2D([0], [0], color='darkorange', lw=lw, marker='+', markersize=markersize,
+                                   label='Oblivious',
+                                   markerfacecolor='darkorange', linestyle=' '),
+                            Line2D([0], [0], color='#6600CC', lw=lw, marker='+', markersize=markersize,
+                                   label='Hidden',
+                                   markerfacecolor='#6600CC', linestyle=' ')
 
-    # for item in legend_items[0:5]:
-    #     item.set_edgecolor('black')
+                            ]
+        ncol = 6
 
     plt.axis('off')
 
@@ -958,18 +1000,7 @@ def plot_legend(option='case'):
     legend_ax.legend(handles=legend_items, loc='center', ncol=ncol, edgecolor='k')
     plt.tight_layout()
 
-    # Remove the axis and display only the legend
-    # legend_fig.savefig('legend.pdf', bbox_inches='tight', dpi=300)
-
-    # Display the legend figure
-    # plt.show()
-
-    if option == 'synth':
-        plt.savefig('legend_synth.pdf')
-    else:
-        plt.savefig('legend_case.pdf')
-
-    # plt.savefig('legend_' + str(option) + 'forquals.pdf')
+    plt.savefig('legend_' + str(option) + '.pdf')
 
     return
 
@@ -2030,8 +2061,9 @@ def graph_pareto():
     oblivious_NDKL = get_blinds(dataset, 'NDKL')[1]
     oblivious_NDCG = get_blinds(dataset, 'NDCG100')[1]
 
-    markers = ['*', '*', '*', 'o', 'o', 'o', '^', '^', '^', 'X', 'X', 'X', 'D', 'D', 'D']
-    colors = ['red', 'orange', 'blue']
+    markers = ['*', 'o', '^', '*', 'o', '^', '*', 'o', '^', '*', 'o', '^', '*', 'o', '^']
+    colors = ['#F00000', '#F00000', '#F00000', '#3D6D9E', '#3D6D9E', '#3D6D9E', '#FFC725', '#FFC725', '#FFC725',
+              '#3EC372', '#3EC372', '#3EC372', 'k', 'k', 'k']
 
     previous_idx = None
     # Plot scatter graphs for each corresponding row
@@ -2040,20 +2072,20 @@ def graph_pareto():
         row2 = NDCGdf.loc[idx]
         # plt.scatter(row1, row2, label=f'Row {idx}')
         for i, col in enumerate(NDKLdf.columns):
-            color = colors[i % 3]
+            color = colors[i]
             if idx != previous_idx:
                 marker = markers[i % len(markers)]  # Pick marker using modulo
-            plt.scatter(row1[col], row2[col], label=col, marker=marker, color='None', edgecolors=color)
+            plt.scatter(row1[col], row2[col], label=col, marker=marker, color='None', edgecolors=color, s=100)
         previous_idx = idx
-        plt.scatter(hidden_NDKL, hidden_NDCG, label='Hidden', marker='o', color='k', edgecolors='black')
-        plt.scatter(oblivious_NDKL, oblivious_NDCG, label='Oblivious', marker='^', color='k', edgecolors='black')
+        plt.scatter(hidden_NDKL, hidden_NDCG, label='Hidden', marker='+', color='#6600CC', s=100)
+        plt.scatter(oblivious_NDKL, oblivious_NDCG, label='Oblivious', marker='+', color='darkorange', s=100)
         # label the axes
-        plt.xlabel('NDKL', fontsize = 'xx-large')
-        plt.ylabel('NDCG@100', fontsize = 'xx-large')
+        plt.xlabel('NDKL', fontsize='30')
+        plt.ylabel('NDCG@100', fontsize='30')
 
-        plt.title('(W)NBA: Tradeoff: ' + str(idx) + '% error', fontsize = 'xx-large')
-        #plt.grid(True)
-        #plt.legend()
+        plt.title(str(idx) + '% error', fontsize='40')
+        # plt.grid(True)
+        # plt.legend()
         plt.tight_layout()
 
         graph_path = Path(
