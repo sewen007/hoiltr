@@ -101,6 +101,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\0\0_Inferred_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\10\10_Inferred_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

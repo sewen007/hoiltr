@@ -18,10 +18,13 @@ Clean()
 # Split the Dataset (into train and test
 Split()
 
-# Infer demographic information using the test split
+# Infer demographic information using the test split for case studies
 BehindTheName()
 NameSor()
 GenderAPI()
+
+# Simulate errors in inferred demographic information for controlled studies for 5 seeds
+VariantSplit()
 
 # Train the model using the train split. 
 # The model is trained using the inferred demographic information
@@ -45,4 +48,30 @@ In our experiments, we use the following gamma values for the datasets:
 Train()
 
 3. Train fairness unaware model without inferred demographic information
-4. 
+TrainBlind()
+
+# Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
+
+full_experiment()
+
+This runs the following each flip_choice option as described in the paper:
+
+    # Calculate Test Data metrics before ranking (testing)
+    CalculateInitialMetrics(flip_choice)
+    
+    # Rank Ground Truth
+    RankGroundTruth(flip_choice)
+    
+    # Rank with hidden demographic information
+    RankColorblind(flip_choice)
+    
+    # Rank with inferred demographic information
+    RankInferred(flip_choice)
+    
+    # Re-rank with DetConstSort
+    DetConstSortHidden(flip_choice)
+    DetConstSortNotHidden(flip_choice)
+    DetConstSortBlind(flip_choice)
+
+
+# Calculate metrics for the full experiment
