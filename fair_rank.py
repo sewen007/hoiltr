@@ -1,4 +1,4 @@
-from FairRank import *
+from HOIRank import *
 
 start = time.time()
 # settings_files = ["./FairRank/settings-BM.json", "./FairRank/settings-COMPAS.json", "./FairRank/settings-LAW.json", "./FairRank/settings-NBA.json"]
@@ -36,8 +36,8 @@ def full_experiment(flip_choice):
     # DetConstSortHidden(flip_choice)
     # print("DetConstSortNotHidden()")
     # DetConstSortNotHidden(flip_choice)
-    print("DetConstSortBlind()")
-    DetConstSortBlind(flip_choice)
+    # print("DetConstSortBlind()")
+    # DetConstSortBlind(flip_choice)
 
     for seed in seeds:
         #     # print(seed)
