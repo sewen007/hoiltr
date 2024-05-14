@@ -132,7 +132,7 @@ def VariantSplit(flip_choice, seedy):
             int(float(swap_percentage * 100))) + "/"
         if not os.path.exists(write_path):
             os.makedirs(write_path)
-        csv_file = str(seedy) + "_Inferred_" + experiment_name + ".csv"
+        csv_file = 'seed'+str(seedy) + "_Inferred_" + experiment_name + ".csv"
         print(csv_file)
         dataframe_to_swap.to_csv(write_path + csv_file, index=False)
         swap_percentage += swap_percent

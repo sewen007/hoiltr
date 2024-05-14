@@ -78,9 +78,20 @@ This runs the following each flip_choice option as described in the paper:
     DetConstSortBlind(flip_choice)
 
 
+
 # Calculate metrics for the full experiment
+# CalculateResultsMetrics()
+# CollateNDCGandSkews()
+# Make_Metric_Csvs()
 
 
-#note 
-Transit folder is not important, so we don't store the files we don't need. For example, when we create transits for
-colorblind and inferred, we don't need to store the files in the transit folder temporariy
+# # after doing the experiments for all the datasets
+# PlotGraphs()
+# ParetoPlots()
+
+# --------------------------------------
+# optional
+# --------------------------------------
+# PlotLoss()
+# PlotLossExposure()
+# PlotListLoss()
