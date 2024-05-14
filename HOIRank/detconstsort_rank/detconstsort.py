@@ -153,12 +153,16 @@ def infer_with_detconstsort(file, flip_choice, inferred=False, hidden=False, bli
             write_file = write_path + '/DetConstSortBlind_Ranked(' + params
         else:
             params = file.split("Inferred_Ranked(")[1]
-            write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params
+            params_1 = file.split("Inferred_Ranked")[1].replace("/", "").replace("\\", "")
+            write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params + '_' + params_1
+
+
     # not inferred
     elif not inferred and not hidden:
         params = re.findall(r"\(([^)]+)\)", file)[0]
         write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params + ')_' + \
                      os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0] + '_0_Inferred.csv'
+
 
     elif not inferred and hidden:
         params = re.findall(r"\(([^)]+)\)", file)[0]
@@ -208,7 +212,7 @@ def DetConstSortHidden(flip_choice):
         make_inferred_versions_gt_ranked(flip_choice, ranked)
 
     inferred_ranked = rank.get_files(
-        './HOIRank/Datasets/' + filename + '/Transit/nonBlind/Colorblind_Ranked_Inferred')
+        './HOIRank/Datasets/' + filename + '/Transit/nonBlind/' + flip_choice + '/Colorblind_Ranked_Inferred')
 
     for file in inferred_ranked:
         print(file)
@@ -235,9 +239,9 @@ def make_inferred_versions_gt_ranked(flip_choice, path, blind=False):
     test_files = rank.get_files(test_read_path)
 
     if blind:
-        write_path = './HOIRank/Datasets/' + filename + '/Transit/Blind/'+ flip_choice +'/Blind_Ranked_Inferred'
+        write_path = './HOIRank/Datasets/' + filename + '/Transit/Blind/' + flip_choice + '/Blind_Ranked_Inferred'
     else:
-        write_path = './HOIRank/Datasets/' + filename + '/Transit/nonBlind/'+ flip_choice +'/Colorblind_Ranked_Inferred'
+        write_path = './HOIRank/Datasets/' + filename + '/Transit/nonBlind/' + flip_choice + '/Colorblind_Ranked_Inferred'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -249,7 +253,8 @@ def make_inferred_versions_gt_ranked(flip_choice, path, blind=False):
                 lambda x: df.loc[df['doc_id'] == x, 'InferredGender'].iloc[0])
         else:
             df_file.loc[:, 'Gender'] = df_file['doc_id'].apply(lambda x: df.loc[df['doc_id'] == x, 'Gender'].iloc[0])
-        df_file.to_csv(write_path + '/' + os.path.basename(path) + '_' +os.path.split(os.path.dirname(inference_file))[-1] +'_'+os.path.basename(inference_file), index=False)
+        df_file.to_csv(write_path + '/' + os.path.basename(path) + '_' + os.path.split(os.path.dirname(inference_file))[
+            -1] + '_' + os.path.basename(inference_file), index=False)
 
     if flip_choice == "CaseStudies":
 
@@ -266,9 +271,6 @@ def DetConstSortNotHidden(flip_choice):
     :return:
     """
 
-    inferred_ranked = filter(find_unaware_ranked, rank.get_files(
-        './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked'))
-
     # get ranked files ranked by gamma = 0.0 only for "CaseStudies" (the simulations have it already)
     if flip_choice == 'CaseStudies':
         ranked_gt = filter(find_unaware_ranked, rank.get_files(
@@ -277,10 +279,19 @@ def DetConstSortNotHidden(flip_choice):
         for file in ranked_gt:
             print(file)
             infer_with_detconstsort(file, flip_choice, inferred=False, hidden=False)
+    else:
+        base_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
+        # get folders containing ranked inferred files
+        ranked_inferred_folders = './HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
 
-    for file in inferred_ranked:
-        print(file)
-        infer_with_detconstsort(file, flip_choice, inferred=True, hidden=False)
+        inferred_directories = [content for content in os.listdir(ranked_inferred_folders) if
+                                os.path.isdir(os.path.join(ranked_inferred_folders, content))]
+        for inferred_directory in inferred_directories:
+
+            inferred_ranked = filter(find_unaware_ranked, rank.get_files(os.path.join(base_path, inferred_directory)))
+            for file in inferred_ranked:
+                print(file)
+                infer_with_detconstsort(file, flip_choice, inferred=True, hidden=False)
 
 
 def DetConstSortBlind(flip_choice):
@@ -290,7 +301,7 @@ def DetConstSortBlind(flip_choice):
     :return:
     """
 
-    # get blind ranked files ranked by gamma = 0.0
+    # get blind ranked files ranked by gamma = 0.0. Get files ranked without attributes in the first stage
     blind_ranked_gt = filter(find_unaware_ranked, rank.get_files(
         './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'))
 

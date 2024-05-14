@@ -63,9 +63,9 @@ def full_experiment(flip_choice):
     CalculateResultsMetrics(seed, flip_choice)
 
 
-DetConstSortHidden("both")
+#DetConstSortHidden("both")
 DetConstSortNotHidden("both")
-DetConstSortBlind("both")
+#DetConstSortBlind("both")
 
 
 

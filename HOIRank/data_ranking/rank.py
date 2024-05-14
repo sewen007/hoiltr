@@ -203,7 +203,7 @@ def RankInferred(flip_choice):
                                                                 str(row["judgement"]), str(row["GT_score"]),
                                                                 str(int(row["Gender"]))]
 
-                writeRanked(write_file, gt_inferred_combined_dict)  # Assuming writeRanked is defined elsewhere
+                writeRanked(write_file, gt_inferred_combined_dict)
 
 
 def RankColorblind(flip_choice):
