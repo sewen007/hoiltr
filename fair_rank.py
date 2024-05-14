@@ -1,67 +1,83 @@
 from HOIRank import *
 
 start = time.time()
-# settings_files = ["./FairRank/settings-BM.json", "./FairRank/settings-COMPAS.json", "./FairRank/settings-LAW.json", "./FairRank/settings-NBA.json"]
-# for settings_file in settings_files:
-#     setting = settings_file
-#     with open(setting, 'r') as f:
-#         settings = json.load(f)
 
 flip_choices = settings["DELTR_OPTIONS"]["flip_choices"]
-# flip_choice = "both"
 
 seeds = settings["DELTR_OPTIONS"]["seeds"]
 
 
-# seed = settings["DELTR_OPTIONS"]["seed"]
+# Clean the Dataset
+# Clean()
+
+# Split the Dataset (into train and test
+# Split()
+
+# Infer demographic information using the test split for case studies
+# BehindTheName()
+# NameSor()
+# GenderAPI()
+
+# Simulate errors in inferred demographic information for controlled studies for 5 seeds
+# for flip_choice in flip_choices:
+#     for seed in seeds:
+#         if flip_choice != "CaseStudies":
+#             VariantSplit(flip_choice, seed)
+
+# Train the models using the train split
+# Train()
+# TrainBlind()
 
 
 def full_experiment(flip_choice):
-    print(flip_choice)
-    # CalculateInitialMetrics(flip_choice)
-    #
-    # # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
-    # print("RankGroundTruth()")
-    # RankGroundTruth(flip_choice)
+    for seed in seeds:
+        print(seed)
+        print("VariantSplit()")
+        if flip_choice != "CaseStudies":
+            VariantSplit(flip_choice, seed)
+        RankInferred("both")
+
+    CalculateInitialMetrics(flip_choice)
+
+    # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
+    print("RankGroundTruth()")
+    RankGroundTruth(flip_choice)  # good
 
     # Rank Colorblind (Hidden)
-    # print("RankColorblind()")
-    # RankColorblind(flip_choice)
+    print("RankColorblind()")
+    RankColorblind(flip_choice)  # good
 
-    # print("RankInferred()")
-    # RankInferred(flip_choice)
+    print("RankInferred()")
+    RankInferred(flip_choice)  #good
 
     # DetConstSort Ranking
-    # print("DetConstSortHidden()")
-    # DetConstSortHidden(flip_choice)
-    # print("DetConstSortNotHidden()")
-    # DetConstSortNotHidden(flip_choice)
-    # print("DetConstSortBlind()")
-    # DetConstSortBlind(flip_choice)
+    print("DetConstSortHidden()")
+    DetConstSortHidden(flip_choice) # good
+    print("DetConstSortNotHidden()")
+    DetConstSortNotHidden(flip_choice) # good
+    print("DetConstSortBlind()")
+    DetConstSortBlind(flip_choice) #  good
 
-    for seed in seeds:
-        #     # print(seed)
-        #     # print("VariantSplit()")
-        #     # if flip_choice != "CaseStudies":
-        #     #     VariantSplit(flip_choice, seed)
-
-        # Calculating the Metrics
-        print("CalculateResultsMetrics()")
-        CalculateResultsMetrics(seed, flip_choice)
+    # Calculating the Metrics
+    print("CalculateResultsMetrics()")
+    CalculateResultsMetrics(seed, flip_choice)
 
 
-# for flip_choice in flip_choices:
-#     print(flip_choice)
-#
-#     full_experiment(flip_choice)
-#
-#
+DetConstSortHidden("both")
+DetConstSortNotHidden("both")
+DetConstSortBlind("both")
+
+
+
+
+# full_experiment(flip_choice)
+
 # CollateNDCGandSkews()
-#Make_Metric_Csvs()
+# Make_Metric_Csvs()
 #
 # # after doing the experiments for all the datasets
-#PlotGraphs()
-#ParetoPlots()
+# PlotGraphs()
+# ParetoPlots()
 
 # --------------------------------------
 # optional
@@ -75,7 +91,7 @@ def full_experiment(flip_choice):
 ########################################################################################################
 ########################################################################################################
 
-PlotGraphs()
+# PlotGraphs()
 
 
 # Clean the Dataset
@@ -117,7 +133,7 @@ PlotGraphs()
 
 # CombineResults()
 
-#Make_Metric_Csvs()
+# Make_Metric_Csvs()
 
 # CalculateInitialMetrics("both")
 # full_experiment("CaseStudies")

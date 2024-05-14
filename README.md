@@ -18,13 +18,17 @@ Clean()
 # Split the Dataset (into train and test
 Split()
 
-# Infer demographic information using the test split for case studies
+# Infer demographic information using the test split for case studies. Refer to license agreements for the APIs used. API keys are required.
+# Add keys to settings.json. You may use multiple APIs for the BTN API(comma separated)
 BehindTheName()
 NameSor()
 GenderAPI()
 
 # Simulate errors in inferred demographic information for controlled studies for 5 seeds
-VariantSplit()
+for flip_choice in flip_choices:
+    for seed in seeds:
+        if flip_choice != "CaseStudies":
+            VariantSplit(flip_choice, seed)
 
 # Train the model using the train split. 
 # The model is trained using the inferred demographic information
@@ -75,3 +79,8 @@ This runs the following each flip_choice option as described in the paper:
 
 
 # Calculate metrics for the full experiment
+
+
+#note 
+Transit folder is not important, so we don't store the files we don't need. For example, when we create transits for
+colorblind and inferred, we don't need to store the files in the transit folder temporariy

@@ -1,7 +1,7 @@
 import json
 import os
 
-with open('./FairRank/settings.json') as f:
+with open('./HOIRank/settings.json') as f:
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split(".")[0]
 
@@ -17,4 +17,4 @@ if 'Female' in unprotected_keys:
     protected_group = 'Males'
     unprotected_group = 'Females'
 
-#flip_choice = settings["DELTR_OPTIONS"]["flip_choice"]
+

@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\FairRank\Datasets\bostonmarathon\Ranked\both\DetConstSort_Ranked\DetConstSortNotHidden_Ranked(num_iterations=1500,gamma=0.0)_0_Inferred_bostonmarathon.csv">
           <value>
             <Attribute>
@@ -95,6 +102,139 @@
           </value>
         </entry>
         <entry key="\FairRank\ResultsCSVS\Synthetic_bostonmarathon_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\0\_123_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\0\_42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\0\_5678_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\0\_789_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\0\_9999_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\10\_123_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\10\_42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\10\_5678_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\50\_123_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\50\_42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\50\_5678_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\50\_789_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\80\_42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\80\_5678_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\80\_789_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Inferred\both\80\_9999_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Testing\Testing_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Transit\nonBlind\Colorblind_Ranked_Inferred\Colorblind_Ranked(num_iterations=1000,gamma=0.0)_NBAWNBA.csv_0_42_Inferred_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Transit\nonBlind\Colorblind_Ranked_Inferred\Colorblind_Ranked(num_iterations=1000,gamma=0.0)_NBAWNBA.csv_10_42_Inferred_NBAWNBA.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
