@@ -1,0 +1,70 @@
+{
+  "GENDER_DATA_DEFINE": {
+    "F" : "1",
+    "f" : "1",
+    "FEMALE" : "1",
+    "Female" : "1",
+    "female" : "1",
+    "mostly_female" : "1",
+    "M" : "0",
+    "m" : "0",
+    "MALE" : "0",
+    "Male" : "0",
+    "male": "0",
+    "mostly_male" : "0",
+    "Default" : "0"
+  },
+  "READ_FILE_SETTINGS": {
+    "PATH": "./FairRank/LAW.csv",
+    "GENDER_EXPERIMENT": "True",
+    "RACE_EXPERIMENT" : "False",
+    "DEMO_COL" : "Gender",
+    "SCORE_COL" : "judgement",
+    "LOWER_SCORE_BETTER" : "False",
+    "ADDITIONAL_COLUMNS" : [
+      "score_1",
+      "score_2"
+    ]
+  },
+  "DATA_SPLIT" : {
+    "TRAIN_PCT" : 0.8
+  },
+ "INFERENCE_METHODS" : {
+    "INFER_COL" : "Full Name",
+    "BTN" : {
+      "API_KEY" : [],
+      "URL" : "https://www.behindthename.com/api/lookup.json?"    },
+    "NAPI" : {
+      "API_KEY" : "",
+      "URL" : "http://api.nameapi.org/rest/v5.0/parser/personnameparser?"
+    },
+    "NMSOR" : {
+      "API_KEY" : "",
+      "URL" : "https://v2.namsor.com/NamSorAPIv2/api2/json/genderBatch"
+    },
+    "GAPI" : {
+      "API_KEY" : "",
+      "URL" : "https://gender-api.com/get?key="
+    }
+  },
+  "DELTR_OPTIONS" : {
+    "gamma" : [72000.0],
+    "num_iterations" : 3,
+    "standardize" : "True",
+    "SCORE_COLUMN" : "judgement",
+    "NORMALIZE_SCORE_COLUMN" : "True",
+    "wrong_inference_percent" : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "swap_percent": 0.1,
+    "flip_choice": "unprotected",
+    "seeds": [42, 123, 789, 5678, 9999],
+    "flip_choices": ["both", "protected", "unprotected", "CaseStudies"],
+    "small_gamma": 72000,
+    "large_gamma": 720000,
+    "seed": 42
+  },
+ "GRAPH_OPTIONS": {
+   "difference_base1" : "GroundTruth_Ranked",
+   "difference_base2" : "DetConstSort_Ranked",
+   "difference_compare": "Ranked"
+ }
+}
