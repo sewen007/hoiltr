@@ -43,17 +43,10 @@ def CalculateInitialMetrics(flip_choice):
 
         """ DIRECTORY MANAGEMENT """
         # results_path = Path(
-<<<<<<< HEAD
         #     "./FairRank/Results/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
         #         0] + "/" + flip_choice + "/InitialTraining")
         results_path = Path(
             "./FairRank/ResultsInitial/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
-=======
-        #     "./HOIRank/Results/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
-        #         0] + "/" + flip_choice + "/InitialTraining")
-        results_path = Path(
-            "./HOIRank/ResultsInitial/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
                 0] + "/Initial" + dataset_path.split('/')[4])
         if not os.path.exists(results_path):
             os.makedirs(results_path)
@@ -129,7 +122,6 @@ def CalculateInitialMetrics(flip_choice):
 
 def CalculateResultsMetrics(seed, flip_choice):
     print(experiment_name)
-<<<<<<< HEAD
     ranked = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice)
     # ranked = get_files('./FairRank/Datasets/bostonmarathon/Ranked/' + flip_choice)
     gt_ranked = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/GroundTruth_Ranked/')
@@ -140,18 +132,6 @@ def CalculateResultsMetrics(seed, flip_choice):
 
     dcs_gt_ranked = get_files(
         './FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/DetConstSort_Ranked')
-=======
-    ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice)
-    # ranked = get_files('./HOIRank/Datasets/bostonmarathon/Ranked/' + flip_choice)
-    gt_ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/GroundTruth_Ranked/')
-
-    blind_gt_ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked/')
-    # gt_ranked = get_files('./HOIRank/Datasets/bostonmarathon/Ranked/' + flip_choice + '/GroundTruth_Ranked/')
-    # get the ground truth ranked files for DetConstSort
-
-    dcs_gt_ranked = get_files(
-        './HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/DetConstSort_Ranked')
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     for file in ranked:
         print(file)
@@ -190,11 +170,7 @@ def CalculateResultsMetrics(seed, flip_choice):
 
             # insert demographics into file
             temp_ranking = pd.read_csv(file)
-<<<<<<< HEAD
             gt_data = pd.read_csv('./FairRank/Datasets/' + experiment_name + '/Testing/Testing_' +
-=======
-            gt_data = pd.read_csv('./HOIRank/Datasets/' + experiment_name + '/Testing/Testing_' +
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
                                   experiment_name + '.csv', index_col=False)
             temp_ranking["Gender"] = temp_ranking['doc_id'].apply(
                 lambda x: gt_data.loc[gt_data['doc_id'] == x, 'Gender'].iloc[0])
@@ -231,11 +207,7 @@ def calc_metrics_util(dataset_path, gt_path, seedy, flip_choice):
 
     """ DIRECTORY MANAGEMENT """
     results_path = Path(
-<<<<<<< HEAD
         "./FairRank/Results/" + "seed" + str(seedy) + "/" +
-=======
-        "./HOIRank/Results/" + "seed" + str(seedy) + "/" +
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
             0] + "/" + flip_choice + "/" + rank_name)
     if not os.path.exists(results_path):
@@ -393,11 +365,7 @@ def collate_ndcg_csv(matching_filepaths, output_file):
 
 
 def collate_NDCGS():
-<<<<<<< HEAD
     root_directory = "./FairRank/Results"
-=======
-    root_directory = "./HOIRank/Results"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     target_filename = "ndcg.csv"
     output_file = "collated_ndcg.csv"
 

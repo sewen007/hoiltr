@@ -41,22 +41,14 @@ def CollateNDCGandSkews():
     :return:
     """
     # create directory to save collated NDCG files
-<<<<<<< HEAD
     collated_NDCG_path = "./FairRank/ResultsCSVS/seed42/"
-=======
-    collated_NDCG_path = "./HOIRank/ResultsCSVS/seed42/"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(collated_NDCG_path):
         os.makedirs(collated_NDCG_path)
 
     seed_count = 0
 
     # access results path
-<<<<<<< HEAD
     result_parent_directory_files = get_files("./FairRank/Results/")
-=======
-    result_parent_directory_files = get_files("./HOIRank/Results/")
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     # split result in seeds
     result_seeds = list(set([re.split(regex_pattern, path)[3] for path in result_parent_directory_files]))
@@ -83,11 +75,7 @@ def Make_Metric_Csvs():
     :return:
     """
     # for ndkl and expr
-<<<<<<< HEAD
     directory = "./FairRank/Results/seed42/"
-=======
-    directory = "./HOIRank/Results/seed42/"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     # get all files in directory
     files = get_files(directory)
     # get metric files
@@ -113,11 +101,7 @@ def Make_Metric_Csvs():
         go_store_NDCG(ndcg_file, 10)
 
 
-<<<<<<< HEAD
 def go_make_empty_metrics(metric, directory="./FairRank/Results/seed42/"):
-=======
-def go_make_empty_metrics(metric, directory="./HOIRank/Results/seed42/"):
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     # get all datasets
     list_of_datasets = get_files(directory)
     datasets = list(set([re.split(regex_pattern, path)[4] for path in list_of_datasets]))
@@ -128,11 +112,7 @@ def go_make_empty_metrics(metric, directory="./HOIRank/Results/seed42/"):
 
     for dataset in datasets:
         for simulation_choice in simulation_choices:
-<<<<<<< HEAD
             csv_path = "./FairRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_" + metric + ".csv"
-=======
-            csv_path = "./HOIRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_" + metric + ".csv"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
             with open(csv_path, 'w', newline='') as csvfile:
                 csvwriter = csv.writer(csvfile)
                 if simulation_choice == 'CaseStudies':
@@ -158,23 +138,14 @@ def go_store_NDKL(metric_file):
     pipeline = re.split(regex_pattern, metric_file)[6]
     print('pipeline: ' + pipeline)
     if "GroundTruth" in pipeline or pipeline == "DetConstSort" or pipeline == "Colorblind" or pipeline == "BlindGroundTruth":
-<<<<<<< HEAD
         # do nothing : because ground truth is already contained in each inferred, detconstsort is now either hidden
-=======
-        # do nothing : because groundtruth is already contained in each inferred, detconstsort is now either hidden
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         # or not and colorblind is a line drawn on its own. BlindGroundtruth will also be a line drawn on its own
         pass
     else:
         # get col NDKL value
         col, inf = go_get_col(pipeline, infer_choice, metric_file)
-<<<<<<< HEAD
         write_path = "./FairRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_NDKL.csv"
         # write_path = "./FairRank/ResultsCSVs/" + dataset + "_NDKL.csv"
-=======
-        write_path = "./HOIRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_NDKL.csv"
-        # write_path = "./HOIRank/ResultsCSVs/" + dataset + "_NDKL.csv"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         new_data = {'Wrong Inference Percentage': inf, col: get_NDKL(metric_file)}
         existing_data = []
         with open(write_path, 'r') as csvfile:
@@ -266,19 +237,11 @@ def go_store_ExpR(metric_file, group=None):
         # get col value
         col, inf = go_get_col(pipeline, infer_choice, metric_file)
         if group is not None:
-<<<<<<< HEAD
             write_path = "./FairRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_AvgExp_" + str(
                 group) + ".csv"
         else:
             write_path = "./FairRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_ExpR.csv"
         # write_path = "./FairRank/ResultsCSVs/" + dataset + "_NDKL.csv"
-=======
-            write_path = "./HOIRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_AvgExp_" + str(
-                group) + ".csv"
-        else:
-            write_path = "./HOIRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_ExpR.csv"
-        # write_path = "./HOIRank/ResultsCSVs/" + dataset + "_NDKL.csv"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         new_data = {'Wrong Inference Percentage': inf, col: get_ExpR(metric_file, group)}
         existing_data = []
         with open(write_path, 'r') as csvfile:
@@ -368,11 +331,6 @@ def go_get_col(pipeline, infer_choice, metric_file):
     return col, inf
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 def go_store_NDCG(metric_file, value):
     # we need infer choice, dataset, pipeline
     # get infer choice
@@ -393,13 +351,8 @@ def go_store_NDCG(metric_file, value):
     else:
         # get col value
         col, inf = go_get_col(pipeline, infer_choice, metric_file)
-<<<<<<< HEAD
         write_path = "./FairRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_NDCG" + str(value) + ".csv"
         # write_path = "./FairRank/ResultsCSVs/" + dataset + "_NDCG.csv"
-=======
-        write_path = "./HOIRank/ResultsCSVs/" + simulation_choice + '_' + dataset + "_NDCG" + str(value) + ".csv"
-        # write_path = "./HOIRank/ResultsCSVs/" + dataset + "_NDCG.csv"
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         new_data = {'Wrong Inference Percentage': inf, col: get_NDCG(metric_file, value)}
         existing_data = []
         with open(write_path, 'r') as csvfile:
@@ -459,90 +412,3 @@ def collate_five_metrics(file, count, collated_path, metric='NDCG'):
                 write_df[col] = (write_df[col] + df[col]) / 5
             # write_df['NDCG'] = (write_df['NDCG'] + ndcg_df['NDCG']) / 5
         write_df.to_csv(write_path, index=False)
-<<<<<<< HEAD
-=======
-
-###################################################################################################
-
-# def CombineResults():
-#     print("Combining flip csvs...")
-#     # create temp save for combined csvs
-#     combined_csv = pd.DataFrame()
-#     temp = []
-#     # pipes = ['Inferred']
-#     pipes = ['DetConstSort']
-#
-#     for pipe in pipes:
-#         # for each flip choice
-#         for choice in flip_choices:
-#             # get all ndkl files
-#             ndkl_files = []
-#             files = get_files("./HOIRank/Graphs/flipchoice-" + choice + "/" + experiment_name + "/" + pipe + "/")
-#             for file in files:
-#                 if find_ndkl_files(file):
-#                     ndkl_files.append(file)
-#             # concat the files
-#             combined_csv = pd.concat([pd.read_csv(f, encoding=get_encoding(f), index_col=None) for f in ndkl_files])
-#
-#             # create column for flip choice
-#             combined_csv['flip_choice'] = choice
-#             # add to temp
-#             temp.append(combined_csv)
-#
-#         # combine combined_csvs in temp
-#         final_combined_csv = pd.concat(temp, axis=1, verify_integrity=False)
-#         # save to csv
-#         final_combined_csv.to_csv("./HOIRank/Results/" + experiment_name + "/" + pipe + "_combined_results.csv",
-#                                   index=False)
-#
-
-# def find_ndkl_files(file):
-#     match1 = 'DetConstSort_ndkl.csv'
-#     match2 = '0_ndkl.csv'
-#     pattern = f"{match1}|{match2}"
-#     match = re.search(match2, file)
-#     match_2 = re.search(match1, file)
-#     if match:
-#         return True
-#     elif match_2:
-#         return True
-#     else:
-#         return False
-
-# def create_csv_for_metric_collation_and_create(metric, infer_choice, result_csv_path, result_seed, result_dataset):
-# if infer_choice != "CaseStudies": result_dataset_csv_path = result_csv_path + result_seed + "_" + result_dataset +
-# "_" + metric + ".csv" elif infer_choice == "CaseStudies": result_dataset_csv_path = result_csv_path + result_seed +
-# "_" + result_dataset + "_" + metric + "_CaseStudies.csv" else: result_dataset_csv_path = result_csv_path +
-# result_seed + "_" + result_dataset + "_" + metric + "_unknown.csv"
-#
-#         # create csv file if it does not exist
-#     if not os.path.exists(result_dataset_csv_path):
-#         with open(result_dataset_csv_path, 'w') as f:
-#             f.write("")
-#     return result_dataset_csv_path
-
-
-# def get_column_name(file_path, infer_choice):
-#     # dictionary for acronyms of pipelines
-#     rename_pipelines = {"Colorblind": "ULTRH", "DetConstSortHidden": "ULTRH + PostF",
-#                         "DetConstSortNotHidden": "ULTR + PostF"}
-#     file_split = re.split(regex_pattern, file_path)
-#     pipeline_name = file_split[6]
-#     # check if pipeline name is in rename_pipelines, if yes, rename it with corresponding value
-#     if pipeline_name in rename_pipelines:
-#         pipeline_name = rename_pipelines[pipeline_name]
-#
-#     if pipeline_name != "Inferred":
-#         column_name = pipeline_name + "_" + str(infer_choice)
-#     else:
-#         # get gamma value
-#         gamma = plot.get_string_after(file_split[6], "gamma")
-#         if gamma == "0.0" or gamma == "0":
-#             pipeline_name = "ULTR"
-#             column_name = pipeline_name + "_" + str(infer_choice) + "_" + str(gamma)
-#         else:
-#             pipeline_name = "FLTR"
-#             column_name = pipeline_name + "_" + str(infer_choice) + "_" + str(gamma)
-#
-#     return column_name
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c

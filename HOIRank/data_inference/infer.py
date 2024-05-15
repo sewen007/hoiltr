@@ -52,21 +52,13 @@ def BehindTheName():
     """
 
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
-=======
-    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
     results_path = write_path + '/results.csv'
 
-<<<<<<< HEAD
     read_file = './FairRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
-=======
-    read_file = './HOIRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -156,11 +148,7 @@ def BehindTheName():
 
     test_data.insert(3, "InferredGender", inferred)
 
-<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
-=======
-    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -213,11 +201,7 @@ def NameSor():
        :return:
        """
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-<<<<<<< HEAD
     read_file = './FairRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
-=======
-    read_file = './HOIRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -278,11 +262,7 @@ def NameSor():
 
     test_data.insert(3, "InferredGender", inferred)
 
-<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/NMSOR'
-=======
-    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/NMSOR'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -326,11 +306,7 @@ def GenderAPI():
        :return:
     """
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-<<<<<<< HEAD
     read_file = './FairRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
-=======
-    read_file = './HOIRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -392,11 +368,7 @@ def GenderAPI():
 
     test_data.insert(3, "InferredGender", inferred)
 
-<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/GAPI'
-=======
-    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/GAPI'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 

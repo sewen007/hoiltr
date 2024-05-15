@@ -92,19 +92,11 @@ def Train():
 
         dtr.train(formatted_data)
 
-<<<<<<< HEAD
         loss_dir_path = './FairRank/DELTRLoss/nonBlind/' + experiment_name
         if not os.path.exists(loss_dir_path):
             os.makedirs(loss_dir_path)
 
         LOSS_PATH = "./FairRank/DELTRLoss/" + experiment_name + "/(num_iterations=" + str(
-=======
-        loss_dir_path = './HOIRank/DELTRLoss/nonBlind/' + experiment_name
-        if not os.path.exists(loss_dir_path):
-            os.makedirs(loss_dir_path)
-
-        LOSS_PATH = "./HOIRank/DELTRLoss/" + experiment_name + "/(num_iterations=" + str(
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
             number_of_iterations) + ",gamma=" + str(g) + ")" + filename + ".csv"
 
         with open(LOSS_PATH, 'w', newline='') as csvfile:
@@ -120,11 +112,7 @@ def Train():
                                     str(train_step.loss_standard), train_step.omega])
                 i += 1
 
-<<<<<<< HEAD
         FILE_PATH = r"./FairRank/Models/" + experiment_name + '/' + "(num_iterations=" + str(
-=======
-        FILE_PATH = r"./HOIRank/Models/" + experiment_name + '/' + "(num_iterations=" + str(
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
             number_of_iterations) + ",gamma=" + str(g) + ")" + filename + ".obj"
         # make file in 'Model' folder, pickle the model, and dump it there
 
@@ -141,11 +129,7 @@ def TrainBlind():
     pd.set_option('display.max_colwidth', None)
 
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-<<<<<<< HEAD
     read_file = './FairRank/Datasets/' + filename + '/Training/' + 'Training_' + filename + '.csv'
-=======
-    read_file = './HOIRank/Datasets/' + filename + '/Training/' + 'Training_' + filename + '.csv'
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     if not os.path.isfile(read_file):
         print("This file: " + read_file + "does not exist, check read file options in settings.json")
@@ -222,11 +206,7 @@ def TrainBlind():
 
         dtr.train(formatted_data)
 
-<<<<<<< HEAD
         loss_dir_path = './FairRank/DELTRLoss/Blind/' + experiment_name
-=======
-        loss_dir_path = './HOIRank/DELTRLoss/Blind/' + experiment_name
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         if not os.path.exists(loss_dir_path):
             os.makedirs(loss_dir_path)
 
@@ -246,11 +226,7 @@ def TrainBlind():
                                     str(train_step.loss_standard), train_step.omega])
                 i += 1
 
-<<<<<<< HEAD
         FILE_PATH = r"./FairRank/BlindModels/" + experiment_name + '/' + "(num_iterations=" + str(
-=======
-        FILE_PATH = r"./HOIRank/BlindModels/" + experiment_name + '/' + "(num_iterations=" + str(
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
             number_of_iterations) + ",gamma=" + str(g) + ")" + filename + ".obj"
         # make file in 'Model' folder, pickle the model, and dump it there
 
