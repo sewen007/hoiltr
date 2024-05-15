@@ -13,7 +13,11 @@ import os
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
+<<<<<<< HEAD
 with open('./FairRank/settings.json') as f:
+=======
+with open('./HOIRank/settings.json') as f:
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split(".")[0]
 
@@ -58,9 +62,15 @@ def get_files(directory, pipeline):
 
 def PlotGraphs():
     print(experiment_name)
+<<<<<<< HEAD
     csvs = get_files('./FairRank/ResultsCSVs/', None)
 
     csvs_initial = get_files('FairRank/ResultsInitial', None)
+=======
+    csvs = get_files('./HOIRank/ResultsCSVs/', None)
+
+    csvs_initial = get_files('HOIRank/ResultsInitial', None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     res_csvs = [i for i in csvs if 'ndcg.csv' not in i and 'skews.csv' not in i]
     res_case = [i for i in res_csvs if 'CaseStudies' in i and 'AvgExp' not in i]
     res_synth = [i for i in res_csvs if 'Synthetic' in i and 'AvgExp' not in i]
@@ -131,7 +141,11 @@ def plot_case_avg_exp(grp_0_file, grp_1_file):
                 plt.tight_layout()
 
                 # create directory
+<<<<<<< HEAD
                 directory = './FairRank/Graphs/' + infer_choice + '/' + dataset + '/'
+=======
+                directory = './HOIRank/Graphs/' + infer_choice + '/' + dataset + '/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
                 # check that directory exists or create it
                 if not os.path.exists(directory):
@@ -199,7 +213,11 @@ def plot_synth(csv_file_path):
 
         # plot straight lines
 
+<<<<<<< HEAD
         results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/both/', None)
+=======
+        results_to_search = get_files('./HOIRank/Results/seed42/' + dataset + '/both/', None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         # search for path that has gamma=0.0 and 'Colorblind
         ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
         ltr_path = [i for i in results_to_search if 'gamma=0.0' in i and 'BlindGroundTruth' in i]
@@ -249,7 +267,11 @@ def plot_synth(csv_file_path):
         inf_option = ['dis2adv2dis', 'dis2adv', 'adv2dis']
 
         # create directory
+<<<<<<< HEAD
         directory = './FairRank/Graphs/Synthetic/' + str(inf_option[ish]) + '/' + str(dataset_dict[dataset]) + '/'
+=======
+        directory = './HOIRank/Graphs/Synthetic/' + str(inf_option[ish]) + '/' + str(dataset_dict[dataset]) + '/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
         # check that directory exists or create it
         if not os.path.exists(directory):
@@ -303,7 +325,11 @@ def get_blinds(dataset, metric):
     """
 
     y = metric
+<<<<<<< HEAD
     results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/both/', None)
+=======
+    results_to_search = get_files('./HOIRank/Results/seed42/' + dataset + '/both/', None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     # search for path that has gamma=0.0 and 'Colorblind
     ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
@@ -397,7 +423,11 @@ def get_blinds(dataset, metric):
 #     #ax.legend(fontsize=12)
 #
 #     # Save the plot with all lines
+<<<<<<< HEAD
 #     directory = './FairRank/Graphs/CaseStudies/' + dataset + '/'
+=======
+#     directory = './HOIRank/Graphs/CaseStudies/' + dataset + '/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     if not os.path.exists(directory):
 #         os.makedirs(directory)
 #     plt.savefig(directory + y + '_all_lines.pdf')
@@ -548,7 +578,11 @@ def plot_case(csv_file_path):
 
     # plot ULTRH line
 
+<<<<<<< HEAD
     results_to_search = get_files('./FairRank/Results/seed42/' + dataset + '/CaseStudies/', None)
+=======
+    results_to_search = get_files('./HOIRank/Results/seed42/' + dataset + '/CaseStudies/', None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     # search for path that ha gamma=0.0 and 'Colorblind'
     ultrh_path = [i for i in results_to_search if 'gamma=0.0' in i and 'Colorblind' in i]
     ltr_path = [i for i in results_to_search if 'gamma=0.0' in i and 'BlindGroundTruth' in i]
@@ -641,10 +675,17 @@ def plot_case(csv_file_path):
 
     # create directory
     # if dataset_dict[dataset] in dataset_dict:
+<<<<<<< HEAD
     #     directory = './FairRank/Graphs/CaseStudies/' + dataset_dict[dataset] + '/'
     # else: directory = './FairRank/Graphs/CaseStudies/' + dataset + '/'
 
     directory = './FairRank/Graphs/CaseStudies/' + dataset + '/'
+=======
+    #     directory = './HOIRank/Graphs/CaseStudies/' + dataset_dict[dataset] + '/'
+    # else: directory = './HOIRank/Graphs/CaseStudies/' + dataset + '/'
+
+    directory = './HOIRank/Graphs/CaseStudies/' + dataset + '/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     # check that directory exists or create it
     if not os.path.exists(directory):
@@ -714,7 +755,11 @@ def plot_skew(metrics_file_path):
     # check2 = metrics_file_path.split(os.sep)
     """ DIRECTORY MANAGEMENT """
     graph_path = Path(
+<<<<<<< HEAD
         "./FairRank/Graphs/Initial/" +
+=======
+        "./HOIRank/Graphs/Initial/" +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         dataset + "/" + str(metrics_file_path.split(os.sep)[-2].split("/")[-1]))
 
     if not os.path.exists(graph_path):
@@ -778,7 +823,11 @@ def plot_skew(metrics_file_path):
     # check2 = metrics_file_path.split(os.sep)
     """ DIRECTORY MANAGEMENT """
     graph_path = Path(
+<<<<<<< HEAD
         "./FairRank/Graphs/Initial/" +
+=======
+        "./HOIRank/Graphs/Initial/" +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         dataset + "/" + str(metrics_file_path.split(os.sep)[-2].split("/")[-1]))
 
     if not os.path.exists(graph_path):
@@ -994,7 +1043,11 @@ def change_text(column_name, names):
 #
 #     """ DIRECTORY MANAGEMENT """
 #     graph_path = Path(
+<<<<<<< HEAD
 #         './FairRank/Graphs/flipchoice-' + flip_choice + '/' +
+=======
+#         './HOIRank/Graphs/flipchoice-' + flip_choice + '/' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #             0] + "/" + pipe + '/' + str(ndcg_file_path.split(os.sep)[-2].split("/")[-1]))
 #
@@ -1033,7 +1086,11 @@ def change_text(column_name, names):
 #
 #     for pipe in pipeline:
 #         suffix_1 = 'init'
+<<<<<<< HEAD
 #         ndcg_file_save_path = Path('./FairRank/Graphs/flipchoice-' + flip_choice + '/' +
+=======
+#         ndcg_file_save_path = Path('./HOIRank/Graphs/flipchoice-' + flip_choice + '/' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #                                    os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #                                        0] + "/" + pipe + '/')
 #
@@ -1081,7 +1138,11 @@ def change_text(column_name, names):
 #     :return:
 #     """
 #
+<<<<<<< HEAD
 #     test_df = pd.read_csv('./FairRank/Datasets/' + experiment_name + '/Testing/Testing_' + experiment_name + '.csv')
+=======
+#     test_df = pd.read_csv('./HOIRank/Datasets/' + experiment_name + '/Testing/Testing_' + experiment_name + '.csv')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     rank_length = len(test_df)
 #     print('rank length = ', rank_length)
 #
@@ -1164,7 +1225,11 @@ def change_text(column_name, names):
 #
 #     """ DIRECTORY MANAGEMENT """
 #     graph_path = Path(
+<<<<<<< HEAD
 #         './FairRank/Graphs/flipchoice-' + flip_choice + '/' +
+=======
+#         './HOIRank/Graphs/flipchoice-' + flip_choice + '/' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #             0] + "/" + pipe)
 #
@@ -1177,7 +1242,11 @@ def change_text(column_name, names):
 #
 #
 # def plot_avg_exp():
+<<<<<<< HEAD
 #     paths = get_files('./FairRank/Results/' + experiment_name + '/' + flip_choice, None)
+=======
+#     paths = get_files('./HOIRank/Results/' + experiment_name + '/' + flip_choice, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #
 #     pipeline = list(set([re.split(regex_pattern, path)[5] for path in paths]))
 #     # inferred_pipe = [p for p in paths if 'Inferred' in p]
@@ -1188,14 +1257,22 @@ def change_text(column_name, names):
 #
 #         for pipe in pipeline:
 #             if pipe != 'Initial':
+<<<<<<< HEAD
 #                 exp_file_path = "FairRank/Graphs/flipchoice-" + flip_choice + "/" + experiment_name + "/" + pipe + '/' + pipe + "_ndkl.csv"
+=======
+#                 exp_file_path = "HOIRank/Graphs/flipchoice-" + flip_choice + "/" + experiment_name + "/" + pipe + '/' + pipe + "_ndkl.csv"
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #
 #                 if pipe == "GroundTruth":
 #                     plot_avg_exp_graph(group, exp_file_path, inf='False', gamma='False', graph_id='GT')
 #                 elif pipe == 'DetConstSort':
 #                     plot_avg_exp_graph(group, exp_file_path, inf='False', gamma='True', graph_id='DetConstSort')
 #                 else:
+<<<<<<< HEAD
 #                     exp_files = get_files('FairRank/Graphs/flipchoice-' + flip_choice + "/" + experiment_name, None)
+=======
+#                     exp_files = get_files('HOIRank/Graphs/flipchoice-' + flip_choice + "/" + experiment_name, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #                     inf_files = [i for i in exp_files if i.endswith('.csv') and 'inference' in i]
 #                     gamma_files = [i for i in exp_files if i.endswith('.csv') and 'Inferred_gamma' in i]
 #
@@ -1266,7 +1343,11 @@ def change_text(column_name, names):
 #
 #     """ DIRECTORY MANAGEMENT """
 #     graph_path = Path(
+<<<<<<< HEAD
 #         './FairRank/Graphs/flipchoice-' + flip_choice + '/' +
+=======
+#         './HOIRank/Graphs/flipchoice-' + flip_choice + '/' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #             0] + "/")
 #
@@ -1387,13 +1468,21 @@ def change_text(column_name, names):
 #
 #
 # def plot_ndkl(flip_choice):
+<<<<<<< HEAD
 #     paths = get_files('./FairRank/Results/seed42/' + experiment_name + '/' + flip_choice, None)
+=======
+#     paths = get_files('./HOIRank/Results/seed42/' + experiment_name + '/' + flip_choice, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     pipeline = list(set([re.split(regex_pattern, path)[6] for path in paths]))
 #
 #     for pipe in pipeline:
 #         if pipe != 'Initial':
 #
+<<<<<<< HEAD
 #             NDKL_PATH = './FairRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipe + '/' + pipe + '_ndkl.csv'
+=======
+#             NDKL_PATH = './HOIRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipe + '/' + pipe + '_ndkl.csv'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #
 #             with open(NDKL_PATH, 'w', newline='') as csvfile:
 #                 csvwriter = csv.writer(csvfile)
@@ -1404,7 +1493,11 @@ def change_text(column_name, names):
 #                      'NDCG@10',
 #                      'NDCG@50'])
 #
+<<<<<<< HEAD
 #             metrics = get_files('./FairRank/Results/seed42/' + experiment_name + '/' + flip_choice + '/', pipe)
+=======
+#             metrics = get_files('./HOIRank/Results/seed42/' + experiment_name + '/' + flip_choice + '/', pipe)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #             res_metrics = [i for i in metrics if 'metrics' in i]
 #
 #             for file in res_metrics:
@@ -1524,7 +1617,11 @@ def change_text(column_name, names):
 #
 #     """ DIRECTORY MANAGEMENT """
 #     graph_path = Path(
+<<<<<<< HEAD
 #         './FairRank/Graphs/flipchoice-' + flip_choice + '/' +
+=======
+#         './HOIRank/Graphs/flipchoice-' + flip_choice + '/' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #             0] + '/' + pipe + '/')
 #
@@ -1623,8 +1720,13 @@ def change_text(column_name, names):
 #         kTau = 0
 #
 #     # search for corresponding ndcg file
+<<<<<<< HEAD
 #     # NDKL_PATH = './FairRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipe + '/' + pipe + '_ndkl.csv'
 #     # ndcg_path = './FairRank/ResultsCSVS/collated_NDCG' + experiment_name + '
+=======
+#     # NDKL_PATH = './HOIRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipe + '/' + pipe + '_ndkl.csv'
+#     # ndcg_path = './HOIRank/ResultsCSVS/collated_NDCG' + experiment_name + '
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     ndcg_file_path = metrics_file_path.replace('metrics', 'ndcg')
 #     ndcg_file_path = metrics_file_path.replace('Results', 'ResultsCSVS')
 #     #ndcg_file_path = metrics_file_path.replace('Results', 'ResultsCSVS')
@@ -1634,7 +1736,11 @@ def change_text(column_name, names):
 #     NDCG10 = ndcg_file.loc[10, 'NDCG']
 #     NDCG50 = ndcg_file.loc[50, 'NDCG']
 #
+<<<<<<< HEAD
 #     NDKL_PATH = 'FairRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipeline + '/' + pipeline + '_ndkl.csv'
+=======
+#     NDKL_PATH = 'HOIRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/' + pipeline + '/' + pipeline + '_ndkl.csv'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #
 #     with open(NDKL_PATH, 'a', newline='') as csvfile:
 #         csvwriter = csv.writer(csvfile)
@@ -1678,7 +1784,11 @@ def change_text(column_name, names):
 #     check2 = metrics_file_path.split(os.sep)
 #     """ DIRECTORY MANAGEMENT """
 #     graph_path = Path(
+<<<<<<< HEAD
 #         "./FairRank/Graphs/flipchoice-" + flip_choice + "/" +
+=======
+#         "./HOIRank/Graphs/flipchoice-" + flip_choice + "/" +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
 #             0] + "/" + pipe + "/" + str(metrics_file_path.split(os.sep)[-2].split("/")[-1]))
 #
@@ -1695,8 +1805,13 @@ def PlotLoss():
     loss_options = ['nonBlind', 'Blind']
     # experiment =
     for option in loss_options:
+<<<<<<< HEAD
         loss_files = get_files("./FairRank/DELTRLoss/" + option + "/" + experiment_name, None)
         # loss_files = get_files("./FairRank/DELTRLoss/" + option, None)
+=======
+        loss_files = get_files("./HOIRank/DELTRLoss/" + option + "/" + experiment_name, None)
+        # loss_files = get_files("./HOIRank/DELTRLoss/" + option, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         print('loss', loss_files)
 
         for file in loss_files:
@@ -1725,7 +1840,11 @@ def PlotLoss():
 
             """DIRECTORY MANAGEMENT"""
             graph_path = Path(
+<<<<<<< HEAD
                 "./FairRank/DELTRLoss/" + option + "/" + experiment_name + '/Graphs/Loss/'
+=======
+                "./HOIRank/DELTRLoss/" + option + "/" + experiment_name + '/Graphs/Loss/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
             )
 
             if not os.path.exists(graph_path):
@@ -1737,7 +1856,11 @@ def PlotLoss():
 #
 #
 # def PlotLossExposure():
+<<<<<<< HEAD
 #     u_files = get_files("./FairRank/DELTRLoss/" + experiment_name, None)
+=======
+#     u_files = get_files("./HOIRank/DELTRLoss/" + experiment_name, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     for file in u_files:
 #         print(file)
 #         loss_df = pd.read_csv(file)
@@ -1762,7 +1885,11 @@ def PlotLoss():
 #
 #         """DIRECTORY MANAGEMENT"""
 #         graph_path = Path(
+<<<<<<< HEAD
 #             "./FairRank/DELTRLoss/" + experiment_name + '/Graphs/U/'
+=======
+#             "./HOIRank/DELTRLoss/" + experiment_name + '/Graphs/U/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         )
 #
 #         if not os.path.exists(graph_path):
@@ -1774,7 +1901,11 @@ def PlotLoss():
 #
 #
 # def PlotListLoss():
+<<<<<<< HEAD
 #     u_files = get_files("./FairRank/DELTRLoss/" + experiment_name, None)
+=======
+#     u_files = get_files("./HOIRank/DELTRLoss/" + experiment_name, None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     for file in u_files:
 #         print(file)
 #         loss_df = pd.read_csv(file, encoding="utf-8")
@@ -1800,7 +1931,11 @@ def PlotLoss():
 #
 #         """DIRECTORY MANAGEMENT"""
 #         graph_path = Path(
+<<<<<<< HEAD
 #             "./FairRank/DELTRLoss/" + experiment_name + '/Graphs/ListLoss/'
+=======
+#             "./HOIRank/DELTRLoss/" + experiment_name + '/Graphs/ListLoss/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         )
 #
 #         if not os.path.exists(graph_path):
@@ -1812,15 +1947,26 @@ def PlotLoss():
 #
 #
 # def plot_posDiff():
+<<<<<<< HEAD
 #     base1 = ['./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + "/" + str(
 #         settings["GRAPH_OPTIONS"]["difference_base1"]) + '/']
 #
 #     base2 = ['./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + "/" + str(
+=======
+#     base1 = ['./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + "/" + str(
+#         settings["GRAPH_OPTIONS"]["difference_base1"]) + '/']
+#
+#     base2 = ['./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + "/" + str(
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         settings["GRAPH_OPTIONS"]["difference_base2"]) + '/']
 #
 #     bases = [base1, base2]
 #
+<<<<<<< HEAD
 #     compare = ['./FairRank/Datasets/' + experiment_name + '/' + str(
+=======
+#     compare = ['./HOIRank/Datasets/' + experiment_name + '/' + str(
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         settings["GRAPH_OPTIONS"]["difference_compare"]) + '/' + flip_choice + '/']
 #
 #     for base in bases:
@@ -1858,7 +2004,11 @@ def PlotLoss():
 #
 #                         """DIRECTORY MANAGEMENT"""
 #                         graph_path = Path(
+<<<<<<< HEAD
 #                             './FairRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/PossDiff/base-' + str(
+=======
+#                             './HOIRank/Graphs/flipchoice-' + flip_choice + '/' + experiment_name + '/PossDiff/base-' + str(
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #                                 os.path.basename(file)) + '/')
 #                         graph_path = str(graph_path)
 #                         if not os.path.exists(graph_path):
@@ -1893,10 +2043,17 @@ def get_string_before(lst, target_string):
 
 
 # def graph_pareto():
+<<<<<<< HEAD
 #     # NDKLdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
 #     # NDCGdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
 #     NDKLdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
 #     NDCGdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
+=======
+#     # NDKLdf = pd.read_csv('HOIRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
+#     # NDCGdf = pd.read_csv('HOIRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
+#     NDKLdf = pd.read_csv('HOIRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
+#     NDCGdf = pd.read_csv('HOIRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #
 #     # NDCGdf = NDCGdf.set_index(NDCGdf.columns[0])
 #
@@ -1942,10 +2099,17 @@ def get_string_before(lst, target_string):
 #         plt.tight_layout()
 #         # plt.show()
 #         # graph_path = Path(
+<<<<<<< HEAD
 #         #     "./FairRank/Graphs/Pareto/CaseStudies/"
 #         # )
 #         graph_path = Path(
 #             "./FairRank/Graphs/Pareto/Synthetic/"
+=======
+#         #     "./HOIRank/Graphs/Pareto/CaseStudies/"
+#         # )
+#         graph_path = Path(
+#             "./HOIRank/Graphs/Pareto/Synthetic/"
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #         )
 #         if not os.path.exists(graph_path):
 #             os.makedirs(graph_path)
@@ -1953,10 +2117,17 @@ def get_string_before(lst, target_string):
 #         plt.close()
 
 def graph_pareto():
+<<<<<<< HEAD
     # NDKLdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
     # NDCGdf = pd.read_csv('FairRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
     NDKLdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
     NDCGdf = pd.read_csv('FairRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
+=======
+    # NDKLdf = pd.read_csv('HOIRank/ResultsCSVS/CaseStudies_NBAWNBA_NDKL.csv')
+    # NDCGdf = pd.read_csv('HOIRank/ResultsCSVS/CaseStudies_NBAWNBA_NDCG100.csv')
+    NDKLdf = pd.read_csv('HOIRank/ResultsCSVS/Synthetic_NBAWNBA_NDKL.csv')
+    NDCGdf = pd.read_csv('HOIRank/ResultsCSVS/Synthetic_NBAWNBA_NDCG100.csv')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     NDKLdf.set_index(NDKLdf.columns[0], inplace=True)
     NDCGdf.set_index(NDCGdf.columns[0], inplace=True)
@@ -2018,7 +2189,11 @@ def graph_pareto():
         plt.tight_layout()
 
         graph_path = Path(
+<<<<<<< HEAD
             "./FairRank/Graphs/Pareto/Synthetic/"
+=======
+            "./HOIRank/Graphs/Pareto/Synthetic/"
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
         )
         if not os.path.exists(graph_path):
             os.makedirs(graph_path)
@@ -2028,7 +2203,11 @@ def graph_pareto():
 
 def ParetoPlots():
     # error = 10
+<<<<<<< HEAD
     csvs = get_files('./FairRank/ResultsCSVs/', None)
+=======
+    csvs = get_files('./HOIRank/ResultsCSVs/', None)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     res_csvs = [i for i in csvs if 'ndcg.csv' not in i and 'skews.csv' not in i]
     res_synth = [i for i in res_csvs if 'Synthetic' in i and 'ExpR' in i]

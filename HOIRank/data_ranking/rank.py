@@ -25,9 +25,15 @@ def get_files(directory):
     return temp
 
 
+<<<<<<< HEAD
 models = get_files('./FairRank/Models/' + experiment_name)
 blind_models = get_files('./FairRank/BlindModels/' + experiment_name)
 gt = get_files('./FairRank/Datasets/' + experiment_name + '/Testing')
+=======
+models = get_files('./HOIRank/Models/' + experiment_name)
+blind_models = get_files('./HOIRank/BlindModels/' + experiment_name)
+gt = get_files('./HOIRank/Datasets/' + experiment_name + '/Testing')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
 
 def writeRanked(writefile, dict):
@@ -48,8 +54,13 @@ def writeRanked(writefile, dict):
 
 
 def RankGroundTruth(flip_choice):
+<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/GroundTruth_Ranked'
     blind_write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'
+=======
+    write_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/GroundTruth_Ranked'
+    blind_write_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
     write_path = write_path + '/GroundTruth_Ranked('
@@ -58,9 +69,12 @@ def RankGroundTruth(flip_choice):
         os.makedirs(blind_write_path)
     blind_write_path = blind_write_path + '/BlindGroundTruth_Ranked('
 
+<<<<<<< HEAD
     # print(gt)
     # print('models: ', models)
 
+=======
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     rank_not_inferred(gt, models, write_path)
     rank_not_inferred(gt, blind_models, blind_write_path, blind=True)
 
@@ -116,7 +130,11 @@ def rank_not_inferred(files, predictors, path, uniform=False, blind=False):
             result = DELTR.rank(formatted_data, has_judgment=True)
 
             # include ground truth score for NDCG calculation later
+<<<<<<< HEAD
             gt_data = pd.read_csv('./FairRank/Datasets/' + experiment_name + '/Testing/Testing_' +
+=======
+            gt_data = pd.read_csv('./HOIRank/Datasets/' + experiment_name + '/Testing/Testing_' +
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
                                   experiment_name + '.csv', index_col=False)
             result["GT_score"] = result['doc_id'].apply(
                 lambda x: gt_data.loc[gt_data['doc_id'] == x, score_column].iloc[0])
@@ -131,6 +149,7 @@ def rank_not_inferred(files, predictors, path, uniform=False, blind=False):
 
 
 def RankInferred(flip_choice):
+<<<<<<< HEAD
     # create the path to save the ranked files
     write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
     if not os.path.exists(write_path):
@@ -201,11 +220,93 @@ def RankInferred(flip_choice):
                     exit(1)
 
             writeRanked(write_file, gt_inferred_combined_dict)
+=======
+    # Create the path to save the ranked files
+    write_path_base = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
+    if not os.path.exists(write_path_base):
+        os.makedirs(write_path_base)
+
+    inferred_path = './HOIRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/'
+
+    inferred_directories = [content for content in os.listdir(inferred_path) if
+                            os.path.isdir(os.path.join(inferred_path, content))]
+
+    for directory in inferred_directories:
+        write_path = os.path.join(write_path_base, directory)
+        if not os.path.exists(write_path):
+            os.makedirs(write_path)
+
+        inferred = get_files(os.path.join(inferred_path, directory))  # Assuming get_files is defined elsewhere
+        gt_dict = {}
+
+        for gt_file in gt:
+            for index, row in pd.read_csv(gt_file).iterrows():
+                if int(row["doc_id"]) not in gt_dict:
+                    gt_dict[int(row["doc_id"])] = int(row["Gender"])
+                else:
+                    print("There are duplicates in the ranking. Something went wrong.")
+                    exit(1)
+
+        for file in inferred:
+            for model in models:
+                params = re.findall(r"\(([^)]+)\)", model)[0]
+                write_file = os.path.join(write_path,
+                                          'Inferred_Ranked(' + params + ')_' + os.path.basename(file).split('.')[
+                                              0] + '.csv')
+                print("Ranking Inferred File: " + file + " With Model: " + model)
+                print("Results will be saved to: " + write_file)
+
+                with open(model, 'rb') as filehandler:
+                    DELTR = pickle.load(filehandler)
+
+                test_data = pd.read_csv(file)
+                numeric_cols = list(test_data.select_dtypes(include=[np.number]).columns.values)
+                test_data.drop(columns=[col for col in test_data if col not in numeric_cols], inplace=True)
+
+                if flip_choice == "CaseStudies":
+                    test_data.drop("Gender", axis=1, inplace=True)
+                    test_data.rename(columns={"InferredGender": "Gender"}, inplace=True)
+
+                score_column = settings["DELTR_OPTIONS"]["SCORE_COLUMN"]
+                lower_better = settings["READ_FILE_SETTINGS"]["LOWER_SCORE_BETTER"].lower()
+                normalized = settings["DELTR_OPTIONS"]["NORMALIZE_SCORE_COLUMN"].lower()
+
+                if lower_better == "true" and normalized == "true":
+                    test_data['normalized_score'] = test_data.apply(
+                        lambda row: (test_data[score_column].max() - row[score_column]) / (
+                                    test_data[score_column].max() - test_data[score_column].min()), axis=1)
+                    back_up_test = test_data.copy()
+                    test_data = test_data.drop(score_column, axis=1)
+                elif lower_better == "false" and normalized == "true":
+                    test_data['normalized_score'] = test_data.apply(
+                        lambda row: (row[score_column] - test_data[score_column].min()) / (
+                                    test_data[score_column].max() - test_data[score_column].min()), axis=1)
+                    back_up_test = test_data.copy()
+                    test_data = test_data.drop(score_column, axis=1)
+                    test_data = test_data.drop("normalized_score", axis=1)
+
+                result = DELTR.rank(test_data, has_judgment=False)
+                result["GT_score"] = result['doc_id'].apply(
+                    lambda x: back_up_test.loc[back_up_test['doc_id'] == x, score_column].iloc[0])
+
+                gt_inferred_combined_dict = {}
+                for index, row in result.iterrows():
+                    gt_inferred_combined_dict[row["doc_id"]] = [str(int(row["doc_id"])),
+                                                                str(gt_dict.get(int(row["doc_id"]), "N/A")),
+                                                                str(row["judgement"]), str(row["GT_score"]),
+                                                                str(int(row["Gender"]))]
+
+                writeRanked(write_file, gt_inferred_combined_dict)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
 
 def RankColorblind(flip_choice):
     # create the path to save the ranked files
+<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Colorblind_Ranked/'
+=======
+    write_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Colorblind_Ranked/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
     for file in gt:
@@ -214,7 +315,11 @@ def RankColorblind(flip_choice):
         make_groundtruth_sex_uniform(file, flip_choice, 1)
     # get files with uniform gender
     test_uniform_files = get_files(
+<<<<<<< HEAD
         './FairRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/')
+=======
+        './HOIRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     write_path = write_path + '/Colorblind_Ranked('
 
@@ -231,7 +336,11 @@ def make_groundtruth_sex_uniform(path, flip_choice, sex=0):
     :param sex:
     :return:
     """
+<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/'
+=======
+    write_path = './HOIRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     if not os.path.exists(write_path):
         os.makedirs(write_path)

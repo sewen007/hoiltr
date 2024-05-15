@@ -35,6 +35,7 @@
  "INFERENCE_METHODS" : {
     "INFER_COL" : "Full Name",
     "BTN" : {
+<<<<<<< HEAD
       "API_KEY" : ["sa287279518",
                   "sa019737024",
                   "br222483744",
@@ -51,6 +52,20 @@
     },
     "GAPI" : {
       "API_KEY" : "j6xgXzCs28tYJ3FCPToAymd74lCx52xsyGbj",
+=======
+      "API_KEY" : [],
+      "URL" : "https://www.behindthename.com/api/lookup.json?"    },
+    "NAPI" : {
+      "API_KEY" : "",
+      "URL" : "http://api.nameapi.org/rest/v5.0/parser/personnameparser?"
+    },
+    "NMSOR" : {
+      "API_KEY" : "",
+      "URL" : "https://v2.namsor.com/NamSorAPIv2/api2/json/genderBatch"
+    },
+    "GAPI" : {
+      "API_KEY" : "",
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
       "URL" : "https://gender-api.com/get?key="
     }
   },

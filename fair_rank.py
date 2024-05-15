@@ -42,6 +42,7 @@ def full_experiment(flip_choice):
 
     # CalculateInitialMetrics(flip_choice)
     #
+<<<<<<< HEAD
     # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
     print("RankGroundTruth()")
     RankGroundTruth(flip_choice)
@@ -60,15 +61,38 @@ def full_experiment(flip_choice):
     DetConstSortNotHidden(flip_choice)
     # print("DetConstSortBlind()")
     DetConstSortBlind(flip_choice)
+=======
+    # # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
+    # print("RankGroundTruth()")
+    # RankGroundTruth(flip_choice)
+    #
+    # # Rank Colorblind (Hidden)
+    # print("RankColorblind()")
+    # RankColorblind(flip_choice)
+    #
+    # print("RankInferred()")
+    # RankInferred(flip_choice)
+    #
+    # # DetConstSort Ranking
+    # print("DetConstSortHidden()")
+    # DetConstSortHidden(flip_choice)
+    # print("DetConstSortNotHidden()")
+    # DetConstSortNotHidden(flip_choice)
+    # # print("DetConstSortBlind()")
+    # DetConstSortBlind(flip_choice)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     #
     # # Calculating the Metrics
     # print("CalculateResultsMetrics()")
 
 
 # for flip_choice in flip_choices:
+<<<<<<< HEAD
 #     full_experiment(flip_choice)
 
 # for flip_choice in flip_choices:
+=======
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 #     for seed in seeds:
 #         CalculateResultsMetrics(flip_choice, seed)
 
@@ -77,8 +101,13 @@ def full_experiment(flip_choice):
 
 
 # # after doing the experiments for all the datasets
+<<<<<<< HEAD
 PlotGraphs()
 # # ParetoPlots()
+=======
+# PlotGraphs()
+# ParetoPlots()
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
 # --------------------------------------
 # optional

@@ -87,6 +87,7 @@ def select_and_assign(lst, percent):
     return new_lst
 
 
+<<<<<<< HEAD
 def VariantSplitOld():
     for v in variants:
         new_file = pd.read_csv(

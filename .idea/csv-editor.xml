@@ -17,6 +17,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\70\9999\70_Inferred_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\80\42\80_Inferred_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\HOIRank\ResultsInitial\NBAWNBA\InitialTesting\initial_skews.csv">
           <value>
             <Attribute>

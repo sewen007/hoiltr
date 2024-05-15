@@ -9,15 +9,24 @@ import HOIRank.data_ranking.rank as rank
 
 # from learning_to_rank.listwise import ListNet as ln
 
+<<<<<<< HEAD
 with open('./FairRank/settings.json', 'r') as f:
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
 
 with open('./FairRank/settings.json', 'r') as f:
+=======
+with open('./HOIRank/settings.json', 'r') as f:
+    settings = json.load(f)
+experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
+
+with open('./HOIRank/settings.json', 'r') as f:
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     settings = json.load(f)
 
 # flip_choice = settings["DELTR_OPTIONS"]["flip_choice"]
 filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
+<<<<<<< HEAD
 gt = './FairRank/Datasets/' + experiment_name + '/Testing/Testing' + '_' + experiment_name + '.csv'
 score_column = settings["DELTR_OPTIONS"]["SCORE_COLUMN"]
 
@@ -33,6 +42,12 @@ score_column = settings["DELTR_OPTIONS"]["SCORE_COLUMN"]
 #     return temp
 
 
+=======
+gt = './HOIRank/Datasets/' + experiment_name + '/Testing/Testing' + '_' + experiment_name + '.csv'
+score_column = settings["DELTR_OPTIONS"]["SCORE_COLUMN"]
+
+
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 def detconstsort(a, k_max, p):
     scores = []
     for a_i in a.keys():
@@ -149,7 +164,11 @@ def infer_with_detconstsort(file, flip_choice, inferred=False, hidden=False, bli
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
     test_data = pd.read_csv(gt, index_col=False)
 
+<<<<<<< HEAD
     write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/DetConstSort_Ranked'
+=======
+    write_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/DetConstSort_Ranked'
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -164,13 +183,24 @@ def infer_with_detconstsort(file, flip_choice, inferred=False, hidden=False, bli
             write_file = write_path + '/DetConstSortBlind_Ranked(' + params
         else:
             params = file.split("Inferred_Ranked(")[1]
+<<<<<<< HEAD
             write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params
+=======
+            params_1 = file.split("Inferred_Ranked")[1].replace("/", "").replace("\\", "")
+            write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params + '_' + params_1
+
+
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     # not inferred
     elif not inferred and not hidden:
         params = re.findall(r"\(([^)]+)\)", file)[0]
         write_file = write_path + '/DetConstSortNotHidden_Ranked(' + params + ')_' + \
                      os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0] + '_0_Inferred.csv'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     elif not inferred and hidden:
         params = re.findall(r"\(([^)]+)\)", file)[0]
         write_file = write_path + '/DetConstSortHidden_Ranked(' + params + ')_' + \
@@ -212,14 +242,22 @@ def DetConstSortHidden(flip_choice):
 
     # get colorblind ranked files ranked by gamma = 0.0
     colorblind_ranked_gt = filter(find_unaware_ranked, rank.get_files(
+<<<<<<< HEAD
         './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Colorblind_Ranked'))
+=======
+        './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Colorblind_Ranked'))
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     # make inferred versions of the files including version with gt inserted(0% wrong inference)
     for ranked in colorblind_ranked_gt:
         make_inferred_versions_gt_ranked(flip_choice, ranked)
 
     inferred_ranked = rank.get_files(
+<<<<<<< HEAD
         './FairRank/Datasets/' + filename + '/Transit/nonBlind/' + flip_choice + '/Colorblind_Ranked_Inferred')
+=======
+        './HOIRank/Datasets/' + filename + '/Transit/nonBlind/' + flip_choice + '/Colorblind_Ranked_Inferred')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     for file in inferred_ranked:
         print(file)
@@ -232,6 +270,7 @@ def make_inferred_versions_gt_ranked(flip_choice, path, blind=False):
     :param path:
     :return: inferred versions of the ground truth ranked file
     """
+<<<<<<< HEAD
     read_path = './FairRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/'
     test_read_path = './FairRank/Datasets/' + experiment_name + '/Testing/'
     if blind:
@@ -251,6 +290,28 @@ def make_inferred_versions_gt_ranked(flip_choice, path, blind=False):
     # these are the files with ground truth demographics
     test_files = rank.get_files(test_read_path)
 
+=======
+
+    # this is the file to which you want to add inferred demographics or create inferred versions
+    background_file = pd.read_csv(path)
+    df_file = background_file[['doc_id', 'Gender', 'judgement']]
+
+    # these are the files with inferred demographics from simulations and casestudies
+    read_path = './HOIRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/'
+    inference_files = rank.get_files(read_path)
+
+    # these are the files with ground truth demographics
+    test_read_path = './HOIRank/Datasets/' + experiment_name + '/Testing/'
+    test_files = rank.get_files(test_read_path)
+
+    if blind:
+        write_path = './HOIRank/Datasets/' + filename + '/Transit/Blind/' + flip_choice + '/Blind_Ranked_Inferred'
+    else:
+        write_path = './HOIRank/Datasets/' + filename + '/Transit/nonBlind/' + flip_choice + '/Colorblind_Ranked_Inferred'
+    if not os.path.exists(write_path):
+        os.makedirs(write_path)
+
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     # take each file with inferred demographics and add the inferred demographics to the background file
     for inference_file in inference_files:
         df = pd.read_csv(inference_file)
@@ -259,7 +320,12 @@ def make_inferred_versions_gt_ranked(flip_choice, path, blind=False):
                 lambda x: df.loc[df['doc_id'] == x, 'InferredGender'].iloc[0])
         else:
             df_file.loc[:, 'Gender'] = df_file['doc_id'].apply(lambda x: df.loc[df['doc_id'] == x, 'Gender'].iloc[0])
+<<<<<<< HEAD
         df_file.to_csv(write_path + '/' + os.path.basename(path) + '_' + os.path.basename(inference_file), index=False)
+=======
+        df_file.to_csv(write_path + '/' + os.path.basename(path) + '_' + os.path.split(os.path.dirname(inference_file))[
+            -1] + '_' + os.path.basename(inference_file), index=False)
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     if flip_choice == "CaseStudies":
 
@@ -276,6 +342,7 @@ def DetConstSortNotHidden(flip_choice):
     :return:
     """
 
+<<<<<<< HEAD
     inferred_ranked = filter(find_unaware_ranked, rank.get_files(
         './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked'))
 
@@ -283,10 +350,17 @@ def DetConstSortNotHidden(flip_choice):
     if flip_choice == 'CaseStudies':
         ranked_gt = filter(find_unaware_ranked, rank.get_files(
             './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/GroundTruth_Ranked'))
+=======
+    # get ranked files ranked by gamma = 0.0 only for "CaseStudies" (the simulations have it already)
+    if flip_choice == 'CaseStudies':
+        ranked_gt = filter(find_unaware_ranked, rank.get_files(
+            './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/GroundTruth_Ranked'))
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
         for file in ranked_gt:
             print(file)
             infer_with_detconstsort(file, flip_choice, inferred=False, hidden=False)
+<<<<<<< HEAD
 
     for file in inferred_ranked:
         print(file)
@@ -295,21 +369,49 @@ def DetConstSortNotHidden(flip_choice):
 
 def DetConstSortBlind(flip_choice):
 
+=======
+    else:
+        base_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
+        # get folders containing ranked inferred files
+        ranked_inferred_folders = './HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
+
+        inferred_directories = [content for content in os.listdir(ranked_inferred_folders) if
+                                os.path.isdir(os.path.join(ranked_inferred_folders, content))]
+        for inferred_directory in inferred_directories:
+
+            inferred_ranked = filter(find_unaware_ranked, rank.get_files(os.path.join(base_path, inferred_directory)))
+            for file in inferred_ranked:
+                print(file)
+                infer_with_detconstsort(file, flip_choice, inferred=True, hidden=False)
+
+
+def DetConstSortBlind(flip_choice):
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     """
     This function takes in a file and ranks it using DetConstSort. This version uses the hidden attribute approach for the first part
     of the ranking. The second part of the ranking is done using the original DetConstSort algorithm.
     :return:
     """
 
+<<<<<<< HEAD
     # get blind ranked files ranked by gamma = 0.0
     blind_ranked_gt = filter(find_unaware_ranked, rank.get_files(
         './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'))
+=======
+    # get blind ranked files ranked by gamma = 0.0. Get files ranked without attributes in the first stage
+    blind_ranked_gt = filter(find_unaware_ranked, rank.get_files(
+        './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'))
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
     # make inferred versions of the files including version with gt inserted(0% wrong inference)
     for ranked in blind_ranked_gt:
         make_inferred_versions_gt_ranked(flip_choice, ranked, blind=True)
     inferred_ranked = rank.get_files(
+<<<<<<< HEAD
         './FairRank/Datasets/' + filename + '/Transit/Blind/' + flip_choice + '/Blind_Ranked_Inferred')
+=======
+        './HOIRank/Datasets/' + filename + '/Transit/Blind/' + flip_choice + '/Blind_Ranked_Inferred')
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
     for file in inferred_ranked:
         print(file)
         infer_with_detconstsort(file, flip_choice, inferred=True, hidden=False, blind=True)

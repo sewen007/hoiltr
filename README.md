@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 This repository contains code and datasets for paper in submission to AIES 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
+=======
+This repository contains code and datasets for paper in submission to AEIS 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
+
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
 ## Datasets
 The datasets used in the paper are available in the `Datasets` directory. The datasets are described in the paper.
 
 ## Code
 
+<<<<<<< HEAD
 Example steps to run the experiments in the paper are as follows: NOTE: Current settings with run experiment for (W)NBA dataset
 
 Step 1. 
@@ -23,13 +29,38 @@ Split()
 Step 4 (optional)
 # Infer demographic information using the test split for case studies. (You can skip this step if you are using the same datasets already in the repository)
 # Refer to license agreements for the APIs used. API keys are required.
+=======
+Example steps to run the experiments in the paper are as follows:
+
+# Rename settings file if needed
+Manually rename `settings-<Dataset>.json` to `settings.json` where `<Dataset>` is the name of the dataset for which you are
+running experiments.
+
+# Clean the Dataset
+Clean()
+
+# Split the Dataset (into train and test
+Split()
+
+# Infer demographic information using the test split for case studies. Refer to license agreements for the APIs used. API keys are required.
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 # Add keys to settings.json. You may use multiple APIs for the BTN API(comma separated)
 BehindTheName()
 NameSor()
 GenderAPI()
 
+<<<<<<< HEAD
 Step 5 (important)
 # Train the model using the train split. (You can skip this step if you are using the same datasets already in the repository)
+=======
+# Simulate errors in inferred demographic information for controlled studies for 5 seeds
+for flip_choice in flip_choices:
+    for seed in seeds:
+        if flip_choice != "CaseStudies":
+            VariantSplit(flip_choice, seed)
+
+# Train the model using the train split. 
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 # The model is trained using the inferred demographic information
 1. Train fairness unaware model with inferred demographic information
 Set 'gamma' to 0.0 in 'settings.json'. Number of iterations per dataset is given below.
@@ -40,8 +71,12 @@ Set 'gamma' to 0.0 in 'settings.json'. Number of iterations per dataset is given
 
 Train()
 
+<<<<<<< HEAD
 2. Train fairness aware model (You can skip this step if you are using the same datasets already in the repository)
 
+=======
+2. Train fairness aware model
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 Set 'gamma' > 1 in 'settings.json'. See paper for details on setting parameters.
 In our experiments, we use the following gamma values for the datasets:
    (W)NBA: 477500, number of iterations: 1000
@@ -51,12 +86,17 @@ In our experiments, we use the following gamma values for the datasets:
 
 Train()
 
+<<<<<<< HEAD
 3. Train fairness unaware model without inferred demographic information (You can skip this step if you are using the same datasets already in the repository)
 
+=======
+3. Train fairness unaware model without inferred demographic information
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 TrainBlind()
 
 # Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
 
+<<<<<<< HEAD
 Step 6 (Can be included in the full experiment)
 # Simulate errors in inferred demographic information for controlled studies for 5 seeds
 for flip_choice in flip_choices:
@@ -66,6 +106,9 @@ for flip_choice in flip_choices:
 
 Stap 7
 full_experiment() 
+=======
+full_experiment()
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 
 This runs the following each flip_choice option as described in the paper:
 
@@ -88,19 +131,28 @@ This runs the following each flip_choice option as described in the paper:
 
 
 
+<<<<<<< HEAD
 Final Steps (after running full_experiment for all flip_choice options)
 # Calculate metrics for the full experiment
 
+=======
+# Calculate metrics for the full experiment
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 # CalculateResultsMetrics()
 # CollateNDCGandSkews()
 # Make_Metric_Csvs()
 
 
+<<<<<<< HEAD
 # # after running the experiments for all the datasets
+=======
+# # after doing the experiments for all the datasets
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
 # PlotGraphs()
 # ParetoPlots()
 
 # --------------------------------------
+<<<<<<< HEAD
 # optional - These plot the loss graphs for the training stages
 # --------------------------------------
 
@@ -158,3 +210,10 @@ LTR model is trying to learn. Finally NORMALIZE_SCORE_COLUMN is a value that is 
 True or False indicating whether or not you want all the values in the scoring column to
 be normalized to a value between 0 and 1
 
+=======
+# optional
+# --------------------------------------
+# PlotLoss()
+# PlotLossExposure()
+# PlotListLoss()
+>>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
