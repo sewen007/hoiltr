@@ -1,0 +1,76 @@
+{
+  "GENDER_DATA_DEFINE": {
+    "F" : "0",
+    "f" : "0",
+    "FEMALE" : "0",
+    "Female" : "0",
+    "female" : "0",
+    "mostly_female" : "0",
+    "M" : "1",
+    "m" : "1",
+    "MALE" : "1",
+    "Male" : "1",
+    "male": "1",
+    "mostly_male" : "1",
+    "Default" : "1"
+  },
+  "READ_FILE_SETTINGS": {
+    "PATH": "./FairRank/COMPASSEX.csv",
+    "GENDER_EXPERIMENT": "True",
+    "RACE_EXPERIMENT" : "False",
+    "DEMO_COL" : "Gender",
+    "SCORE_COL" : "raw_score",
+    "LOWER_SCORE_BETTER" : "False",
+    "ADDITIONAL_COLUMNS" : [
+      "Full Name",
+      "juv_fel_count",
+      "juv_misd_count",
+      "priors_count",
+      "days_in_jail"
+    ]
+  },
+  "DATA_SPLIT" : {
+    "TRAIN_PCT" : 0.8
+  },
+ "INFERENCE_METHODS" : {
+    "INFER_COL" : "Full Name",
+    "BTN" : {
+      "API_KEY" : ["sa287279518",
+                  "sa019737024",
+                  "br222483744",
+                  "ga128907115",
+                  "ol004755120"],
+      "URL" : "https://www.behindthename.com/api/lookup.json?"    },
+    "NAPI" : {
+      "API_KEY" : "a299ec3b68f08b941068d66ab111b575-user1",
+      "URL" : "http://api.nameapi.org/rest/v5.0/parser/personnameparser?"
+    },
+    "NMSOR" : {
+      "API_KEY" : "9368644af74fb6dc33d0c1d781c5f1cf",
+      "URL" : "https://v2.namsor.com/NamSorAPIv2/api2/json/genderBatch"
+    },
+    "GAPI" : {
+      "API_KEY" : "j6xgXzCs28tYJ3FCPToAymd74lCx52xsyGbj",
+      "URL" : "https://gender-api.com/get?key="
+    }
+  },
+  "DELTR_OPTIONS" : {
+    "gamma" : [0.0],
+    "num_iterations" : 5,
+    "standardize" : "True",
+    "SCORE_COLUMN" : "raw_score",
+    "NORMALIZE_SCORE_COLUMN" : "True",
+    "wrong_inference_percent" : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "swap_percent": 0.1,
+    "flip_choice": "CaseStudies",
+    "seeds": [42, 123, 789, 5678, 9999],
+    "flip_choices": ["both", "protected", "unprotected", "CaseStudies"],
+    "small_gamma": 49700,
+    "large_gamma": 497000
+  },
+  "GRAPH_OPTIONS": {
+   "difference_base1" : "GroundTruth_Ranked",
+   "difference_base2" : "DetConstSort_Ranked",
+   "difference_compare": "Ranked"
+ }
+}
