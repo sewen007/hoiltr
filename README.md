@@ -28,7 +28,7 @@ BehindTheName()
 NameSor()
 GenderAPI()
 
-Step 5 (optional)
+Step 5 (important)
 # Train the model using the train split. (You can skip this step if you are using the same datasets already in the repository)
 # The model is trained using the inferred demographic information
 1. Train fairness unaware model with inferred demographic information
@@ -96,16 +96,21 @@ Final Steps (after running full_experiment for all flip_choice options)
 # Make_Metric_Csvs()
 
 
-# # after doing the experiments for all the datasets
+# # after running the experiments for all the datasets
 # PlotGraphs()
 # ParetoPlots()
 
 # --------------------------------------
 # optional - These plot the loss graphs for the training stages
 # --------------------------------------
+
+
 # PlotLoss()
 # PlotLossExposure()
 # PlotListLoss()
+
+
+All ranked files and graphs have been added to the repository. Training models were however not included in the repository due to size constraints.
 
 
 ## Gender Data Define ##
