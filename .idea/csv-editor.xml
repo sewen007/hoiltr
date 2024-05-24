@@ -3,28 +3,357 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\0\0_Inferred_bostonmarathon.csv">
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_AvgExp_0.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\10\10_Inferred_bostonmarathon.csv">
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_AvgExp_1.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\70\9999\70_Inferred_bostonmarathon.csv">
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_ExpR.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\HOIRank\Datasets\bostonmarathon\Inferred\both\80\42\80_Inferred_bostonmarathon.csv">
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_AvgExp_0.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_NBAWNBA_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_AvgExp_0.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\CaseStudies_bostonmarathon_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_COMPASSEX_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_AvgExp_0.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_LAW_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_AvgExp_0.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_NBAWNBA_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_AvgExp_0.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_AvgExp_1.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_ExpR.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_NDCG10.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_NDCG100.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_NDCG50.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\Synthetic_bostonmarathon_NDKL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\collatedNDCG\COMPASSEX\both\BlindGroundTruth_Ranked(num_iterations=1500,gamma=0.0)_COMPASSEX.csv\ndcg.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\collatedNDCG\COMPASSEX\both\DetConstSortBlind_Ranked(num_iterations=1500,gamma=0.0)_COMPASSEX.csv_20_Inferred_COMPASSEX.csv\ndcg.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\ResultsCSVS\collatedNDCG\LAW\both\BlindGroundTruth_Ranked(num_iterations=3000,gamma=0.0)_LAW.csv\ndcg.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -32,6 +361,69 @@
           </value>
         </entry>
         <entry key="\HOIRank\ResultsInitial\NBAWNBA\InitialTesting\initial_skews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\COMPASSEX\DetConstSortBlind_Ranked(num_iterations=1500,gamma=0.0)_COMPASSEX.csv_(Default=1)BTN_Inferred_COMPASSEX.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\NBAWNBA\BlindGroundTruth_Ranked(num_iterations=1000,gamma=0.0)_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\NBAWNBA\BlindGroundTruth_Ranked(num_iterations=1000,gamma=0.0)_NBAWNBA.csv\ndcg.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\NBAWNBA\BlindGroundTruth_Ranked(num_iterations=1000,gamma=0.0)_NBAWNBA.csv\skews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\NBAWNBA\Inferred_Ranked(num_iterations=1000,gamma=0.0)_(Default=1)BTN_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\NBAWNBA\both\Inferred_Ranked(num_iterations=1000,gamma=0.0)_0_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\NBAWNBA\both\Inferred_Ranked(num_iterations=1000,gamma=47750.0)_0_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\NBAWNBA\both\Inferred_Ranked(num_iterations=1000,gamma=47750.0)_10_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed5678\NBAWNBA\both\Inferred_Ranked(num_iterations=1000,gamma=47750.0)_80_Inferred_NBAWNBA.csv\metrics.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

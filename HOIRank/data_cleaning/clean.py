@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import json
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 
 
@@ -70,7 +70,7 @@ def Clean():
 
     print(ordered_cleaned)
 
-    write_path = './FairRank/Datasets/' + filename + '/Cleaned'
+    write_path = './HOIRank/Datasets/' + filename + '/Cleaned'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 

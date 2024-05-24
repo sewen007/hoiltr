@@ -5,7 +5,7 @@ import os
 import copy
 import pandas as pd
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
 variants = settings["DELTR_OPTIONS"]["wrong_inference_percent"]
@@ -17,17 +17,17 @@ def Split():
     train_split = settings["DATA_SPLIT"]["TRAIN_PCT"]
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
 
-    write_path = './FairRank/Datasets/' + filename + '/Training'
+    write_path = './HOIRank/Datasets/' + filename + '/Training'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
-    write_path = './FairRank/Datasets/' + filename + '/Testing'
+    write_path = './HOIRank/Datasets/' + filename + '/Testing'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
-    read_file = './FairRank/Datasets/' + filename + '/Cleaned' + '/Cleaned_' + filename + '.csv'
-    train_file = './FairRank/Datasets/' + filename + '/Training' + '/Training_' + filename + '.csv'
-    test_file = './FairRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
+    read_file = './HOIRank/Datasets/' + filename + '/Cleaned' + '/Cleaned_' + filename + '.csv'
+    train_file = './HOIRank/Datasets/' + filename + '/Training' + '/Training_' + filename + '.csv'
+    test_file = './HOIRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
 
     if os.path.isfile(train_file):
         print("This File Has Already Been Split Into Training File at Path: " + train_file)
@@ -90,7 +90,7 @@ def select_and_assign(lst, percent):
 def VariantSplitOld():
     for v in variants:
         new_file = pd.read_csv(
-            './FairRank/Datasets/' + experiment_name + '/Testing' + '/Testing_' + experiment_name + '.csv')
+            './HOIRank/Datasets/' + experiment_name + '/Testing' + '/Testing_' + experiment_name + '.csv')
         new_file["InferredGender"] = select_and_assign(new_file['Gender'], v)
 
         unnamed_columns = [col for col in new_file.columns if col.startswith("Unnamed")]
@@ -100,7 +100,7 @@ def VariantSplitOld():
         cols = cols[:3] + [cols[-1]] + cols[3:-1]
         new_file = new_file[cols].copy()
 
-        write_path = './FairRank/Datasets/' + experiment_name + '/Inferred/' + str(v) + "/"
+        write_path = './HOIRank/Datasets/' + experiment_name + '/Inferred/' + str(v) + "/"
         if not os.path.exists(write_path):
             os.makedirs(write_path)
         csv_file = str(v) + "_Inferred_" + experiment_name + ".csv"
@@ -110,7 +110,7 @@ def VariantSplitOld():
 
 def VariantSplit(flip_choice, seedy):
     swap_percentage = 0
-    csv_path = './FairRank/Datasets/' + experiment_name + '/Testing' + '/Testing_' + experiment_name + '.csv'
+    csv_path = './HOIRank/Datasets/' + experiment_name + '/Testing' + '/Testing_' + experiment_name + '.csv'
     dataframe_to_swap = pd.read_csv(csv_path)
     protected_column = dataframe_to_swap[protected_attribute]
     size = len(protected_column)
@@ -149,8 +149,8 @@ def VariantSplit(flip_choice, seedy):
         unnamed_columns = [col for col in dataframe_to_swap.columns if col.startswith("Unnamed")]
         dataframe_to_swap = dataframe_to_swap.drop(columns=unnamed_columns)
 
-        write_path = './FairRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/' + str(
-            int(float(swap_percentage * 100))) + "/" + str(seedy) + "/"
+        write_path = ('./HOIRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/' +
+                      str(seedy) + '/' + str(int(float(swap_percentage * 100))) + "/")
         if not os.path.exists(write_path):
             os.makedirs(write_path)
         csv_file = str(int(float(swap_percentage * 100))) + "_Inferred_" + experiment_name + ".csv"

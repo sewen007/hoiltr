@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import os
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
@@ -25,9 +25,9 @@ def get_files(directory):
     return temp
 
 
-models = get_files('./FairRank/Models/' + experiment_name)
-blind_models = get_files('./FairRank/BlindModels/' + experiment_name)
-gt = get_files('./FairRank/Datasets/' + experiment_name + '/Testing')
+models = get_files('./HOIRank/Models/' + experiment_name)
+blind_models = get_files('./HOIRank/BlindModels/' + experiment_name)
+gt = get_files('./HOIRank/Datasets/' + experiment_name + '/Testing')
 
 
 def writeRanked(writefile, dict):
@@ -47,9 +47,11 @@ def writeRanked(writefile, dict):
     print("SUCCESS! Saved to: " + writefile)
 
 
-def RankGroundTruth(flip_choice):
-    write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/GroundTruth_Ranked'
-    blind_write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked'
+def RankGroundTruth(flip_choice, seedy="no_seed"):
+    write_path = ('./HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/' + str(seedy) +
+                  '/GroundTruth_Ranked')
+    blind_write_path = ('./HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/' + str(seedy) +
+                        '/BlindGroundTruth_Ranked')
     if not os.path.exists(write_path):
         os.makedirs(write_path)
     write_path = write_path + '/GroundTruth_Ranked('
@@ -67,8 +69,8 @@ def RankGroundTruth(flip_choice):
 
 def rank_not_inferred(files, predictors, path, uniform=False, blind=False):
     for file in files:
-        print(file)
-        print(models)
+        print('file is ', file)
+        print('models are', models)
         for model in predictors:
             print(model)
             params = re.findall(r"\(([^)]+)\)", model)[0]
@@ -116,7 +118,7 @@ def rank_not_inferred(files, predictors, path, uniform=False, blind=False):
             result = DELTR.rank(formatted_data, has_judgment=True)
 
             # include ground truth score for NDCG calculation later
-            gt_data = pd.read_csv('./FairRank/Datasets/' + experiment_name + '/Testing/Testing_' +
+            gt_data = pd.read_csv('./HOIRank/Datasets/' + experiment_name + '/Testing/Testing_' +
                                   experiment_name + '.csv', index_col=False)
             result["GT_score"] = result['doc_id'].apply(
                 lambda x: gt_data.loc[gt_data['doc_id'] == x, score_column].iloc[0])
@@ -130,12 +132,18 @@ def rank_not_inferred(files, predictors, path, uniform=False, blind=False):
             result.to_csv(write_file, index=False)
 
 
-def RankInferred(flip_choice):
+def RankInferred(flip_choice, seedy="no_seed"):
     # create the path to save the ranked files
-    write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Inferred_Ranked/'
+    write_path = ('./HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/' + str(seedy) +
+                  '/Inferred_Ranked/')
     if not os.path.exists(write_path):
         os.makedirs(write_path)
-    inferred = get_files('./FairRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice)
+    if flip_choice == "CaseStudies":
+        inferred = get_files('./HOIRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/')
+    else:
+        inferred = get_files('./HOIRank/Datasets/' + experiment_name + '/Inferred/' + flip_choice + '/'
+                         + str(seedy) + '/')
+    print(inferred)
 
     # create a dictionary of the ground truth gender
     gt_dict = {}
@@ -203,9 +211,10 @@ def RankInferred(flip_choice):
             writeRanked(write_file, gt_inferred_combined_dict)
 
 
-def RankColorblind(flip_choice):
+def RankColorblind(flip_choice, seedy="no_seed"):
     # create the path to save the ranked files
-    write_path = './FairRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/Colorblind_Ranked/'
+
+    write_path = './HOIRank/Datasets/' + filename + '/Ranked/' + flip_choice + '/' + str(seedy) + '/Colorblind_Ranked/'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
     for file in gt:
@@ -214,7 +223,7 @@ def RankColorblind(flip_choice):
         make_groundtruth_sex_uniform(file, flip_choice, 1)
     # get files with uniform gender
     test_uniform_files = get_files(
-        './FairRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/')
+        './HOIRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/')
 
     write_path = write_path + '/Colorblind_Ranked('
 
@@ -231,7 +240,7 @@ def make_groundtruth_sex_uniform(path, flip_choice, sex=0):
     :param sex:
     :return:
     """
-    write_path = './FairRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/'
+    write_path = './HOIRank/Datasets/' + experiment_name + '/Transit/' + flip_choice + '/Testing_UniformSex/'
 
     if not os.path.exists(write_path):
         os.makedirs(write_path)

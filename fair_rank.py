@@ -4,6 +4,7 @@ start = time.time()
 
 flip_choices = settings["DELTR_OPTIONS"]["flip_choices"]
 
+
 seeds = settings["DELTR_OPTIONS"]["seeds"]
 
 # Define the source directory containing the files
@@ -32,85 +33,54 @@ source_directory = './HOIRank/Datasets/NBAWNBA/Ranked/both'
 # TrainBlind()
 
 
-def full_experiment(flip_choice):
+def full_experiment(flip_choice, seed):
+    # run experiments for all inference choices except case studies
+    if flip_choice != "CaseStudies":
+        # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set here
+        VariantSplit(flip_choice, seed)
+        RankGroundTruth(flip_choice, seed)
+        RankColorblind(flip_choice, seed)
+        RankInferred(flip_choice, seed)
+        # DetConstSort Ranking
+        print("DetConstSortHidden()")
+        DetConstSortHidden(flip_choice, seed)
+        print("DetConstSortNotHidden()")
+        DetConstSortNotHidden(flip_choice, seed)
+        print("DetConstSortBlind()")
+        DetConstSortBlind(flip_choice, seed)
+        CalculateResultsMetrics(flip_choice, seed)
+
+
+for flip_choice in flip_choices:
+    print(flip_choice)
     for seed in seeds:
         print(seed)
-        print("VariantSplit()")
-        if flip_choice != "CaseStudies":
-            VariantSplit(flip_choice, seed)
-        RankInferred("both")
-
-    # CalculateInitialMetrics(flip_choice)
-    #
-<<<<<<< HEAD
-    # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
-    print("RankGroundTruth()")
-    RankGroundTruth(flip_choice)
-
-    # Rank Colorblind (Hidden)
-    print("RankColorblind()")
-    RankColorblind(flip_choice)
-
-    print("RankInferred()")
-    RankInferred(flip_choice)
-
-    # DetConstSort Ranking
-    print("DetConstSortHidden()")
-    DetConstSortHidden(flip_choice)
-    print("DetConstSortNotHidden()")
-    DetConstSortNotHidden(flip_choice)
-    # print("DetConstSortBlind()")
-    DetConstSortBlind(flip_choice)
-=======
-    # # Rank Ground Truth Datasets, Rank Inferred Datasets. It is important to use the order set
-    # print("RankGroundTruth()")
-    # RankGroundTruth(flip_choice)
-    #
-    # # Rank Colorblind (Hidden)
-    # print("RankColorblind()")
-    # RankColorblind(flip_choice)
-    #
-    # print("RankInferred()")
-    # RankInferred(flip_choice)
-    #
-    # # DetConstSort Ranking
-    # print("DetConstSortHidden()")
-    # DetConstSortHidden(flip_choice)
-    # print("DetConstSortNotHidden()")
-    # DetConstSortNotHidden(flip_choice)
-    # # print("DetConstSortBlind()")
-    # DetConstSortBlind(flip_choice)
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
-    #
-    # # Calculating the Metrics
-    # print("CalculateResultsMetrics()")
+        full_experiment(flip_choice, seed)
 
 
-# for flip_choice in flip_choices:
-<<<<<<< HEAD
-#     full_experiment(flip_choice)
-
-# for flip_choice in flip_choices:
-=======
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
-#     for seed in seeds:
-#         CalculateResultsMetrics(flip_choice, seed)
-
-# CollateNDCGandSkews()
-# Make_Metric_Csvs()
-
+# # #
+#
+if "CaseStudies" in flip_choices:
+    RankGroundTruth("CaseStudies")
+    RankColorblind("CaseStudies")
+    RankInferred("CaseStudies")
+    DetConstSortHidden("CaseStudies")
+    DetConstSortNotHidden("CaseStudies")
+    DetConstSortBlind("CaseStudies")
+    CalculateResultsMetrics("CaseStudies")
+# # #
+# #
+CollateNDCGandSkews()
+Make_Metric_Csvs()
 
 # # after doing the experiments for all the datasets
-<<<<<<< HEAD
+#
 PlotGraphs()
 # # ParetoPlots()
-=======
-# PlotGraphs()
-# ParetoPlots()
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c
+
 
 # --------------------------------------
-# optional
+# optional after training models
 # --------------------------------------
 # PlotLoss()
 # PlotLossExposure()

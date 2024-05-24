@@ -5,7 +5,7 @@ import time
 import pandas as pd
 import csv
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
 prot_attr = os.path.basename(settings["READ_FILE_SETTINGS"]["DEMO_COL"]).split('.')[0]
@@ -24,13 +24,13 @@ def select_and_assign(attr_list, percent):
 
 def GenerateFiles():
     START = time.time()
-    read_file = './FairRank/Datasets/' + experiment_name + '/Training/' + 'Training_' + experiment_name + '.csv'
+    read_file = './HOIRank/Datasets/' + experiment_name + '/Training/' + 'Training_' + experiment_name + '.csv'
 
     if not os.path.isfile(read_file):
         print("This file: " + read_file + "does not exist, check read file options in settings.json")
         return
 
-    write_path = './FairRank/Datasets/' + experiment_name + '/Variant_Inferences'
+    write_path = './HOIRank/Datasets/' + experiment_name + '/Variant_Inferences'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -39,7 +39,7 @@ def GenerateFiles():
         train_data[str(prot_attr) + " - " + str(level) + " percent wrong"] = select_and_assign(
             train_data[str(prot_attr)], level)
 
-        gen_file = './FairRank/Datasets/' + experiment_name + '/Variant_Inferences' + '/Variant_Inferences_' + experiment_name + '_' + str(
+        gen_file = './HOIRank/Datasets/' + experiment_name + '/Variant_Inferences' + '/Variant_Inferences_' + experiment_name + '_' + str(
             level) + '.csv'
 
         if os.path.isfile(gen_file):

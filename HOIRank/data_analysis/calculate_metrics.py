@@ -7,7 +7,7 @@ from ..data_analysis import avgExp, NDCG, NDKL, skew, kendallTau
 import csv
 import os
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 experiment_name = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
 
@@ -29,8 +29,8 @@ def get_files(directory):
 
 def CalculateInitialMetrics(flip_choice):
     """ GET VARIABLES FROM SETTINGS """
-    dataset_paths = ["./FairRank/Datasets/" + experiment_name + "/Testing/Testing_" + experiment_name + ".csv",
-                     "./FairRank/Datasets/" + experiment_name + "/Training/Training_" + experiment_name + ".csv"]
+    dataset_paths = ["./HOIRank/Datasets/" + experiment_name + "/Testing/Testing_" + experiment_name + ".csv",
+                     "./HOIRank/Datasets/" + experiment_name + "/Training/Training_" + experiment_name + ".csv"]
     for dataset_path in dataset_paths:
         GT = pd.read_csv(dataset_path)
         print(GT)
@@ -43,10 +43,10 @@ def CalculateInitialMetrics(flip_choice):
 
         """ DIRECTORY MANAGEMENT """
         # results_path = Path(
-        #     "./FairRank/Results/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
+        #     "./HOIRank/Results/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
         #         0] + "/" + flip_choice + "/InitialTraining")
         results_path = Path(
-            "./FairRank/ResultsInitial/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
+            "./HOIRank/ResultsInitial/" + os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
                 0] + "/Initial" + dataset_path.split('/')[4])
         if not os.path.exists(results_path):
             os.makedirs(results_path)
@@ -120,18 +120,19 @@ def CalculateInitialMetrics(flip_choice):
         print("NDCG written to csv.")
 
 
-def CalculateResultsMetrics(seed, flip_choice):
-    print(experiment_name)
-    ranked = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice)
-    # ranked = get_files('./FairRank/Datasets/bostonmarathon/Ranked/' + flip_choice)
-    gt_ranked = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/GroundTruth_Ranked/')
+def CalculateResultsMetrics(flip_choice, seed="no_seed"):
+    ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/' + str(seed) + '/')
 
-    blind_gt_ranked = get_files('./FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/BlindGroundTruth_Ranked/')
-    # gt_ranked = get_files('./FairRank/Datasets/bostonmarathon/Ranked/' + flip_choice + '/GroundTruth_Ranked/')
+    gt_ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/' +
+                          str(seed) + '/GroundTruth_Ranked/')
+
+    blind_gt_ranked = get_files('./HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/' + str(seed) +
+                                '/BlindGroundTruth_Ranked/')
     # get the ground truth ranked files for DetConstSort
 
     dcs_gt_ranked = get_files(
-        './FairRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice + '/DetConstSort_Ranked')
+        './HOIRank/Datasets/' + experiment_name + '/Ranked/' + flip_choice +
+        '/' + str(seed) + '/DetConstSort_Ranked')
 
     for file in ranked:
         print(file)
@@ -159,7 +160,6 @@ def CalculateResultsMetrics(seed, flip_choice):
             if gamma in blind_file and iteration in blind_file:
                 current_blind_gt.append(blind_file)
 
-
         if "DetConstSortHidden" in file:
             calc_metrics_util(file, current_dcs_gt[0], seed, flip_choice)
         elif "DetConstSortNotHidden" in file:
@@ -170,7 +170,7 @@ def CalculateResultsMetrics(seed, flip_choice):
 
             # insert demographics into file
             temp_ranking = pd.read_csv(file)
-            gt_data = pd.read_csv('./FairRank/Datasets/' + experiment_name + '/Testing/Testing_' +
+            gt_data = pd.read_csv('./HOIRank/Datasets/' + experiment_name + '/Testing/Testing_' +
                                   experiment_name + '.csv', index_col=False)
             temp_ranking["Gender"] = temp_ranking['doc_id'].apply(
                 lambda x: gt_data.loc[gt_data['doc_id'] == x, 'Gender'].iloc[0])
@@ -183,13 +183,12 @@ def CalculateResultsMetrics(seed, flip_choice):
 
 
 def calc_metrics_util(dataset_path, gt_path, seedy, flip_choice):
-    print("utility function")
 
     path_components = re.split(r'[\\/]', dataset_path)
 
     """ GET VARIABLES """
     ranking = pd.read_csv(dataset_path)
-    rank_name = path_components[7]
+    rank_name = path_components[-1]
     gt_ranking = pd.read_csv(gt_path)
     print(rank_name)
 
@@ -206,10 +205,16 @@ def calc_metrics_util(dataset_path, gt_path, seedy, flip_choice):
     GT_score_normalized = (GT_score - np.min(GT_score)) / (np.max(GT_score) - np.min(GT_score))
 
     """ DIRECTORY MANAGEMENT """
-    results_path = Path(
-        "./FairRank/Results/" + "seed" + str(seedy) + "/" +
-        os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
-            0] + "/" + flip_choice + "/" + rank_name)
+    if flip_choice == "CaseStudies":
+        results_path = Path(
+            "./HOIRank/Results/" + "CaseStudies/" +
+            os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
+                0]+ "/" + rank_name)
+    else:
+        results_path = Path(
+            "./HOIRank/Results/" + "seed" + str(seedy) + "/" +
+            os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[
+                0] + "/" + flip_choice + "/" + rank_name)
     if not os.path.exists(results_path):
         os.makedirs(results_path)
 
@@ -365,7 +370,7 @@ def collate_ndcg_csv(matching_filepaths, output_file):
 
 
 def collate_NDCGS():
-    root_directory = "./FairRank/Results"
+    root_directory = "./HOIRank/Results"
     target_filename = "ndcg.csv"
     output_file = "collated_ndcg.csv"
 

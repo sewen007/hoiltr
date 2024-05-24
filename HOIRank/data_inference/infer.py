@@ -7,7 +7,7 @@ import os
 from time import sleep
 import pandas as pd
 
-with open('./FairRank/settings.json', 'r') as f:
+with open('./HOIRank/settings.json', 'r') as f:
     settings = json.load(f)
 
 unknown_value = settings["GENDER_DATA_DEFINE"]["Default"]
@@ -52,13 +52,13 @@ def BehindTheName():
     """
 
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-    write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
+    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
     results_path = write_path + '/results.csv'
 
-    read_file = './FairRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
+    read_file = './HOIRank/Datasets/' + filename + '/Testing' + "/Testing_" + filename + '.csv'
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -148,7 +148,7 @@ def BehindTheName():
 
     test_data.insert(3, "InferredGender", inferred)
 
-    write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
+    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/BTN'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -201,7 +201,7 @@ def NameSor():
        :return:
        """
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-    read_file = './FairRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
+    read_file = './HOIRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -262,7 +262,7 @@ def NameSor():
 
     test_data.insert(3, "InferredGender", inferred)
 
-    write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/NMSOR'
+    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/NMSOR'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
@@ -306,7 +306,7 @@ def GenderAPI():
        :return:
     """
     filename = os.path.basename(settings["READ_FILE_SETTINGS"]["PATH"]).split('.')[0]
-    read_file = './FairRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
+    read_file = './HOIRank/Datasets/' + filename + '/Testing/' + 'Testing_' + filename + '.csv'
     try:
         test_data = pd.read_csv(read_file)
     except FileNotFoundError:
@@ -368,7 +368,7 @@ def GenderAPI():
 
     test_data.insert(3, "InferredGender", inferred)
 
-    write_path = './FairRank/Datasets/' + filename + '/Inferred/CaseStudies/GAPI'
+    write_path = './HOIRank/Datasets/' + filename + '/Inferred/CaseStudies/GAPI'
     if not os.path.exists(write_path):
         os.makedirs(write_path)
 
