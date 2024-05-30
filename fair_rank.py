@@ -51,27 +51,27 @@ def full_experiment(flip_choice, seed):
         CalculateResultsMetrics(flip_choice, seed)
 
 
-for flip_choice in flip_choices:
-    print(flip_choice)
-    for seed in seeds:
-        print(seed)
-        full_experiment(flip_choice, seed)
+# for flip_choice in flip_choices:
+#     print(flip_choice)
+#     for seed in seeds:
+#         print(seed)
+#         full_experiment(flip_choice, seed)
 
 
 # # #
 #
-if "CaseStudies" in flip_choices:
-    RankGroundTruth("CaseStudies")
-    RankColorblind("CaseStudies")
-    RankInferred("CaseStudies")
-    DetConstSortHidden("CaseStudies")
-    DetConstSortNotHidden("CaseStudies")
-    DetConstSortBlind("CaseStudies")
-    CalculateResultsMetrics("CaseStudies")
+# if "CaseStudies" in flip_choices:
+#     RankGroundTruth("CaseStudies")
+#     RankColorblind("CaseStudies")
+#     RankInferred("CaseStudies")
+#     DetConstSortHidden("CaseStudies")
+#     DetConstSortNotHidden("CaseStudies")
+#     DetConstSortBlind("CaseStudies")
+#     CalculateResultsMetrics("CaseStudies")
 # # #
 # #
-CollateNDCGandSkews()
-Make_Metric_Csvs()
+# CollateNDCGandSkews()
+# Make_Metric_Csvs()
 
 # # after doing the experiments for all the datasets
 #

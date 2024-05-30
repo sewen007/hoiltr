@@ -69,14 +69,14 @@ def PlotGraphs():
 
     # plot synthetic graphs before case study graphs
 
-    for csv_file in res_synth:
-        plot_synth(csv_file)
-    for csv_file in res_case:
-        plot_case(csv_file)
+    # for csv_file in res_synth:
+    #     plot_synth(csv_file)
+    # for csv_file in res_case:
+    #     plot_case(csv_file)
     # for csv_file in res_skews:
     #     plot_skew(csv_file)
-    # for csv_file in res_skews_initial:
-    #     plot_skew(csv_file)
+    for csv_file in res_skews_initial:
+        plot_skew(csv_file)
     # for csv_file in res_case_avg_exp:
     #     csv_corres_file = csv_file.replace('AvgExp_0', 'AvgExp_1')
     #     plot_case_avg_exp(csv_file, csv_corres_file)

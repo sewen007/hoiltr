@@ -3,6 +3,34 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\HOIRank\Datasets\LAW\Cleaned\Cleaned_LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\LAW\Testing\Testing_LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\LAW\Training\Training_LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\HOIRank\ResultsCSVS\CaseStudies_COMPASSEX_AvgExp_0.csv">
           <value>
             <Attribute>
@@ -367,6 +395,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\HOIRank\ResultsInitial\bostonmarathon\InitialTesting\initial_skews.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\HOIRank\Results\CaseStudies\COMPASSEX\DetConstSortBlind_Ranked(num_iterations=1500,gamma=0.0)_COMPASSEX.csv_(Default=1)BTN_Inferred_COMPASSEX.csv\metrics.csv">
           <value>
             <Attribute>
@@ -396,6 +431,13 @@
           </value>
         </entry>
         <entry key="\HOIRank\Results\CaseStudies\NBAWNBA\Inferred_Ranked(num_iterations=1000,gamma=0.0)_(Default=1)BTN_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\CaseStudies\bostonmarathon\BlindGroundTruth_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv\skews.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
