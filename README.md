@@ -15,17 +15,20 @@ running experiments. The current settings file is for the (W)NBA dataset.
 
 ## Step 2 (optional)
 Clean the Dataset (You can skip this step if you are using the same datasets already in the repository)
-Clean()
+
+    Clean()
 
 ## Step 3 (optional)
 Split the Dataset (You can skip this step if you are using the same datasets already in the repository)
-Split()
+
+    Split()
 
 ## Step 4 (optional)
 Infer demographic information using the test split for case studies. (You can skip this step if you are using the same datasets already in the repository)
 Refer to license agreements for the APIs used. API keys are required.
 
 Add keys to settings.json. You may use multiple APIs for the BTN API(comma separated)
+    
     BehindTheName()
     NameSor()
     GenderAPI()
@@ -54,19 +57,21 @@ In our experiments, we use the following gamma values for the datasets:
     Train()
 
 3. Train fairness unaware model without inferred demographic information (You can skip this step if you are using the same datasets already in the repository)
-   TrainBlind()
-
+    
+    TrainBlind()
 
 ## Step 6 (Can be included in the full experiment)
 Simulate errors in inferred demographic information for controlled studies for 5 seeds
+
     for flip_choice in flip_choices:
-        for seed in seeds:
-            if flip_choice != "CaseStudies":
-                VariantSplit(flip_choice, seed)
+            for seed in seeds:
+                if flip_choice != "CaseStudies":
+                    VariantSplit(flip_choice, seed)
 
 
 ## Step 7
 Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
+    
     full_experiment() 
 
 
