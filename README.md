@@ -25,28 +25,10 @@ Split()
 Infer demographic information using the test split for case studies. (You can skip this step if you are using the same datasets already in the repository)
 Refer to license agreements for the APIs used. API keys are required.
 
-
-## Example steps to run the experiments in the paper are as follows:
-
-Rename settings file if needed
-Manually rename `settings-<Dataset>.json` to `settings.json` where `<Dataset>` is the name of the dataset for which you are
-running experiments.
-
-Clean the Dataset
-
-#Clean()
-
-Split the Dataset (into train and test)
-
-Split()
-
-Infer demographic information using the test split for case studies. Refer to license agreements for the APIs used. API keys are required.
-
 Add keys to settings.json. You may use multiple APIs for the BTN API(comma separated)
-BehindTheName()
-NameSor()
-GenderAPI()
-
+    BehindTheName()
+    NameSor()
+    GenderAPI()
 
 ## Step 5 (important)
 Train the model using the train split. (You can skip this step if you are using the same datasets already in the repository)
@@ -58,7 +40,7 @@ Set 'gamma' to 0.0 in 'settings.json'. Number of iterations per dataset is given
    COMPAS: 1500
    LAW: 3000
 
-Train()
+    Train()
 
 2. Train fairness aware model (You can skip this step if you are using the same datasets already in the repository)
 
@@ -69,23 +51,23 @@ In our experiments, we use the following gamma values for the datasets:
    COMPAS: 497000, number of iterations: 1500
    LAW: 72000, number of iterations: 3000
 
-Train()
+    Train()
 
 3. Train fairness unaware model without inferred demographic information (You can skip this step if you are using the same datasets already in the repository)
-TrainBlind()
+   TrainBlind()
 
 
 ## Step 6 (Can be included in the full experiment)
 Simulate errors in inferred demographic information for controlled studies for 5 seeds
-for flip_choice in flip_choices:
-    for seed in seeds:
-        if flip_choice != "CaseStudies":
-            VariantSplit(flip_choice, seed)
+    for flip_choice in flip_choices:
+        for seed in seeds:
+            if flip_choice != "CaseStudies":
+                VariantSplit(flip_choice, seed)
 
 
 ## Step 7
 Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
-full_experiment() 
+    full_experiment() 
 
 
 This runs the following each flip_choice option as described in the paper:
@@ -112,26 +94,25 @@ This runs the following each flip_choice option as described in the paper:
 (after running full_experiment for all flip_choice options)
 Calculate metrics for the full experiment
 
-=======
 Calculate metrics for the full experiment
 
-CalculateResultsMetrics()
-CollateNDCGandSkews()
-Make_Metric_Csvs()
+    CalculateResultsMetrics()
+    CollateNDCGandSkews()
+    Make_Metric_Csvs()
 
 
 after running the experiments for all the datasets
 
-PlotGraphs()
-ParetoPlots()
+    PlotGraphs()
+    ParetoPlots()
 
 
 ## optional 
 These plot the loss graphs for the training stages
 
-PlotLoss()
-PlotLossExposure()
-PlotListLoss()
+    PlotLoss()
+    PlotLossExposure()
+    PlotListLoss()
 
 
 All ranked files and graphs have been added to the repository. Training models were however not included in the repository due to size constraints.
