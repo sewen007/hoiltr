@@ -96,7 +96,7 @@ This runs the following each flip_choice option as described in the paper:
 
 
 ## Final Steps 
-(after running full_experiment for all flip_choice options)
+(after running full experiment for all "flip choice" options)
 Calculate metrics for the full experiment
 
 Calculate metrics for the full experiment
