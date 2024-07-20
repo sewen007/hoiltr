@@ -1,14 +1,11 @@
-<<<<<<< HEAD
-This repository contains code and datasets for paper in submission to AIES 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
-=======
-This repository contains code and datasets for paper in submission to AEIS 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
+This repository contains code and datasets for paper in accepted in AIES 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
 
 Datasets
 The datasets used in the paper are available in the `Datasets` directory. The datasets are described in the paper.
 
 Code
 
-<<<<<<< HEAD
+Run all code in fair_rank.py
 Example steps to run the experiments in the paper are as follows: NOTE: Current settings with run experiment for (W)NBA dataset
 
 Step 1. 
@@ -118,7 +115,6 @@ This runs the following each flip_choice option as described in the paper:
     DetConstSortBlind(flip_choice)
 
 
-
 Final Steps (after running full_experiment for all flip_choice options)
 Calculate metrics for the full experiment
 
@@ -130,17 +126,13 @@ CollateNDCGandSkews()
 Make_Metric_Csvs()
 
 
-
 after running the experiments for all the datasets
-
 
 PlotGraphs()
 ParetoPlots()
 
 
 optional - These plot the loss graphs for the training stages
-
-
 
 PlotLoss()
 PlotLossExposure()

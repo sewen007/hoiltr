@@ -7,9 +7,7 @@ flip_choices = settings["DELTR_OPTIONS"]["flip_choices"]
 
 seeds = settings["DELTR_OPTIONS"]["seeds"]
 
-# Define the source directory containing the files
-source_directory = './HOIRank/Datasets/NBAWNBA/Ranked/both'
-
+# comment out the following lines as needed. Refer to readme for more information
 
 # Clean the Dataset
 # Clean()
@@ -51,15 +49,15 @@ def full_experiment(flip_choice, seed):
         CalculateResultsMetrics(flip_choice, seed)
 
 
+# # run experiments for all inference choices except case studies
+
 # for flip_choice in flip_choices:
 #     print(flip_choice)
 #     for seed in seeds:
 #         print(seed)
 #         full_experiment(flip_choice, seed)
 
-
-# # #
-#
+# # run experiments for case studies
 # if "CaseStudies" in flip_choices:
 #     RankGroundTruth("CaseStudies")
 #     RankColorblind("CaseStudies")
@@ -68,15 +66,17 @@ def full_experiment(flip_choice, seed):
 #     DetConstSortNotHidden("CaseStudies")
 #     DetConstSortBlind("CaseStudies")
 #     CalculateResultsMetrics("CaseStudies")
-# # #
+
+
+# # after doing the experiments for all the datasets. collate the results
 # #
 # CollateNDCGandSkews()
 # Make_Metric_Csvs()
 
 # # after doing the experiments for all the datasets
 #
-PlotGraphs()
-# # ParetoPlots()
+# PlotGraphs()
+# ParetoPlots()
 
 
 # --------------------------------------
