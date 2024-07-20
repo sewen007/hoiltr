@@ -1,40 +1,43 @@
 This repository contains code and datasets for paper in accepted in AIES 2024, "Hidden or Inferred: Fair Learning-To-Rank With Unknown Demographics"
 
-Datasets
+## Datasets ##
 The datasets used in the paper are available in the `Datasets` directory. The datasets are described in the paper.
 
-Code
+## Code ##
 
 Run all code in fair_rank.py
-Example steps to run the experiments in the paper are as follows: NOTE: Current settings with run experiment for (W)NBA dataset
+Example steps to run the experiments in the paper are as follows: NOTE: Current settings file will run experiment for LAW dataset
 
-Step 1. 
+## Step 1. 
 Rename settings file if needed
 Manually rename `settings-<Dataset>.json` to `settings.json` where `<Dataset>` is the name of the dataset for which you are
 running experiments. The current settings file is for the (W)NBA dataset.
 
-Step 2 (optional)
+## Step 2 (optional)
 Clean the Dataset (You can skip this step if you are using the same datasets already in the repository)
 Clean()
 
-Step 3 (optional)
+## Step 3 (optional)
 Split the Dataset (You can skip this step if you are using the same datasets already in the repository)
 Split()
 
-Step 4 (optional)
+## Step 4 (optional)
 Infer demographic information using the test split for case studies. (You can skip this step if you are using the same datasets already in the repository)
 Refer to license agreements for the APIs used. API keys are required.
-=======
-Example steps to run the experiments in the paper are as follows:
+
+
+## Example steps to run the experiments in the paper are as follows:
 
 Rename settings file if needed
 Manually rename `settings-<Dataset>.json` to `settings.json` where `<Dataset>` is the name of the dataset for which you are
 running experiments.
 
 Clean the Dataset
+
 #Clean()
 
-Split the Dataset (into train and test
+Split the Dataset (into train and test)
+
 Split()
 
 Infer demographic information using the test split for case studies. Refer to license agreements for the APIs used. API keys are required.
@@ -45,17 +48,8 @@ NameSor()
 GenderAPI()
 
 
-Step 5 (important)
+## Step 5 (important)
 Train the model using the train split. (You can skip this step if you are using the same datasets already in the repository)
-=======
-Simulate errors in inferred demographic information for controlled studies for 5 seeds
-for flip_choice in flip_choices:
-    for seed in seeds:
-        if flip_choice != "CaseStudies":
-            VariantSplit(flip_choice, seed)
-
-Train the model using the train split. 
-
 The model is trained using the inferred demographic information
 1. Train fairness unaware model with inferred demographic information
 Set 'gamma' to 0.0 in 'settings.json'. Number of iterations per dataset is given below.
@@ -65,7 +59,6 @@ Set 'gamma' to 0.0 in 'settings.json'. Number of iterations per dataset is given
    LAW: 3000
 
 Train()
-
 
 2. Train fairness aware model (You can skip this step if you are using the same datasets already in the repository)
 
@@ -81,17 +74,17 @@ Train()
 3. Train fairness unaware model without inferred demographic information (You can skip this step if you are using the same datasets already in the repository)
 TrainBlind()
 
-Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
 
-<<<<<<< HEAD
-Step 6 (Can be included in the full experiment)
+## Step 6 (Can be included in the full experiment)
 Simulate errors in inferred demographic information for controlled studies for 5 seeds
 for flip_choice in flip_choices:
     for seed in seeds:
         if flip_choice != "CaseStudies":
             VariantSplit(flip_choice, seed)
 
-Step 7
+
+## Step 7
+Run full experiment (after train) for each simulation option (flip_choice) as described in paper.
 full_experiment() 
 
 
@@ -115,7 +108,8 @@ This runs the following each flip_choice option as described in the paper:
     DetConstSortBlind(flip_choice)
 
 
-Final Steps (after running full_experiment for all flip_choice options)
+## Final Steps 
+(after running full_experiment for all flip_choice options)
 Calculate metrics for the full experiment
 
 =======
@@ -132,7 +126,8 @@ PlotGraphs()
 ParetoPlots()
 
 
-optional - These plot the loss graphs for the training stages
+## optional 
+These plot the loss graphs for the training stages
 
 PlotLoss()
 PlotLossExposure()
@@ -141,7 +136,7 @@ PlotListLoss()
 
 All ranked files and graphs have been added to the repository. Training models were however not included in the repository due to size constraints.
 
-
+More details on the settings file are below:
 ## Gender Data Define ##
 This is used
 so that the values on the left side that may appear in the data sets of the experiment
@@ -187,10 +182,3 @@ LTR model is trying to learn. Finally NORMALIZE_SCORE_COLUMN is a value that is 
 True or False indicating whether or not you want all the values in the scoring column to
 be normalized to a value between 0 and 1
 
-=======
-# optional
-# --------------------------------------
-# PlotLoss()
-# PlotLossExposure()
-# PlotListLoss()
->>>>>>> 8a25b3dfffce5f61e30d7b49f8f92d83c869914c

@@ -1,17 +1,12 @@
 import json
-import os
 import re
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 from pathlib import Path
 import seaborn as sns
-import csv
 from ..data_analysis import combine as combine
-import importlib
 import os
 from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
 
 with open('./HOIRank/settings.json') as f:
     settings = json.load(f)
