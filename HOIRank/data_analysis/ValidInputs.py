@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def check_ranking_and_group(rankings_ids, group_ids):
     arrays = [rankings_ids, group_ids]
 
@@ -13,7 +14,7 @@ def check_ranking_and_group(rankings_ids, group_ids):
 def check_increase_values(group_ids):
     if set(group_ids) != set(range(0, np.max(group_ids) + 1)):
         return
-       # raise Exception("group_ids does not conaint integers [0," + str(np.max(group_ids)) + "]")
+    # raise Exception("group_ids does not conaint integers [0," + str(np.max(group_ids)) + "]")
 
 
 def check_all_distinct(arrays):
@@ -48,8 +49,8 @@ def check_steps(steps, length):
     check_all_nparrays([steps])
     if np.max(steps) > length:
         raise Exception("Too many steps")
-    for i in range(0, len(steps)-1):
-        if steps[i] > steps[i+1]:
+    for i in range(0, len(steps) - 1):
+        if steps[i] > steps[i + 1]:
             raise Exception("Steps are not increasing")
 
 
@@ -61,7 +62,7 @@ def check_Skew(ranking_ids, group_ids, group, pos):
 
     if group not in group_ids:
         return
-        #raise Exception("Group does not appear in the group_ids array")
+        # raise Exception("Group does not appear in the group_ids array")
 
 
 def check_NDKL(ranking_ids, group_ids):
@@ -73,7 +74,7 @@ def check_rKL(ranking_ids, group_ids, steps):
     check_steps(steps, len(group_ids))
     if np.any(np.unique(group_ids) != np.array([0, 1])):
         return
-        #raise Exception("Groups are not binary")
+        # raise Exception("Groups are not binary")
 
 
 def check_AvgExp(ranking_ids, group_ids):

@@ -3,6 +3,20 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\HOIRank\DELTRLoss\Blind\bostonmarathon\(num_iterations=200,gamma=500000)bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\DELTRLoss\Blind\bostonmarathon\(num_iterations=500,gamma=0.0)bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\HOIRank\Datasets\LAW\Cleaned\Cleaned_LAW.csv">
           <value>
             <Attribute>
@@ -24,7 +38,42 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Testing\Testing_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\NBAWNBA\Training\Training_NBAWNBA.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Testing\Testing_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Datasets\bostonmarathon\Training\Training_bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\HOIRank\LAW.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\NBAWNBA.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -459,6 +508,27 @@
           </value>
         </entry>
         <entry key="\HOIRank\Results\seed42\NBAWNBA\both\Inferred_Ranked(num_iterations=1000,gamma=47750.0)_10_Inferred_NBAWNBA.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\bostonmarathon\both\BlindGroundTruth_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv\metrics.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\bostonmarathon\both\BlindGroundTruth_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv\ndcg.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\Results\seed42\bostonmarathon\both\BlindGroundTruth_Ranked(num_iterations=500,gamma=0.0)_bostonmarathon.csv\skews.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
