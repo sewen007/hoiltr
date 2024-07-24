@@ -168,3 +168,4 @@ LTR model is trying to learn. Finally NORMALIZE_SCORE_COLUMN is a value that is 
 True or False indicating whether or not you want all the values in the scoring column to
 be normalized to a value between 0 and 1
 
+Contact Seun at sma.olulana@gmail.com if you have any questions.
