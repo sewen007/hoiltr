@@ -3,7 +3,7 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\HOIRank\DELTRLoss\Blind\bostonmarathon\(num_iterations=200,gamma=500000)bostonmarathon.csv">
+        <entry key="\HOIRank\DELTRLoss\Blind\NBAWNBA\(num_iterations=1000,gamma=0.0)NBAWNBA.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -11,6 +11,13 @@
           </value>
         </entry>
         <entry key="\HOIRank\DELTRLoss\Blind\bostonmarathon\(num_iterations=500,gamma=0.0)bostonmarathon.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\HOIRank\DELTRLoss\nonBlind\bostonmarathon\(num_iterations=1500,gamma=0.0)bostonmarathon.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

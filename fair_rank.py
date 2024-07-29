@@ -69,12 +69,10 @@ def full_experiment(flip_choice, seed):
 
 
 # # after doing the experiments for all the datasets. collate the results
-# #
 # CollateNDCGandSkews()
 # Make_Metric_Csvs()
 
 # # after doing the experiments for all the datasets
-#
 # PlotGraphs()
 # ParetoPlots()
 

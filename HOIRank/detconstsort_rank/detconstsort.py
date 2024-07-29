@@ -1,3 +1,5 @@
+# adopted from https://github.com/evijit/SIGIR_FairRanking_UncertainInference
+
 import json
 import math
 import os

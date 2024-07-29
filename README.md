@@ -8,7 +8,7 @@ The datasets used in the paper are available in the `Datasets` directory. The da
 Run all code in fair_rank.py
 Example steps to run the experiments in the paper are as follows: NOTE: Current settings file will run experiment for LAW dataset
 
-## Step 1. 
+## Step 1 
 Rename settings file if needed
 Manually rename `settings-<Dataset>.json` to `settings.json` where `<Dataset>` is the name of the dataset for which you are
 running experiments. The current settings file is for the (W)NBA dataset.

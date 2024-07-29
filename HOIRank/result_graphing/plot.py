@@ -323,6 +323,7 @@ def get_blinds(dataset, metric):
 
     return ultrh_value, ltr_value
 
+
 def plot_case(csv_file_path):
     """
     This function plots all graphs per ranking
