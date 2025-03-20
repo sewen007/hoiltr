@@ -38,18 +38,18 @@
  "INFERENCE_METHODS" : {
     "INFER_COL" : "Full Name",
     "BTN" : {
-      "API_KEY" : [],
+      "API_KEY" : ["insert_api_key_for_behind_the_name"],
       "URL" : "https://www.behindthename.com/api/lookup.json?"    },
     "NAPI" : {
-      "API_KEY" : "",
+      "API_KEY" : "insert_api_key_for_nameapi",
       "URL" : "http://api.nameapi.org/rest/v5.0/parser/personnameparser?"
     },
     "NMSOR" : {
-      "API_KEY" : "",
+      "API_KEY" : "insert_api_key_for_namesor",
       "URL" : "https://v2.namsor.com/NamSorAPIv2/api2/json/genderBatch"
     },
     "GAPI" : {
-      "API_KEY" : "",
+      "API_KEY" : "insert_api_key_for_gapi",
       "URL" : "https://gender-api.com/get?key="
     }
   },
