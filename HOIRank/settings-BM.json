@@ -35,25 +35,21 @@
   "DATA_SPLIT" : {
     "TRAIN_PCT" : 0.8
   },
- "INFERENCE_METHODS" : {
+"INFERENCE_METHODS" : {
     "INFER_COL" : "Full Name",
     "BTN" : {
-      "API_KEY" : ["sa287279518",
-                  "sa019737024",
-                  "br222483744",
-                  "ga128907115",
-                  "ol004755120"],
+      "API_KEY" : ["insert_api_key_for_behind_the_name"],
       "URL" : "https://www.behindthename.com/api/lookup.json?"    },
     "NAPI" : {
-      "API_KEY" : "a299ec3b68f08b941068d66ab111b575-user1",
+      "API_KEY" : "insert_api_key_for_nameapi",
       "URL" : "http://api.nameapi.org/rest/v5.0/parser/personnameparser?"
     },
     "NMSOR" : {
-      "API_KEY" : "9368644af74fb6dc33d0c1d781c5f1cf",
+      "API_KEY" : "insert_api_key_for_namesor",
       "URL" : "https://v2.namsor.com/NamSorAPIv2/api2/json/genderBatch"
     },
     "GAPI" : {
-      "API_KEY" : "j6xgXzCs28tYJ3FCPToAymd74lCx52xsyGbj",
+      "API_KEY" : "insert_api_key_for_gapi",
       "URL" : "https://gender-api.com/get?key="
     }
   },
