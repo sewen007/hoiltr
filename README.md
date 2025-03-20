@@ -3,6 +3,12 @@ This repository contains code and datasets for paper in accepted in AIES 2024, "
 ## Datasets ##
 The datasets used in the paper are available in the `Datasets` directory. The datasets are described in the paper.
 
+## Installation & Setup ## For Windows
+Using pip (venv):
+python3.11 -m venv my_env  # Creates a virtual environment using Python 3.11
+my_env\Scripts\activate
+pip install -r requirements.txt
+
 ## Code ##
 
 Run all code in fair_rank.py
