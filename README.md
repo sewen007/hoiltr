@@ -5,9 +5,10 @@ The datasets used in the paper are available in the `Datasets` directory. The da
 
 ## Installation & Setup -  For Windows ##
 Using pip (venv):
-python3.11 -m venv my_env  # Creates a virtual environment using Python 3.11
-my_env\Scripts\activate
-pip install -r requirements.txt
+
+python3.11 -m venv my_env  # Creates a virtual environment using Python 3.11  
+my_env\Scripts\activate  
+pip install -r requirements.txt  
 
 ## Code ##
 
